@@ -1,0 +1,64 @@
+Modelo de Dominio (Clases)
+
+* Clase Ticket (No recuerdo el nombre de como se llamaría un colaborador en Jira)
+	* Atributos:
+		- (int) Id
+		- (Usuario) UsuarioCreador
+		- (string) Asunto
+		- (Estado) Estado
+		- (datetime) Fecha
+		- (string) Descripcion
+		- (list<Usuario>) UsuariosImplicados
+		- (list<Commit>) Mensajes (Quizá no haga falta), lo va a obtener desde una consulta a la DB cuando haga falta
+	* Métodos:
+		- RegistrarColaborador(Usuario) -- Para registrar un colaborador dentro del ticket
+		- (list<Commit>) GetCommits() -- Devolvería un listado de Commits, con los comentarios relacionados a ese ticket
+
+* Clase ManagerTicket
+	* Atributos:
+		- Database
+	* Metodos:
+		(Ticket) CrearTicket(Asunto, UsuarioCreador, Descripcion)
+
+* Clase Usuario
+	* Atributos:
+		- Id
+		- Nombre
+		- Correo
+		- Estado
+		- TipoUsuario
+	* Métodos:
+
+* Clase Commit
+	* Atributos:
+		- Id
+		- TicketRelacionado
+		- Autor
+		- Fecha
+		- Mensaje
+		- TipoCommit (Interno, o para el cliente)
+	* Métodos:
+
+* Clase ManagerCommit
+	* Atributos:
+		- Database
+	* Métodos:
+		RegistrarCommit(Asunto, Mensaje) -- Registra un commit al ticket (Lo insertaría en la DB)
+
+* Clase Estado
+	* Atributos:
+		- Id
+		- NombreEstado
+	* Métodos:
+
+* Clase TipoUsuario
+	* Atributos:
+		- Id
+		- Nombre
+	* Métodos:
+
+* Clase Log
+	* Atributos:
+		- Id
+		- LogMessage
+	* Métodos:

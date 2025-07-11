@@ -1,0 +1,35 @@
+Modelo de Database:
+
+Tabla Tickets
+Tabla Usuarios
+Tabla Commits (Relacionada con Tickets)
+Tabla UsuariosXTickets (Serían los colaboradores en el ticket)
+TablaEstados
+
+Tabla Tickets:
+	- (int) (PK) Id
+	- (int) (FK) IdUsuarioCreador
+	- (varchar(50)) Asunto
+	- (tinyint) IdEstado
+	- (datetime) Fecha
+	- (datetime) FechaUltimaActualizacion
+	- (varchar(360)) Descripcion
+
+Tabla Usuarios:
+	- (int) Id
+	- (varchar(50)) Nombre
+	- (varchar(100)) Correo
+	- (bit) Estado (Para saber si ese usuario está habilitado o no)
+	- (tinyint) TipoUsuario
+
+Tabla Commits:
+	- (int) (PK) Id
+	- (int) (FK) IdTicketRelacionado
+	- (int) (FK) IdAutor
+	- (datetime) Fecha
+	- (varchar(360)) Mensaje
+	- (bit) TipoCommit (Interno, o para el cliente)
+
+Tabla UsuariosXTickets:
+	- (int) (FK) IdTicket
+	- (int) (FK) IdUsuario

@@ -16,7 +16,7 @@ Tabla Tickets:
 	- (varchar(360)) Descripcion
 
 Tabla Usuarios:
-	- (int) Id
+	- (int) (PK) Id
 	- (varchar(50)) Nombre
 	- (varchar(100)) Correo
 	- (bit) Estado (Para saber si ese usuario está habilitado o no)
@@ -31,5 +31,5 @@ Tabla Commits:
 	- (bit) TipoCommit (Interno, o para el cliente)
 
 Tabla UsuariosXTickets:
-	- (int) (FK) IdTicket
-	- (int) (FK) IdUsuario
+	- (int) (PK) (FK) IdTicket
+	- (int) (PK) (FK) IdUsuario

@@ -1,0 +1,444 @@
+{
+  "tables": [
+    {
+      "id": "lGcTeogFt5eptI0mSZr1O",
+      "name": "Tickets",
+      "x": -432,
+      "y": -480,
+      "locked": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": true,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "id": "2Wj_Pwp73Nfy2HVPvem_q"
+        },
+        {
+          "id": "8_-aJGSRkAA-dktGQikBw",
+          "name": "IdUsuarioCreador",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "6VzeT8SUAc4QxtWLAnYSK",
+          "name": "Titulo",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 75
+        },
+        {
+          "id": "fQ7CgrLU9aq_YgSop4vyS",
+          "name": "IdEstado",
+          "type": "TINYINT",
+          "default": "1",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "COEJ_tDblHtKV6pAm7FQk",
+          "name": "FechaCreacion",
+          "type": "DATETIME",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "At6iNZlU9OEx8KJrPIYZU",
+          "name": "FechaUltimaActualizacion",
+          "type": "DATETIME",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "XbyFEPkt_ATYOnx6X0e7u",
+          "name": "Descripcion",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 360
+        }
+      ],
+      "comment": "",
+      "indices": [
+        {
+          "id": 0,
+          "name": "Tickets_index_0",
+          "unique": false,
+          "fields": [
+            "id"
+          ]
+        }
+      ],
+      "color": "#175e7a"
+    },
+    {
+      "id": "1YsqXZRDh0c_D7CqOePIz",
+      "name": "Usuarios",
+      "x": -864,
+      "y": -312,
+      "locked": false,
+      "fields": [
+        {
+          "name": "Id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": true,
+          "notNull": true,
+          "increment": true,
+          "comment": "",
+          "id": "CNBxId_8pkgcOSpSfkaMj"
+        },
+        {
+          "id": "n83FQPPWkPylSacztX955",
+          "name": "Nombre",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 50
+        },
+        {
+          "id": "H0hMv0kbvsqdJtXdHbte9",
+          "name": "Correo",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "size": 100
+        },
+        {
+          "id": "Y196bO6kRix44gmbazg1V",
+          "name": "Estado",
+          "type": "BIT",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "y6n2J74WXNSa7SvC82HQZ",
+          "name": "TipoUsuario",
+          "type": "TINYINT",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        }
+      ],
+      "comment": "",
+      "indices": [
+        {
+          "id": 0,
+          "name": "Usuarios_index_0",
+          "unique": false,
+          "fields": [
+            "id"
+          ]
+        }
+      ],
+      "color": "#175e7a"
+    },
+    {
+      "id": "SfFJdj89B0ZRDbH-Y_Ee9",
+      "name": "Commits",
+      "x": -408,
+      "y": -120,
+      "locked": false,
+      "fields": [
+        {
+          "name": "Id",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": true,
+          "notNull": true,
+          "increment": true,
+          "comment": "",
+          "id": "530XrSfSzr7TfgYVbB9vw"
+        },
+        {
+          "id": "A42FScm18DrPMLqQhAQoW",
+          "name": "IdTicketRelacionado",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "6x-L4p_tpVxOPTVe9Lgu3",
+          "name": "IdAutor",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "7bKq3cbsvlGYoc-2SxbPR",
+          "name": "Fecha",
+          "type": "DATETIME",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "VDhY7zR4tKJNaEJ63AXv-",
+          "name": "Mensaje",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 500
+        },
+        {
+          "id": "1x8jQb9t9feuERM3fXcGA",
+          "name": "TipoCommit",
+          "type": "BIT",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": ""
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "color": "#175e7a"
+    },
+    {
+      "id": "C0QFq2zkT2b0Yvj4OSWx5",
+      "name": "ColaboradoresTickets",
+      "x": -840,
+      "y": -480,
+      "locked": false,
+      "fields": [
+        {
+          "name": "IdTicket",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": true,
+          "notNull": true,
+          "increment": true,
+          "comment": "",
+          "id": "ofesImUNIXoU2ie8VpI9n"
+        },
+        {
+          "id": "pl-_nv5kamvPiwHMZcGfu",
+          "name": "IdUsuario",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "color": "#175e7a"
+    },
+    {
+      "id": "xvzrHYJ1A0mR-hlKLZrSL",
+      "name": "EstadosTickets",
+      "x": -24,
+      "y": -384,
+      "locked": false,
+      "fields": [
+        {
+          "name": "Id",
+          "type": "TINYINT",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": true,
+          "notNull": true,
+          "increment": true,
+          "comment": "",
+          "id": "lt2eDYllLPCP6LXXhaH9z",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "5Y2WK_5UVgqzhK09Z7I7K",
+          "name": "NombreEstado",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 50
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "color": "#175e7a"
+    }
+  ],
+  "relationships": [
+    {
+      "startTableId": "SfFJdj89B0ZRDbH-Y_Ee9",
+      "startFieldId": "A42FScm18DrPMLqQhAQoW",
+      "endTableId": "lGcTeogFt5eptI0mSZr1O",
+      "endFieldId": "2Wj_Pwp73Nfy2HVPvem_q",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "fk_Commits_IdTicketRelacionado_Tickets",
+      "id": 0
+    },
+    {
+      "startTableId": "lGcTeogFt5eptI0mSZr1O",
+      "startFieldId": "8_-aJGSRkAA-dktGQikBw",
+      "endTableId": "1YsqXZRDh0c_D7CqOePIz",
+      "endFieldId": "CNBxId_8pkgcOSpSfkaMj",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "fk_Tickets_IdUsuarioCreador_Usuarios",
+      "id": 1
+    },
+    {
+      "startTableId": "lGcTeogFt5eptI0mSZr1O",
+      "startFieldId": "2Wj_Pwp73Nfy2HVPvem_q",
+      "endTableId": "C0QFq2zkT2b0Yvj4OSWx5",
+      "endFieldId": "ofesImUNIXoU2ie8VpI9n",
+      "cardinality": "one_to_many",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "fk_Tickets_id_ColaboradoresTickets",
+      "id": 2
+    },
+    {
+      "startTableId": "C0QFq2zkT2b0Yvj4OSWx5",
+      "startFieldId": "pl-_nv5kamvPiwHMZcGfu",
+      "endTableId": "1YsqXZRDh0c_D7CqOePIz",
+      "endFieldId": "CNBxId_8pkgcOSpSfkaMj",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "fk_ColaboradoresTickets_IdUsuario_Usuarios",
+      "id": 3
+    },
+    {
+      "startTableId": "SfFJdj89B0ZRDbH-Y_Ee9",
+      "startFieldId": "6x-L4p_tpVxOPTVe9Lgu3",
+      "endTableId": "1YsqXZRDh0c_D7CqOePIz",
+      "endFieldId": "CNBxId_8pkgcOSpSfkaMj",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "fk_Commits_IdAutor_Usuarios",
+      "id": 4
+    },
+    {
+      "startTableId": "lGcTeogFt5eptI0mSZr1O",
+      "startFieldId": "fQ7CgrLU9aq_YgSop4vyS",
+      "endTableId": "xvzrHYJ1A0mR-hlKLZrSL",
+      "endFieldId": "lt2eDYllLPCP6LXXhaH9z",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "fk_Tickets_IdEstado_EstadosTickets",
+      "id": 5
+    }
+  ],
+  "notes": [],
+  "subjectAreas": [],
+  "database": "transactsql",
+  "title": "Untitled Diagram"
+}

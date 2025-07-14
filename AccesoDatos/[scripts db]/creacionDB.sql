@@ -1,6 +1,27 @@
 CREATE DATABASE HelpFlow;
 GO
 USE HelpFlow;
+GO
+
+CREATE TABLE EstadosTicket (
+	Id INT PRIMARY KEY IDENTITY(1, 1),
+	NombreEstado VARCHAR(50)
+);
+
+ CREATE TABLE Usuarios (
+	Id INT PRIMARY KEY IDENTITY(1, 1),
+	Nombre VARCHAR(50) NOT NULL,
+	Correo VARCHAR(100),
+ );
+ GO
+
+ CREATE TABLE ColaboradoresTickets (
+	IdTicket INT NOT NULL,
+	IdUsuario INT NOT NULL,
+
+	PRIMARY KEY (IdTicket, IdUsuario),
+);
+GO
 
 CREATE TABLE Tickets (
 	Id INT PRIMARY KEY IDENTITY(1, 1),
@@ -9,6 +30,23 @@ CREATE TABLE Tickets (
 	IdEstado TINYINT NOT NULL DEFAULT 1,
 	FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
 	FechaActualizacion DATETIME NOT NULL DEFAULT GETDATE(),
-	Descripcion VARCHAR(500)
+	Descripcion VARCHAR(500),
+
+	FOREIGN KEY Id REFERENCES 
+	FOREIGN KEY IdUsuarioCreador REFERENCES Usuarios(Id),
+	FOREIGN KEY IdEstado REFERENCES EstadosTicket(Id),
 );
+GO
+
+ CREATE TABLE Commits (
+	Id INT PRIMARY KEY IDENTITY(1, 1),
+	TipoCommit BIT NOT NULL,
+	IdTicketRelacionado INT NOT NULL,
+	IdAutor INT NOT NULL,
+	Fecha DATETIME NOT NULL DEFAULT GETDATE(),
+	Mensaje VARCHAR(500) NOT NULL,
+
+	FOREIGN KEY (IdTicketRelacionado) REFERENCES Tickets(Id)
+ );
+ GO
 

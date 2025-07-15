@@ -4,24 +4,18 @@ USE HelpFlow;
 GO
 
 CREATE TABLE EstadosTicket (
-	Id INT PRIMARY KEY IDENTITY(1, 1),
-	NombreEstado VARCHAR(50)
+	Id TINYINT PRIMARY KEY IDENTITY(1, 1),
+	NombreEstado VARCHAR(50) NOT NULL
 );
 
  CREATE TABLE Usuarios (
 	Id INT PRIMARY KEY IDENTITY(1, 1),
 	Nombre VARCHAR(50) NOT NULL,
 	Correo VARCHAR(100),
+	TipoUsuario BIT NOT NULL DEFAULT 1,
+	Estado BIT NOT NULL DEFAULT 1,
  );
  GO
-
- CREATE TABLE ColaboradoresTickets (
-	IdTicket INT NOT NULL,
-	IdUsuario INT NOT NULL,
-
-	PRIMARY KEY (IdTicket, IdUsuario),
-);
-GO
 
 CREATE TABLE Tickets (
 	Id INT PRIMARY KEY IDENTITY(1, 1),
@@ -32,11 +26,19 @@ CREATE TABLE Tickets (
 	FechaActualizacion DATETIME NOT NULL DEFAULT GETDATE(),
 	Descripcion VARCHAR(500),
 
-	FOREIGN KEY Id REFERENCES 
-	FOREIGN KEY IdUsuarioCreador REFERENCES Usuarios(Id),
-	FOREIGN KEY IdEstado REFERENCES EstadosTicket(Id),
+	FOREIGN KEY (IdUsuarioCreador) REFERENCES Usuarios(Id),
+	FOREIGN KEY (IdEstado) REFERENCES EstadosTicket(Id),
 );
 GO
+
+ CREATE TABLE ColaboradoresTickets (
+	IdTicket INT NOT NULL,
+	IdUsuario INT NOT NULL,
+
+	PRIMARY KEY (IdTicket, IdUsuario),
+	FOREIGN KEY (IdTicket) REFERENCES Tickets(Id),
+	FOREIGN KEY (IdUsuario) REFERENCES Usuarios(Id),
+);
 
  CREATE TABLE Commits (
 	Id INT PRIMARY KEY IDENTITY(1, 1),
@@ -46,7 +48,7 @@ GO
 	Fecha DATETIME NOT NULL DEFAULT GETDATE(),
 	Mensaje VARCHAR(500) NOT NULL,
 
-	FOREIGN KEY (IdTicketRelacionado) REFERENCES Tickets(Id)
+	FOREIGN KEY (IdTicketRelacionado) REFERENCES Tickets(Id),
+	FOREIGN KEY (IdAutor) REFERENCES Usuarios(Id),
  );
  GO
-

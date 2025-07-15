@@ -99,7 +99,7 @@
           "notNull": true,
           "increment": false,
           "comment": "",
-          "size": 360
+          "size": 500
         }
       ],
       "comment": "",

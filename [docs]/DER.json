@@ -135,6 +135,19 @@
           "id": "CNBxId_8pkgcOSpSfkaMj"
         },
         {
+          "id": "OvTwSqvTBqF9nE7LOAAWo",
+          "name": "UserName",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 25
+        },
+        {
           "id": "n83FQPPWkPylSacztX955",
           "name": "Nombre",
           "type": "VARCHAR",
@@ -161,16 +174,17 @@
           "size": 100
         },
         {
-          "id": "Y196bO6kRix44gmbazg1V",
-          "name": "Estado",
-          "type": "BIT",
+          "id": "LGc4X40xhtU0yVRvEye5L",
+          "name": "Contraseña",
+          "type": "CHAR",
           "default": "",
           "check": "",
           "primary": false,
           "unique": false,
           "notNull": true,
           "increment": false,
-          "comment": ""
+          "comment": "",
+          "size": 64
         },
         {
           "id": "y6n2J74WXNSa7SvC82HQZ",
@@ -185,6 +199,18 @@
           "comment": "",
           "size": "",
           "values": []
+        },
+        {
+          "id": "Y196bO6kRix44gmbazg1V",
+          "name": "Estado",
+          "type": "BIT",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": ""
         }
       ],
       "comment": "",

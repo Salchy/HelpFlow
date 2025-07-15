@@ -9,11 +9,14 @@ CREATE PROCEDURE SP_CrearUsuario (
 )
 AS
 BEGIN
-	INSERT INTO Usuarios(Usuario, Nombre, Correo, Clave, TipoUsuario)
+	INSERT INTO Usuarios(UserName, Nombre, Correo, Clave, TipoUsuario)
 	OUTPUT inserted.Id
 	VALUES (@userName, @name, @email, @password, @TipoUsuario);
 END
 GO
+
+-- Creacion de usuarios testing:
+EXEC SP_CrearUsuario 'lcorrea', 'Leandro Correa', 'leandrocg524@gmail.com', '123456789', 0;
 
 SELECT * FROM Usuarios;
  
@@ -27,7 +30,5 @@ AS BEGIN
 	OUTPUT inserted.Id
 	VALUES (@owner, @title, @message);
 END
-
-
 
 SELECT * FROM Tickets;

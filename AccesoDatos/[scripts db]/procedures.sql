@@ -16,7 +16,12 @@ END
 GO
 
 -- Creacion de usuarios testing:
-EXEC SP_CrearUsuario 'lcorrea', 'Leandro Correa', 'leandrocg524@gmail.com', '123456789', 0;
+EXEC SP_CrearUsuario 'lcorrea', 'Leandro Correa', 'lcorrea@altaplastica.com.ar', '123456789', 0;
+EXEC SP_CrearUsuario 'fbileni', 'Francisco Bileni', 'fbileni@altaplastica.com.ar', '123456789', 0;
+EXEC SP_CrearUsuario 'jlopez', 'Julieta Lopez', 'jlopez@altaplastica.com.ar', 'abc123456', 1;
+EXEC SP_CrearUsuario 'mgarcia', 'Marcos Garcia', 'mgarcia@altaplastica.com.ar', 'marcos2025', 1;
+EXEC SP_CrearUsuario 'cortega', 'Camila Ortega', 'cortega@altaplastica.com.ar', 'camila#789', 1;
+
 
 SELECT * FROM Usuarios;
  
@@ -32,3 +37,9 @@ AS BEGIN
 END
 
 SELECT * FROM Tickets;
+
+SELECT * FROM EstadosTicket;
+
+EXEC SP_CrearTicket 3, 'Incidencias / Errores - Problemas de hardware', 'Descripcion del problema';
+EXEC SP_CrearTicket 5, 'Consultas / Dudas - Asesoramiento técnico', 'Descripcion del problema';
+EXEC SP_CrearTicket 4, 'Implementaciones / Proyectos - Actualizaciones de sistemas', 'Descripcion del problema';

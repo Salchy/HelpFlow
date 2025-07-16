@@ -56,3 +56,12 @@ GO
 	FOREIGN KEY (IdAutor) REFERENCES Usuarios(Id),
  );
  GO
+
+ -- Insert defaults values
+ 
+ -- Estados tickets
+ INSERT INTO EstadosTicket VALUES
+	('Abierto'),
+	('En progreso'),
+	('Resuelto'),
+	('Cerrado');

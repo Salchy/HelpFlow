@@ -17,4 +17,8 @@ namespace Dominio
         public List<Usuario> Colaboradores { get; }
         public List<Commit> Commits { get; } // Quizá no haga falta, ya que puedo obtenerlo sólo cuando haga falta, no voy a andar cargando todos los commits cuando creo un objeto Ticket.
     }
+
+    // Posibles métodos:
+    // AsignarUsuario, cambiar estado, 
+    // Cosas que modifiquen el estado de un ticket en cuestión
 }

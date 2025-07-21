@@ -70,6 +70,7 @@
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="main.aspx" />
+    <Content Include="ticket.aspx" />
     <Content Include="tickets.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -99,6 +100,13 @@
       <DependentUpon>main.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ticket.aspx.cs">
+      <DependentUpon>ticket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ticket.aspx.designer.cs">
+      <DependentUpon>ticket.aspx</DependentUpon>
+    </Compile>
     <Compile Include="tickets.aspx.cs">
       <DependentUpon>tickets.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

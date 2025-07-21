@@ -65,11 +65,8 @@ namespace AccesoDatos
             command.Connection = connection;
             try
             {
-                using (connection)
-                {
-                    connection.Open();
-                    reader = command.ExecuteReader();
-                }
+                connection.Open();
+                reader = command.ExecuteReader();
             }
             catch (Exception ex)
             {
@@ -85,11 +82,8 @@ namespace AccesoDatos
             command.Connection = connection;
             try
             {
-                using (connection)
-                {
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
+                connection.Open();
+                command.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
@@ -106,17 +100,14 @@ namespace AccesoDatos
             command.Connection = connection;
             try
             {
-                using (connection)
-                {
-                    connection.Open();
-                    object result = command.ExecuteScalar();
+                connection.Open();
+                object result = command.ExecuteScalar();
 
-                    if (result == null || result == DBNull.Value)
-                    {
-                        return 0;
-                    }
-                    return int.Parse(result.ToString());
+                if (result == null || result == DBNull.Value)
+                {
+                    return 0;
                 }
+                return int.Parse(result.ToString());
             }
             catch (Exception ex)
             {

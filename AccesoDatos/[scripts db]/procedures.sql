@@ -43,3 +43,17 @@ SELECT * FROM EstadosTicket;
 EXEC SP_CrearTicket 3, 'Incidencias / Errores - Problemas de hardware', 'Descripcion del problema';
 EXEC SP_CrearTicket 5, 'Consultas / Dudas - Asesoramiento técnico', 'Descripcion del problema';
 EXEC SP_CrearTicket 4, 'Implementaciones / Proyectos - Actualizaciones de sistemas', 'Descripcion del problema';
+
+CREATE PROCEDURE SP_GetTicketInfo (
+	@idTicket INT
+)
+AS BEGIN
+	SELECT T.Id, U.Id AS 'IdUsuarioCreador', U.Nombre, U.TipoUsuario, U.Correo, T.Titulo, T.IdEstado, ET.NombreEstado, T.FechaCreacion, T.FechaActualizacion, T.Descripcion FROM Tickets AS T
+	INNER JOIN Usuarios AS U ON T.IdUsuarioCreador = U.Id
+	INNER JOIN EstadosTicket AS ET ON T.IdEstado = ET.Id
+	WHERE T.Id = @idTicket;
+END
+
+EXEC SP_GetTicketInfo 2;
+
+SELECT * FROM Usuarios;

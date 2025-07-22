@@ -39,7 +39,7 @@ Modelo de Dominio (Clases)
 		- TipoCommit (Interno, o para el cliente)
 	* Métodos:
 
-* Clase ManagerCommit
+* Clase CommitDatos
 	* Atributos:
 		- Database
 	* Métodos:

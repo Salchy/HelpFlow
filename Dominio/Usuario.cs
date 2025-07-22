@@ -13,4 +13,18 @@ namespace Dominio
         public string Correo { get; set; }
         public int TipoUsuario { get; set; }
     }
+    public Usuario(int id, string nombre, string correo, int tipoUsuario)
+    {
+        Id = id;
+        Nombre = nombre;
+        Correo = correo;
+        TipoUsuario = tipoUsuario;
+    }
+
+    public enum TipoUsuario
+    {
+        Administrador = 0,
+        Usuario = 1
+    }
+
 }

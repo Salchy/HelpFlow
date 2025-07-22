@@ -1,7 +1,5 @@
 USE HelpFlow;
 
-SELECT * FROM Tickets;
-
 CREATE VIEW VW_GetAllTickets AS
 	SELECT
 		T.Id AS 'TicketID', T.Titulo, T.IdUsuarioCreador AS 'UsuarioCreadorID', U.Nombre, T.FechaCreacion, T.FechaActualizacion, T.Descripcion, T.IdEstado AS 'EstadoID', ET.NombreEstado

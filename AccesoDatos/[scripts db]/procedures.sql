@@ -40,10 +40,10 @@ SELECT * FROM Tickets;
 
 SELECT * FROM EstadosTicket;
 
-EXEC SP_CrearTicket 3, 'Incidencias / Errores - Problemas de hardware', 'Descripcion del problema';
-EXEC SP_CrearTicket 5, 'Consultas / Dudas - Asesoramiento técnico', 'Descripcion del problema';
-EXEC SP_CrearTicket 4, 'Implementaciones / Proyectos - Actualizaciones de sistemas', 'Descripcion del problema';
-EXEC SP_CrearTicket 2, 'Seguridad Informática - Revisión de logs / auditorías';
+EXEC SP_CrearTicket 3, 'Incidencias / Errores - Problemas de hardware', 'El equipo presenta fallas de encendido y sobrecalentamiento. Se requiere revisión del hardware interno y posible reemplazo de componentes defectuosos';
+EXEC SP_CrearTicket 5, 'Consultas / Dudas - Asesoramiento técnico', 'Hola, tengo una duda sobre cómo acceder de forma remota al sistema de gestión desde fuera de la oficina. ¿Podrían indicarme si necesito instalar algo adicional o si hay un procedimiento específico que deba seguir? Gracias';
+EXEC SP_CrearTicket 4, 'Implementaciones / Proyectos - Actualizaciones de sistemas', 'Buenas, quería consultar si ya está disponible la nueva versión del sistema de facturación que mencionaron la semana pasada. Necesitamos saber si requiere alguna acción de nuestra parte para la actualización o si se hará de forma automática. También nos gustaría saber qué mejoras incluye';
+EXEC SP_CrearTicket 2, 'Seguridad Informática - Revisión de logs / auditorías', 'Revisión de logs de VMware';
 
 
 CREATE PROCEDURE SP_GetTicketInfo (
@@ -56,17 +56,23 @@ AS BEGIN
 	WHERE T.Id = @idTicket;
 END
 
-EXEC SP_GetTicketInfo 2;
+CREATE PROCEDURE SP_RegistrarCommit (
+	@typeCommit INT,
+	@idTicket INT,
+	@idAutor INT,
+	@message VARCHAR(500)
+)
+AS BEGIN
+	INSERT INTO Commits(TipoCommit, IdTicketRelacionado, IdAutor, Mensaje)
+	OUTPUT inserted.Id
+	VALUES (@typeCommit, @idTicket, @idAutor, @message);
+END
 
+EXEC SP_RegistrarCommit 1, 3, 4, 'Este sería una respuesta del dueño del ticket';
 SELECT * FROM Usuarios;
 
 SELECT * FROM Tickets;
 
-UPDATE Tickets SET Descripcion = 'El equipo presenta fallas de encendido y sobrecalentamiento. Se requiere revisión del hardware interno y posible reemplazo de componentes defectuosos'
-WHERE Id = 1;
+SELECT * FROM Commits;
 
-UPDATE Tickets SET Descripcion = 'Hola, tengo una duda sobre cómo acceder de forma remota al sistema de gestión desde fuera de la oficina. ¿Podrían indicarme si necesito instalar algo adicional o si hay un procedimiento específico que deba seguir? Gracias'
-WHERE Id = 2;
-
-UPDATE Tickets SET Descripcion = 'Buenas, quería consultar si ya está disponible la nueva versión del sistema de facturación que mencionaron la semana pasada. Necesitamos saber si requiere alguna acción de nuestra parte para la actualización o si se hará de forma automática. También nos gustaría saber qué mejoras incluye'
-WHERE Id = 3;
+UPDATE Commits SET TipoCommit = 1 Where Id = 3;

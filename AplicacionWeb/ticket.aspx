@@ -39,7 +39,6 @@
                     <label class="fw-bold">Usuario asignado:</label>
                     <asp:Label ID="lblUsuarioAsignado" runat="server" CssClass="form-control-plaintext" />
                 </div>
-
             </div>
 
             <div class="mt-4">

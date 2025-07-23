@@ -43,6 +43,8 @@ SELECT * FROM EstadosTicket;
 EXEC SP_CrearTicket 3, 'Incidencias / Errores - Problemas de hardware', 'Descripcion del problema';
 EXEC SP_CrearTicket 5, 'Consultas / Dudas - Asesoramiento técnico', 'Descripcion del problema';
 EXEC SP_CrearTicket 4, 'Implementaciones / Proyectos - Actualizaciones de sistemas', 'Descripcion del problema';
+EXEC SP_CrearTicket 2, 'Seguridad Informática - Revisión de logs / auditorías';
+
 
 CREATE PROCEDURE SP_GetTicketInfo (
 	@idTicket INT
@@ -57,3 +59,14 @@ END
 EXEC SP_GetTicketInfo 2;
 
 SELECT * FROM Usuarios;
+
+SELECT * FROM Tickets;
+
+UPDATE Tickets SET Descripcion = 'El equipo presenta fallas de encendido y sobrecalentamiento. Se requiere revisión del hardware interno y posible reemplazo de componentes defectuosos'
+WHERE Id = 1;
+
+UPDATE Tickets SET Descripcion = 'Hola, tengo una duda sobre cómo acceder de forma remota al sistema de gestión desde fuera de la oficina. ¿Podrían indicarme si necesito instalar algo adicional o si hay un procedimiento específico que deba seguir? Gracias'
+WHERE Id = 2;
+
+UPDATE Tickets SET Descripcion = 'Buenas, quería consultar si ya está disponible la nueva versión del sistema de facturación que mencionaron la semana pasada. Necesitamos saber si requiere alguna acción de nuestra parte para la actualización o si se hará de forma automática. También nos gustaría saber qué mejoras incluye'
+WHERE Id = 3;

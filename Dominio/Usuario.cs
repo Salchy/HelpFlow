@@ -11,20 +11,20 @@ namespace Dominio
         public int Id { get; }
         public string Nombre { get; set; }
         public string Correo { get; set; }
-        public int TipoUsuario { get; set; }
-    }
-    public Usuario(int id, string nombre, string correo, int tipoUsuario)
-    {
-        Id = id;
-        Nombre = nombre;
-        Correo = correo;
-        TipoUsuario = tipoUsuario;
-    }
+        public nivelUsuario TipoUsuario { get; set; }
 
-    public enum TipoUsuario
-    {
-        Administrador = 0,
-        Usuario = 1
-    }
+        public enum nivelUsuario
+        {
+            Administrador = 0,
+            Usuario = 1
+        }
 
+        public Usuario(int id, string nombre, string correo, int tipoUsuario)
+        {
+            Id = id;
+            Nombre = nombre;
+            Correo = correo;
+            TipoUsuario = (nivelUsuario)tipoUsuario;
+        }
+    }
 }

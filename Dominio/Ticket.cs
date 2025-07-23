@@ -13,6 +13,7 @@ namespace Dominio
         public string Asunto { get; set; }
         public Estado Estado { get; set; }
         public DateTime FechaCreacion { get; set; }
+        public DateTime FechaActualizacion { get; set; }
         public string Descripcion { get; set; }
         public List<Usuario> Colaboradores { get; }
         public List<Commit> Commits { get; } // Quizá no haga falta, ya que puedo obtenerlo sólo cuando haga falta, no voy a andar cargando todos los commits cuando creo un objeto Ticket.
@@ -22,9 +23,20 @@ namespace Dominio
         // Cosas que modifiquen el estado de un ticket en cuestión
 
         // Constructor
-        public Ticket(int id, Usuario usuarioCreador, string asunto, Estado estado, DateTime fechaCreacion, string descripcion)
+        public Ticket()
         {
 
+        }
+        public Ticket(int id, Usuario usuarioCreador, string asunto, Estado estado, DateTime fechaCreacion, DateTime fechaActualizacion, string descripcion)
+        {
+            Id = id;
+            UsuarioCreador = usuarioCreador;
+            Asunto = asunto;
+            Estado = estado;
+            FechaCreacion = fechaCreacion;
+            FechaActualizacion = fechaActualizacion;
+            Descripcion = descripcion;
+            //Colaboradores = new List<Usuario>();
         }
     }
 }

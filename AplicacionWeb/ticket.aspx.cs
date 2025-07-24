@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Dominio;
 using AccesoDatos;
 using DTO;
+using System.Collections;
 
 namespace AplicacionWeb
 {
@@ -40,20 +41,20 @@ namespace AplicacionWeb
                     lblEstado.Text = ticket.Estado.NombreEstado;
                     //lblUsuarioAsignado.Text = ticket.UsuarioAsignado.Nombre;
                     lblFecha.Text = ticket.FechaCreacion.ToString("dd/MM/yyyy");
-                    MostrarEstado(ticket);
+                    MostrarEstado(ticket.Estado.Id);
+                    cargarCommits(ticketID);
                 }
                 catch (Exception)
                 {
 
                     throw;
                 }
+
             }
         }
 
-        private void MostrarEstado(Ticket ticket)
+        private void MostrarEstado(int IdEstado)
         {
-            int IdEstado = ticket.Estado.Id;
-
             switch (IdEstado)
             {
                 case 0:
@@ -78,18 +79,25 @@ namespace AplicacionWeb
             }
         }
 
-        private void mostrarCommits(int ticketID)
+        private void bindearDatos(List<CommitDTO> commits)
         {
-            TicketDatos ticketDatos = new TicketDatos();
+            rptCommits.DataSource = commits;
+            rptCommits.DataBind();
+            pnlSinCommits.Visible = (rptCommits.Items.Count == 0);
+        }
+
+        private void cargarCommits(int ticketID)
+        {
+            CommitDatos commitDatos = new CommitDatos();
 
             try
             {
-
+                List<CommitDTO>  commits = commitDatos.GetTicketCommitsDTOs(ticketID);
+                bindearDatos(commits);
             }
             catch (Exception Ex)
             {
-
-                throw;
+                throw Ex;
             }
         }
     }

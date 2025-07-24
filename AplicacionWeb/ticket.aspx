@@ -45,5 +45,36 @@
                 <a href="Tickets.aspx" class="btn btn-outline-primary">← Volver al listado</a>
             </div>
         </div>
+
+        <div class="card mt-4">
+            <div class="card-header bg-primary text-white">
+                Commits relacionados
+            </div>
+            <div class="card-body">
+                <asp:Repeater ID="rptCommits" runat="server">
+                    <HeaderTemplate>
+                        <div class="list-group">
+                    </HeaderTemplate>
+
+                    <ItemTemplate>
+                        <div class='<%# (Convert.ToBoolean(Eval("TipoCommit")) ? "list-group-item bg-warning" : "list-group-item bg-light") %> list-group-item-action flex-column align-items-start mb-2'>
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1"><%# Eval("Autor") %></h5>
+                                <small class="text-muted"><%# Eval("Fecha", "{0:dd/MM/yyyy HH:mm}") %></small>
+                            </div>
+                            <p class="mb-1"><%# Eval("Mensaje") %></p>
+                        </div>
+                    </ItemTemplate>
+
+                    <FooterTemplate>
+                        </div>
+                    </FooterTemplate>
+                </asp:Repeater>
+
+                <asp:Panel ID="pnlSinCommits" runat="server" CssClass="alert alert-secondary text-center" Visible="false">
+                    Aún no hay comentarios.
+                </asp:Panel>
+            </div>
+        </div>
     </div>
 </asp:Content>

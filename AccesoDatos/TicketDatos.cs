@@ -72,7 +72,7 @@ namespace AccesoDatos
         {
             try
             {
-                database.SetProcedure("SP_GetTicketInfo");
+                database.SetQuery("SELECT * FROM VW_GetTicketInfo WHERE Id = @idTicket");
                 database.SetParameter("@idTicket", id);
                 database.ExecQuery();
                 

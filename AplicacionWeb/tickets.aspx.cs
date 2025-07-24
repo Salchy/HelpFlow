@@ -34,7 +34,7 @@ namespace AplicacionWeb
         {
             switch (estado.ToLower())
             {
-                case "abierto":
+                case "solicitado":
                     return "badge bg-primary";
                 case "en progreso":
                     return "badge bg-warning text-dark";

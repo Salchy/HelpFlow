@@ -27,7 +27,7 @@ namespace AplicacionWeb
                         switch (listaTickets[i].Estado)
                         {
                             case "Solicitado":
-                                lblAbiertos.Text = cantidad;
+                                lblSolicitados.Text = cantidad;
                                 break;
                             case "En progreso":
                                 lblEnProgreso.Text = cantidad;

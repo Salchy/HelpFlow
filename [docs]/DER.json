@@ -35,8 +35,8 @@
         },
         {
           "id": "6VzeT8SUAc4QxtWLAnYSK",
-          "name": "Titulo",
-          "type": "VARCHAR",
+          "name": "IdSubCategoria",
+          "type": "TINYINT",
           "default": "",
           "check": "",
           "primary": false,
@@ -44,7 +44,8 @@
           "notNull": true,
           "increment": false,
           "comment": "",
-          "size": 75
+          "size": "",
+          "values": []
         },
         {
           "id": "fQ7CgrLU9aq_YgSop4vyS",
@@ -393,6 +394,98 @@
       "comment": "",
       "indices": [],
       "color": "#175e7a"
+    },
+    {
+      "id": "BLnlmGcPNF-9xORhiOzyb",
+      "name": "Categoria",
+      "x": -120,
+      "y": -744,
+      "locked": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "TINYINT",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": true,
+          "notNull": true,
+          "increment": true,
+          "comment": "",
+          "id": "sZDDazXu2ml12L1E3-JPk",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "EKgJirX_3rR2JqXO4uHrc",
+          "name": "Nombre",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 75
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "color": "#175e7a"
+    },
+    {
+      "id": "UmChkBFKUFmAyIhENItVT",
+      "name": "Subcategoria",
+      "x": -96,
+      "y": -600,
+      "locked": false,
+      "fields": [
+        {
+          "name": "id",
+          "type": "TINYINT",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": true,
+          "notNull": true,
+          "increment": true,
+          "comment": "",
+          "id": "eus2daH7HcXzS_lKX3w4T",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "FwfWao960vl0ceS2f_3nY",
+          "name": "Nombre",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 75
+        },
+        {
+          "id": "qgSzyXBqw8hLBY-418UxW",
+          "name": "idCategoriaPadre",
+          "type": "TINYINT",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "color": "#175e7a"
     }
   ],
   "relationships": [
@@ -461,6 +554,28 @@
       "deleteConstraint": "No action",
       "name": "fk_Tickets_IdEstado_EstadosTickets",
       "id": 5
+    },
+    {
+      "startTableId": "lGcTeogFt5eptI0mSZr1O",
+      "startFieldId": "6VzeT8SUAc4QxtWLAnYSK",
+      "endTableId": "UmChkBFKUFmAyIhENItVT",
+      "endFieldId": "eus2daH7HcXzS_lKX3w4T",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "fk_Tickets_IdSubCategoria_Subcategoria",
+      "id": 6
+    },
+    {
+      "startTableId": "UmChkBFKUFmAyIhENItVT",
+      "startFieldId": "qgSzyXBqw8hLBY-418UxW",
+      "endTableId": "BLnlmGcPNF-9xORhiOzyb",
+      "endFieldId": "sZDDazXu2ml12L1E3-JPk",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "fk_Subcategoria_idCategoriaPadre_Categoria",
+      "id": 7
     }
   ],
   "notes": [],

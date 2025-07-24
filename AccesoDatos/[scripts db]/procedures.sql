@@ -1,5 +1,28 @@
 -- USE HelpFlow;
 
+CREATE PROCEDURE SP_CrearCategoria (
+	@Nombre VARCHAR(75)
+)
+AS
+BEGIN
+	INSERT INTO Categorias(Nombre)
+	OUTPUT inserted.Id
+	VALUES (@Nombre);
+END
+GO
+
+CREATE PROCEDURE SP_CrearSubCategoria (
+	@Nombre VARCHAR(75),
+	@IdCategoriaPadre TINYINT
+)
+AS
+BEGIN
+	INSERT INTO SubCategorias(Nombre, IdCategoriaPadre)
+	OUTPUT inserted.Id
+	VALUES (@Nombre, @IdCategoriaPadre);
+END
+GO
+
 CREATE PROCEDURE SP_CrearUsuario (
 	@userName VARCHAR(50),
 	@name VARCHAR(50),
@@ -17,15 +40,15 @@ GO
 
 CREATE PROCEDURE SP_CrearTicket (
 	@owner INT,
-	@title VARCHAR(75),
+	@idSubCategoria TINYINT,
 	@message VARCHAR(500)
 )
 AS BEGIN
-	INSERT INTO Tickets(IdUsuarioCreador, Titulo, Descripcion)
+	INSERT INTO Tickets(IdUsuarioCreador, IdSubCategoria, Descripcion)
 	OUTPUT inserted.Id
-	VALUES (@owner, @title, @message);
+	VALUES (@owner, @idSubCategoria, @message);
 END
-go
+GO
 
 CREATE PROCEDURE SP_RegistrarCommit (
 	@typeCommit INT,

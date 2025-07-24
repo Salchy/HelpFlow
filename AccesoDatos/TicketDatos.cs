@@ -110,5 +110,25 @@ namespace AccesoDatos
                 throw Ex;
             }
         }
+
+        //public void CrearTicket(Ticket ticket)
+        //{
+        //    try
+        //    {
+        //        database.SetProcedure("SP_CrearTicket");
+        //        database.SetParameter("@IdUsuarioCreador", ticket.UsuarioCreador.Id);
+        //        database.SetParameter("@Titulo", ticket.Asunto);
+        //        database.SetParameter("@Descripcion", ticket.Descripcion);
+        //        database.ExecNonQuery();
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    finally
+        //    {
+        //        database.CloseConnection();
+        //    }
+        //}
     }
 }

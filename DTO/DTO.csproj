@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommitDTO.cs" />
+    <Compile Include="DashboardDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TicketDTO.cs" />
   </ItemGroup>

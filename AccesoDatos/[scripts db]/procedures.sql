@@ -15,13 +15,6 @@ BEGIN
 END
 GO
 
--- Creacion de usuarios testing:
-EXEC SP_CrearUsuario 'lcorrea', 'Leandro Correa', 'lcorrea@altaplastica.com.ar', '123456789', 0;
-EXEC SP_CrearUsuario 'fbileni', 'Francisco Bileni', 'fbileni@altaplastica.com.ar', '123456789', 0;
-EXEC SP_CrearUsuario 'jlopez', 'Julieta Lopez', 'jlopez@altaplastica.com.ar', 'abc123456', 1;
-EXEC SP_CrearUsuario 'mgarcia', 'Marcos Garcia', 'mgarcia@altaplastica.com.ar', 'marcos2025', 1;
-EXEC SP_CrearUsuario 'cortega', 'Camila Ortega', 'cortega@altaplastica.com.ar', 'camila#789', 1;
-
 CREATE PROCEDURE SP_CrearTicket (
 	@owner INT,
 	@title VARCHAR(75),
@@ -32,13 +25,7 @@ AS BEGIN
 	OUTPUT inserted.Id
 	VALUES (@owner, @title, @message);
 END
-
-SELECT * FROM Tickets;
- 
-EXEC SP_CrearTicket 3, 'Incidencias / Errores - Problemas de hardware', 'El equipo presenta fallas de encendido y sobrecalentamiento. Se requiere revisión del hardware interno y posible reemplazo de componentes defectuosos';
-EXEC SP_CrearTicket 5, 'Consultas / Dudas - Asesoramiento técnico', 'Hola, tengo una duda sobre cómo acceder de forma remota al sistema de gestión desde fuera de la oficina. ¿Podrían indicarme si necesito instalar algo adicional o si hay un procedimiento específico que deba seguir? Gracias';
-EXEC SP_CrearTicket 4, 'Implementaciones / Proyectos - Actualizaciones de sistemas', 'Buenas, quería consultar si ya está disponible la nueva versión del sistema de facturación que mencionaron la semana pasada. Necesitamos saber si requiere alguna acción de nuestra parte para la actualización o si se hará de forma automática. También nos gustaría saber qué mejoras incluye';
-EXEC SP_CrearTicket 2, 'Seguridad Informática - Revisión de logs / auditorías', 'Revisión de logs de VMware';
+go
 
 CREATE PROCEDURE SP_RegistrarCommit (
 	@typeCommit INT,
@@ -51,3 +38,4 @@ AS BEGIN
 	OUTPUT inserted.Id
 	VALUES (@typeCommit, @idTicket, @idAutor, @message);
 END
+GO

@@ -61,7 +61,7 @@ GO
  
  -- Estados tickets
  INSERT INTO EstadosTicket VALUES
-	('Abierto'),
+	('Solicitado'),
 	('En progreso'),
 	('Resuelto'),
 	('Cerrado');

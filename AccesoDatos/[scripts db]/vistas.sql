@@ -6,7 +6,7 @@ CREATE VIEW VW_GetAllTickets AS
 	FROM Tickets AS T
 	INNER JOIN Usuarios AS U ON T.IdUsuarioCreador = U.Id
 	INNER JOIN EstadosTicket AS ET ON T.IdEstado = ET.Id
-GO;
+GO
 
 CREATE VIEW VW_GetTicketInfo AS
 	SELECT
@@ -14,9 +14,20 @@ CREATE VIEW VW_GetTicketInfo AS
 	FROM Tickets AS T
 	INNER JOIN Usuarios AS U ON T.IdUsuarioCreador = U.Id
 	INNER JOIN EstadosTicket AS ET ON T.IdEstado = ET.Id
+GO
 
 CREATE VIEW VW_GetCommits AS
 	SELECT
 		C.Id, C.TipoCommit, C.IdTicketRelacionado, C.IdAutor, U.Nombre, C.Fecha, C.Mensaje
 	FROM Commits AS C
 	INNER JOIN Usuarios AS U ON C.IdAutor = U.Id
+GO
+
+CREATE VIEW VW_GetTicketsCount AS
+	SELECT
+		ET.NombreEstado AS 'Estado',
+		COUNT (ET.NombreEstado) AS 'Cantidad'
+	FROM Tickets AS T
+	INNER JOIN EstadosTicket AS ET ON T.idEstado = ET.Id
+	GROUP BY ET.NombreEstado
+GO

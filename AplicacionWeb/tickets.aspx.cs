@@ -30,5 +30,21 @@ namespace AplicacionWeb
                 }
             }
         }
+        protected string GetEstadoCss(string estado)
+        {
+            switch (estado.ToLower())
+            {
+                case "abierto":
+                    return "badge bg-primary";
+                case "en progreso":
+                    return "badge bg-warning text-dark";
+                case "resuelto":
+                    return "badge bg-success";
+                case "cerrado":
+                    return "badge bg-secondary";
+                default:
+                    return "badge bg-light text-dark";
+            }
+        }
     }
 }

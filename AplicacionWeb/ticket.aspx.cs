@@ -23,11 +23,10 @@ namespace AplicacionWeb
 
                 if (string.IsNullOrEmpty(idRuta))
                 {
-                    //CargarDatosTicket(idRuta);
-                    // if (id ticket no existe)
-                    // El ticket no existe
                     Response.Redirect("main.aspx");
+                    return;
                 }
+
                 try
                 {
                     int ticketID = int.Parse(idRuta);
@@ -46,13 +45,12 @@ namespace AplicacionWeb
                 }
                 catch (Exception)
                 {
-
                     throw;
                 }
 
             }
         }
-
+        
         private void MostrarEstado(int IdEstado)
         {
             switch (IdEstado)
@@ -99,6 +97,18 @@ namespace AplicacionWeb
             {
                 throw Ex;
             }
+        }
+
+        protected void btnRegistrarCommit_Click(object sender, EventArgs e)
+        {
+            string commit = txtMensaje.Text;
+
+            if (commit.Length < 3)
+            {
+                lblError.Text = "El mensaje del commit debe tener al menos 3 caracteres.";
+                return;
+            }
+            //EXEC SP_RegistrarCommit tipoCommit, ticketID, idAutor, mensaje
         }
     }
 }

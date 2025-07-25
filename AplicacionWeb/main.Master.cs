@@ -13,5 +13,11 @@ namespace AplicacionWeb
         {
 
         }
+
+        protected void MostrarModal(string titulo, string mensaje, string tipo)
+        {
+            string script = $"mostrarModal('{titulo}', '{mensaje}', '{tipo}');";
+            ScriptManager.RegisterStartupScript(this, GetType(), "mostrarModal", script, true);
+        }
     }
 }

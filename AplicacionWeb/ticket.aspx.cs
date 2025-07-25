@@ -13,6 +13,7 @@ namespace AplicacionWeb
 {
     public partial class ticket : System.Web.UI.Page
     {
+        private List<CommitDTO> Commits = new List<CommitDTO>();
         protected void Page_Load(object sender, EventArgs e)
         {
             TicketDatos ticketDatos = new TicketDatos();
@@ -30,6 +31,7 @@ namespace AplicacionWeb
                 try
                 {
                     int ticketID = int.Parse(idRuta);
+                    ViewState["TicketID"] = ticketID;
                     Ticket ticket = ticketDatos.ObtenerTicket(ticketID);
 
                     tituloTicket.InnerText = "Ticket #" + ticketID;
@@ -50,7 +52,7 @@ namespace AplicacionWeb
 
             }
         }
-        
+
         private void MostrarEstado(int IdEstado)
         {
             switch (IdEstado)
@@ -79,6 +81,7 @@ namespace AplicacionWeb
 
         private void bindearDatos(List<CommitDTO> commits)
         {
+            rptCommits.DataSource = null;
             rptCommits.DataSource = commits;
             rptCommits.DataBind();
             pnlSinCommits.Visible = (rptCommits.Items.Count == 0);
@@ -90,8 +93,8 @@ namespace AplicacionWeb
 
             try
             {
-                List<CommitDTO>  commits = commitDatos.GetTicketCommitsDTOs(ticketID);
-                bindearDatos(commits);
+                Commits = commitDatos.GetTicketCommitsDTOs(ticketID);
+                bindearDatos(Commits);
             }
             catch (Exception Ex)
             {
@@ -101,14 +104,49 @@ namespace AplicacionWeb
 
         protected void btnRegistrarCommit_Click(object sender, EventArgs e)
         {
-            string commit = txtMensaje.Text;
+            string commitMsg = txtMensaje.Text;
 
-            if (commit.Length < 3)
+            if (commitMsg.Length < 5)
             {
-                lblError.Text = "El mensaje del commit debe tener al menos 3 caracteres.";
+                Modal.Mostrar(this, "Error", "El mensaje del commit debe tener al menos 5 caracteres.", "error");
                 return;
             }
-            //EXEC SP_RegistrarCommit tipoCommit, ticketID, idAutor, mensaje
+            if (commitMsg.Length > 500)
+            {
+                Modal.Mostrar(Page, "Error", "El mensaje del commit no puede exceder los 500 caracteres.", "error");
+                return;
+            }
+
+            try
+            {
+                RegistrarCommit(commitMsg);
+            }
+            catch (Exception Ex)
+            {
+                Modal.Mostrar(this, "Error", "No se pudo registrar el commit: " + Ex.Message, "error");
+                return;
+            }
+
+        }
+        private bool RegistrarCommit(string commitMsg)
+        {
+            CommitDatos commitDatos = new CommitDatos();
+
+            CommitDTO commit = new CommitDTO
+            {
+                IdAutor = 1, // TODO: Asignar el ID del usuario actual
+                AutorNombre = "Usuario de Prueba", // TODO: Asignar el nombre del usuario actual (Se va a tomar el id del autor de sesion)
+                Mensaje = commitMsg,
+                TipoCommit = false // TODO: Asignar el tipo de commit (interno o público)
+            };
+
+            bool Success = commitDatos.InsertCommit(commit);
+            if (!Success)
+            {
+                throw new Exception("Error al registrar el commit en la base de datos.");
+            }
+            Commits.Add(commit);
+            return Success;
         }
     }
 }

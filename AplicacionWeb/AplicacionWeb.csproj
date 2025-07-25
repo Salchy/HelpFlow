@@ -99,6 +99,7 @@
     <Compile Include="main.Master.designer.cs">
       <DependentUpon>main.Master</DependentUpon>
     </Compile>
+    <Compile Include="Modal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ticket.aspx.cs">
       <DependentUpon>ticket.aspx</DependentUpon>

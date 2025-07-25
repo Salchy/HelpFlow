@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <div class="container my-4">
         <div class="card shadow rounded-4 p-4">
             <h2 class="mb-3 text-primary" id="tituloTicket" runat="server">Detalle del Ticket</h2>
@@ -107,7 +108,7 @@
                     <ItemTemplate>
                         <div class='<%# (Convert.ToBoolean(Eval("TipoCommit")) ? "list-group-item bg-warning" : "list-group-item bg-light") %> list-group-item-action flex-column align-items-start mb-2'>
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1"><%# Eval("Autor") %></h5>
+                                <h5 class="mb-1"><%# Eval("AutorNombre") %></h5>
                                 <small class="text-muted"><%# Eval("Fecha", "{0:dd/MM/yyyy HH:mm}") %></small>
                             </div>
                             <p class="mb-1"><%# Eval("Mensaje") %></p>

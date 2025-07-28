@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using AccesoDatos;
 
 namespace AplicacionWeb
 {
@@ -11,7 +12,8 @@ namespace AplicacionWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            UsuarioDatos userDatos = new UsuarioDatos();
+            if (userDatos.SesionActiva)
         }
 
         protected void MostrarModal(string titulo, string mensaje, string tipo)

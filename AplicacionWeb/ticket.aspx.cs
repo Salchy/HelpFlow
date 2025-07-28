@@ -137,6 +137,7 @@ namespace AplicacionWeb
                 IdAutor = 1, // TODO: Asignar el ID del usuario actual
                 AutorNombre = "Usuario de Prueba", // TODO: Asignar el nombre del usuario actual (Se va a tomar el id del autor de sesion)
                 Mensaje = commitMsg,
+                IdTicketRelacionado = (int)ViewState["TicketID"],
                 TipoCommit = false // TODO: Asignar el tipo de commit (interno o público)
             };
 
@@ -146,6 +147,7 @@ namespace AplicacionWeb
                 throw new Exception("Error al registrar el commit en la base de datos.");
             }
             Commits.Add(commit);
+            bindearDatos(Commits);
             return Success;
         }
     }

@@ -25,6 +25,5 @@ namespace AplicacionWeb
             string script = $"mostrarModal('{titulo}', '{mensaje}', '{tipo}');";
             ScriptManager.RegisterStartupScript(page, page.GetType(), "mostrarModalScript", script, true);
         }
-
     }
 }

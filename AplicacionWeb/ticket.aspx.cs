@@ -113,7 +113,7 @@ namespace AplicacionWeb
             }
             if (commitMsg.Length > 500)
             {
-                Modal.Mostrar(Page, "Error", "El mensaje del commit no puede exceder los 500 caracteres.", "error");
+                Modal.Mostrar(this, "Error", "El mensaje del commit no puede exceder los 500 caracteres.", "error");
                 return;
             }
 

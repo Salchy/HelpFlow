@@ -70,6 +70,7 @@
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="main.aspx" />
+    <Content Include="misTickets.aspx" />
     <Content Include="ticket.aspx" />
     <Content Include="tickets.aspx" />
     <Content Include="Web.config" />
@@ -98,6 +99,13 @@
     </Compile>
     <Compile Include="main.Master.designer.cs">
       <DependentUpon>main.Master</DependentUpon>
+    </Compile>
+    <Compile Include="misTickets.aspx.cs">
+      <DependentUpon>misTickets.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="misTickets.aspx.designer.cs">
+      <DependentUpon>misTickets.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

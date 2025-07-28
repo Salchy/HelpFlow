@@ -68,6 +68,40 @@ namespace AccesoDatos
             return listaTickets;
         }
 
+        public List<TicketDTO> ObtenerListaTickets(int idUsuario) // Obtener listado de tickets de un usuario
+        {
+            List<TicketDTO> listaTickets = new List<TicketDTO>();
+            try
+            {
+                database.SetQuery("SELECT TicketID, Titulo, Nombre, FechaCreacion, FechaActualizacion, NombreEstado FROM VW_GetAllTickets WHERE @IdUsuarioCreador = IdUsuario;");
+                database.SetParameter("@IdUsuarioCreador", idUsuario);
+                database.ExecQuery();
+
+                while (database.reader.Read())
+                {
+                    TicketDTO ticket = new TicketDTO
+                    {
+                        Id = Convert.ToInt32(database.reader["TicketID"]),
+                        Asunto = database.reader["Titulo"].ToString(),
+                        UsuarioCreador = database.reader["Nombre"].ToString(),
+                        Estado = database.reader["NombreEstado"].ToString(),
+                        FechaCreacion = database.reader.GetDateTime(database.reader.GetOrdinal("FechaCreacion"))
+                        //Colaboradores = !database.reader.IsDBNull(6) ? database.reader.GetString(6).Split(',').ToList() : new List<string>()
+                    };
+                    listaTickets.Add(ticket);
+                }
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+                database.CloseConnection();
+            }
+            return listaTickets;
+        }
+
         public Ticket ObtenerTicket(int id)
         {
             try

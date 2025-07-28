@@ -12,8 +12,11 @@ namespace AplicacionWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            UsuarioDatos userDatos = new UsuarioDatos();
-            if (userDatos.SesionActiva)
+            if (!UsuarioDatos.SesionActiva(Session["Usuario"]))
+            {
+                Response.Redirect("Login.aspx", false);
+                return;
+            }
         }
 
         protected void MostrarModal(string titulo, string mensaje, string tipo)

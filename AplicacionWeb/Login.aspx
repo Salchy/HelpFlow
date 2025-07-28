@@ -34,9 +34,43 @@
                 <div class="text-muted small mt-1">© 2025 Leandro Correa</div>
             </div>
         </div>
+        <div class="modal fade" id="mensajeModal" tabindex="-1" role="dialog" aria-labelledby="mensajeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content border-0">
+                    <div class="modal-header bg-danger text-white" id="modalHeader">
+                        <h5 class="modal-title" id="mensajeModalLabel">Mensaje</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body" id="modalMensaje">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function mostrarModal(titulo, mensaje, tipo) {
+                const modalTitle = document.getElementById('mensajeModalLabel');
+                const modalBody = document.getElementById('modalMensaje');
+                const modalHeader = document.getElementById('modalHeader');
 
+                // Colores por tipo
+                const clasesPorTipo = {
+                    error: 'bg-danger text-white',
+                    exito: 'bg-success text-white',
+                    info: 'bg-primary text-white',
+                    advertencia: 'bg-warning text-dark'
+                };
+
+                modalTitle.innerText = titulo;
+                modalBody.innerHTML = mensaje;
+                modalHeader.className = 'modal-header ' + (clasesPorTipo[tipo] || 'bg-secondary text-white');
+
+                let modal = new bootstrap.Modal(document.getElementById('mensajeModal'));
+                modal.show();
+            }
+        </script>
     </form>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

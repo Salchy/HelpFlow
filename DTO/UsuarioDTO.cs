@@ -13,5 +13,6 @@ namespace DTO
         public string Nombre { get; set; }
         public string Correo { get; set; }
         public int TipoUsuario { get; set; }
+        public bool Estado { get; set; }
     }
 }

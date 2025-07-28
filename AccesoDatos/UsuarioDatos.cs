@@ -38,23 +38,51 @@ namespace AccesoDatos
             return usuario;
         }
 
-        public Usuario GetUsuario(int idUsuario)
+        public Usuario GetUsuario(string idUsuario)
         {
             try
             {
                 database.SetQuery("SELECT * FROM Usuarios WHERE Id = @Id");
                 database.SetParameter("@Id", idUsuario);
                 database.ExecQuery();
-                if (database.reader.Read())
+                if (!database.reader.Read())
                 {
-                    return new Usuario(
+                    return null;
+                }
+                return new Usuario(
                         Convert.ToInt32(database.reader["Id"]),
                         database.reader["Nombre"].ToString(),
                         database.reader["Correo"].ToString(),
                         Convert.ToInt32(database.reader["TipoUsuario"])
                     );
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        public Usuario GetUsuario(string userName, string password)
+        {
+            try
+            {
+                database.SetQuery("SELECT * FROM Usuarios WHERE UserName = @userName");
+                database.SetParameter("@userName", userName);
+                database.ExecQuery();
+                if (!database.reader.Read())
+                {
+                    return null;
                 }
-                return null;
+                if (database.reader["Clave"] == null || database.reader["Clave"].ToString() != generateHashPassword(password))
+                {
+                    return null;
+                }
+                return new Usuario(
+                    Convert.ToInt32(database.reader["Id"]),
+                    database.reader["Nombre"].ToString(),
+                    database.reader["Correo"].ToString(),
+                    Convert.ToInt32(database.reader["TipoUsuario"])
+                );
             }
             catch (Exception Ex)
             {

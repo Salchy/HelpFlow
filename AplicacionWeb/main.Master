@@ -23,7 +23,11 @@
                     <a class="nav-link active" aria-current="page" href="main.aspx">Dashboard</a>
                     <a class="nav-link" href="tickets.aspx">Tickets</a>
                 </div>
+
             </div>
+            <asp:Panel ID="panelCerrarSesion" runat="server" Visible='<%# Session["usuario"] != null %>'>
+                <a href="login.aspx" class="nav-link text-danger" onclick="cerrarSesion()">Cerrar sesión</a>
+            </asp:Panel>
         </div>
     </nav>
 

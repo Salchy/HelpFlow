@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Dominio;
 using AccesoDatos;
 using DTO;
 
@@ -19,7 +20,8 @@ namespace AplicacionWeb
             {
                 try
                 {
-                    List<TicketDTO> listaTickets = ticketDatos.ObtenerListaTickets();
+                    Usuario usuario = (Usuario)Session["Usuario"];
+                    List<TicketDTO> listaTickets = ticketDatos.ObtenerListaTickets(usuario.Id);
                     bindearDatos(listaTickets);
                 }
                 catch (Exception ex)

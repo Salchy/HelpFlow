@@ -16,6 +16,7 @@ namespace AccesoDatos
         {
             database = new Database();
         }
+
         public static bool SesionActiva(object user)
         {
             Usuario usuario = user != null ? (Usuario)user : null;
@@ -23,6 +24,7 @@ namespace AccesoDatos
                 return false;
             return true;
         }
+
         public static int GetLevel(object user)
         {
             Usuario usuario = user != null ? (Usuario)user : null;
@@ -30,6 +32,7 @@ namespace AccesoDatos
                 return -1;
             return (int)usuario.TipoUsuario;
         }
+
         public static Usuario UsuarioActual(object user)
         {
             Usuario usuario = user != null ? (Usuario)user : null;

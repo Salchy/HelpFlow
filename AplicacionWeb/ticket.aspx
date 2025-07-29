@@ -37,7 +37,7 @@
 
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <label class="fw-bold">Usuario asignado:</label>
+                    <label class="fw-bold">Usuarios asignados:</label>
                     <asp:Label ID="lblUsuarioAsignado" runat="server" CssClass="form-control-plaintext" />
                 </div>
             </div>

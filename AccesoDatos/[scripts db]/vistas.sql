@@ -36,7 +36,7 @@ CREATE VIEW VW_GetAllTicketsWithColaborators AS
 			FROM ColaboradoresTickets CT
 			INNER JOIN Usuarios U2 ON CT.IdUsuario = U2.Id
 			WHERE CT.IdTicket = T.Id
-		), 'Sin colaboradores') AS Colaboradores
+		), 'Sin colaboradores') AS 'Colaboradores'
 
 	FROM Tickets AS T
 	INNER JOIN SubCategorias AS SC ON T.IdSubCategoria = SC.Id
@@ -49,7 +49,8 @@ CREATE VIEW VW_GetCollaboratorsPerTicket AS
 	SELECT
 		CT.IdTicket,
 		CT.IdUsuario,
-		U.Nombre
+		U.Nombre,
+		U.Correo
 	FROM ColaboradoresTickets AS CT
 	INNER JOIN Usuarios AS U ON CT.IdUsuario = U.Id
 GO

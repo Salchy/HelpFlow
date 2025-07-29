@@ -13,6 +13,6 @@ namespace DTO
         public string UsuarioCreador { get; set; }
         public string Estado { get; set; }
         public DateTime FechaCreacion { get; set; }
-        public List<String> Colaboradores { get; set; }
+        public string Colaboradores { get; set; }
     }
 }

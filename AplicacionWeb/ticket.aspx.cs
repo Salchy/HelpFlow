@@ -8,6 +8,7 @@ using Dominio;
 using AccesoDatos;
 using DTO;
 using System.Collections;
+using AplicacionWeb.Helpers;
 
 namespace AplicacionWeb
 {
@@ -148,6 +149,10 @@ namespace AplicacionWeb
             }
             Commits.Add(commit);
             bindearDatos(Commits);
+
+            
+
+            Modal.Mostrar(this, "Éxito", "Commit registrado correctamente.", "success");
             return Success;
         }
     }

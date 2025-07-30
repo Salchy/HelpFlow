@@ -19,21 +19,23 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <asp:Panel ID="panelAdmin" runat="server" Visible="false">
-                        <a class="nav-link active" aria-current="page" href="main.aspx">Dashboard</a>
+                <asp:Panel ID="panelAdmin" runat="server" Visible="false">
+                    <div class="navbar-nav">
+                        <a class="nav-link" aria-current="page" href="main.aspx">Dashboard</a>
                         <a class="nav-link" href="tickets.aspx">Tickets</a>
                         <a class="nav-link" href="usuarios.aspx">Gestión de Usuarios</a>
-                    </asp:Panel>
-                    <asp:Panel ID="panelUsuario" runat="server" Visible="false">
-                        <a class="nav-link active" aria-current="page" href="misTickets.aspx">Mis Tickets</a>
+                    </div>
+                </asp:Panel>
+                <asp:Panel ID="panelUsuario" runat="server" Visible="false">
+                    <div class="navbar-nav">
+                        <a class="nav-link" aria-current="page" href="misTickets.aspx">Mis Tickets</a>
                         <a class="nav-link" href="miPerfil.aspx">Mi Perfil</a>
-                    </asp:Panel>
-                </div>
+                    </div>
+                </asp:Panel>
+                <asp:Panel ID="panelCerrarSesion" runat="server" Visible='<%# Session["usuario"] != null %>'>
+                    <a href="login.aspx" class="nav-link text-danger" onclick="cerrarSesion()">Cerrar sesión</a>
+                </asp:Panel>
             </div>
-            <asp:Panel ID="panelCerrarSesion" runat="server" Visible='<%# Session["usuario"] != null %>'>
-                <a href="login.aspx" class="nav-link text-danger" onclick="cerrarSesion()">Cerrar sesión</a>
-            </asp:Panel>
         </div>
     </nav>
 

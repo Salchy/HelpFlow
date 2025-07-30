@@ -216,7 +216,7 @@ namespace AplicacionWeb
             bindearDatos();
             if (!esInterno) // Si no es interno, notificar al cliente
             {
-                MailHelper.SendEmail(TicketActual.UsuarioCreador.Correo, "Novedades Ticket - #" + commit.Id, "Respuesta de " + usuario.Nombre + ":<b>" + commitMsg);
+                //MailHelper.SendEmail(TicketActual.UsuarioCreador.Correo, "Novedades Ticket - #" + commit.Id, "Respuesta de " + usuario.Nombre + ":<b>" + commitMsg);
             }
             Modal.Mostrar(this, "Éxito", "Commit registrado correctamente.", "exito");
             txtMensaje.Text = "";

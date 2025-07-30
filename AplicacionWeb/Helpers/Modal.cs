@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 
-namespace AplicacionWeb
+namespace AplicacionWeb.Helpers
 {
     public static class Modal
     {

@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using AccesoDatos;
 using Dominio;
+using AplicacionWeb.Helpers;
 
 namespace AplicacionWeb
 {

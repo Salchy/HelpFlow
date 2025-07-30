@@ -34,7 +34,6 @@ namespace AccesoDatos
         //    );
         //    return ticket;
         //}
-
         public List<TicketDTO> ObtenerListaTickets()
         {
             List<TicketDTO> listaTickets = new List<TicketDTO>();
@@ -101,7 +100,6 @@ namespace AccesoDatos
             }
             return listaTickets;
         }
-
 
         public List<UsuarioColaboradorDTO> ObtenerColaboradores(int IdTicket)
         {

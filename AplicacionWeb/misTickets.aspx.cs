@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Dominio;
+using AccesoDatos;
+using DTO;
 
 namespace AplicacionWeb
 {
@@ -11,7 +14,28 @@ namespace AplicacionWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            TicketDatos ticketDatos = new TicketDatos();
+
+            if (!IsPostBack)
+            {
+                try
+                {
+                    Usuario usuario = (Usuario)Session["Usuario"];
+                    List<TicketDTO> listaTickets = ticketDatos.ObtenerListaTickets(usuario.Id);
+                    bindearDatos(listaTickets);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        private void bindearDatos(List<TicketDTO> tickets)
+        {
+            gvTickets.DataSource = null;
+            gvTickets.DataSource = tickets;
+            gvTickets.DataBind();
         }
 
         protected void btnNuevo_Click(object sender, EventArgs e)

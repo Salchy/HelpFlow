@@ -45,6 +45,7 @@
     <Compile Include="DashboardDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TicketDTO.cs" />
+    <Compile Include="UsuarioColaboradorDTO.cs" />
     <Compile Include="UsuarioDTO.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

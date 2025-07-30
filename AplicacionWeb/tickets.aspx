@@ -9,6 +9,14 @@
                 <HeaderStyle CssClass="table-secondary" />
 
                 <Columns>
+                    <asp:TemplateField HeaderText="Código">
+                        <ItemTemplate>
+                            <a href='<%# "TKT-" + Eval("Id") %>' class="fw-bold text-decoration-none text-primary">
+                                <%# "TKT-" + Eval("Id") %>
+                            </a>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
                     <asp:TemplateField HeaderText="Asunto">
                         <ItemTemplate>
                             <a href='<%# "TKT-" + Eval("Id") %>' class="fw-bold text-decoration-none text-primary">

@@ -16,13 +16,13 @@
                     GridLines="None" HeaderStyle-CssClass="table-active">
                     <Columns>
                         <asp:BoundField DataField="Id" HeaderText="#" />
-                        <asp:BoundField DataField="Titulo" HeaderText="Título" />
+                        <asp:BoundField DataField="Asunto" HeaderText="Título" />
                         <asp:TemplateField HeaderText="Estado">
                             <ItemTemplate>
                                 <%# ObtenerBadgeEstado(Eval("Estado").ToString()) %>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
+                        <asp:BoundField DataField="FechaCreacion" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
                         <asp:TemplateField HeaderText="Acción">
                             <ItemTemplate>
                                 <asp:HyperLink ID="hlVer" runat="server" CssClass="btn btn-sm btn-outline-light"
@@ -31,6 +31,10 @@
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
+
+                <asp:Panel ID="panelSinTicketsCreados" runat="server" CssClass="alert alert-secondary text-center" Visible="false">
+                    No tienes tickets generados.
+                </asp:Panel>
             </div>
         </div>
     </div>

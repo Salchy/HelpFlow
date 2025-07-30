@@ -40,7 +40,7 @@ namespace AccesoDatos
             List<TicketDTO> listaTickets = new List<TicketDTO>();
             try
             {
-                database.SetQuery("SELECT TicketID, Titulo, Nombre, FechaCreacion, FechaActualizacion, NombreEstado FROM VW_GetAllTickets");
+                database.SetQuery("SELECT TicketID, Titulo, Nombre, FechaCreacion, FechaActualizacion, NombreEstado, Colaboradores FROM VW_GetAllTicketsWithColaborators");
                 database.ExecQuery();
 
                 while (database.reader.Read())
@@ -51,8 +51,8 @@ namespace AccesoDatos
                         Asunto = database.reader["Titulo"].ToString(),
                         UsuarioCreador = database.reader["Nombre"].ToString(),
                         Estado = database.reader["NombreEstado"].ToString(),
-                        FechaCreacion = database.reader.GetDateTime(database.reader.GetOrdinal("FechaCreacion"))
-                        //Colaboradores = !database.reader.IsDBNull(6) ? database.reader.GetString(6).Split(',').ToList() : new List<string>()
+                        FechaCreacion = database.reader.GetDateTime(database.reader.GetOrdinal("FechaCreacion")),
+                        Colaboradores = database.reader["Colaboradores"].ToString()
                     };
                     listaTickets.Add(ticket);
                 }
@@ -73,8 +73,8 @@ namespace AccesoDatos
             List<TicketDTO> listaTickets = new List<TicketDTO>();
             try
             {
-                database.SetQuery("SELECT TicketID, Titulo, Nombre, FechaCreacion, FechaActualizacion, NombreEstado FROM VW_GetAllTickets WHERE @IdUsuarioCreador = IdUsuario;");
-                database.SetParameter("@IdUsuarioCreador", idUsuario);
+                database.SetQuery("SELECT TicketID, Titulo, Nombre, FechaCreacion, FechaActualizacion, NombreEstado FROM VW_GetAllTickets WHERE IdUsuarioCreador = @IdUsuario;");
+                database.SetParameter("@IdUsuario", idUsuario);
                 database.ExecQuery();
 
                 while (database.reader.Read())
@@ -85,8 +85,8 @@ namespace AccesoDatos
                         Asunto = database.reader["Titulo"].ToString(),
                         UsuarioCreador = database.reader["Nombre"].ToString(),
                         Estado = database.reader["NombreEstado"].ToString(),
-                        FechaCreacion = database.reader.GetDateTime(database.reader.GetOrdinal("FechaCreacion"))
-                        //Colaboradores = !database.reader.IsDBNull(6) ? database.reader.GetString(6).Split(',').ToList() : new List<string>()
+                        FechaCreacion = database.reader.GetDateTime(database.reader.GetOrdinal("FechaCreacion")),
+                        //Colaboradores = database.reader["Colaboradores"].ToString() // Al menos, desde la página misTickets, no hace falta.
                     };
                     listaTickets.Add(ticket);
                 }
@@ -102,6 +102,32 @@ namespace AccesoDatos
             return listaTickets;
         }
 
+
+        public List<UsuarioColaboradorDTO> ObtenerColaboradores(int IdTicket)
+        {
+            try
+            {
+                List<UsuarioColaboradorDTO> colaboradores = new List<UsuarioColaboradorDTO>();
+
+                database.SetQuery("SELECT * FROM VW_GetCollaboratorsPerTicket WHERE IdTicket = @IdTicket");
+                database.SetParameter("@IdTicket", IdTicket);
+                database.ExecQuery();
+
+                while (database.reader.Read())
+                {
+                    int idUsuario = Convert.ToInt32(database.reader["IdUsuario"]);
+                    string nombre = database.reader["Nombre"].ToString();
+                    string correo = database.reader["Correo"].ToString();
+                    UsuarioColaboradorDTO colaborador = new UsuarioColaboradorDTO(idUsuario, nombre, correo);
+                    colaboradores.Add(colaborador);
+                }
+                return colaboradores;
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+        }
         public Ticket ObtenerTicket(int id)
         {
             try

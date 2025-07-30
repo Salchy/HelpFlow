@@ -22,10 +22,10 @@ namespace AplicacionWeb
                         Response.Redirect("main.aspx", false);
                         break;
                     case (int)Usuario.nivelUsuario.Usuario:
-                        Response.Redirect("misTicekts.aspx", false);
+                        Response.Redirect("misTickets.aspx", false);
                         break;
                     default:
-                        Response.Redirect("misTicekts.aspx", false);
+                        Response.Redirect("misTickets.aspx", false);
                         break;
                 }
             }
@@ -59,10 +59,10 @@ namespace AplicacionWeb
                     Response.Redirect("main.aspx", false);
                     break;
                 case (int)Usuario.nivelUsuario.Usuario:
-                    Response.Redirect("misTicekts.aspx", false);
+                    Response.Redirect("misTickets.aspx", false);
                     break;
                 default:
-                    Response.Redirect("misTicekts.aspx", false);
+                    Response.Redirect("misTickets.aspx", false);
                     break;
             }
         }

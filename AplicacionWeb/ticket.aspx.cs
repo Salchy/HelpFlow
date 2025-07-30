@@ -219,6 +219,7 @@ namespace AplicacionWeb
                 MailHelper.SendEmail(TicketActual.UsuarioCreador.Correo, "Novedades Ticket - #" + commit.Id, "Respuesta de " + usuario.Nombre + ":<b>" + commitMsg);
             }
             Modal.Mostrar(this, "Éxito", "Commit registrado correctamente.", "exito");
+            txtMensaje.Text = "";
             return Success;
         }
     }

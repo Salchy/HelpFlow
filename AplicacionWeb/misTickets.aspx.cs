@@ -49,16 +49,16 @@ namespace AplicacionWeb
 
             switch (estado.ToLower())
             {
-                case "solicitud":
+                case "Solicitado":
                     clase = "bg-primary";
                     break;
-                case "en progreso":
+                case "En progreso":
                     clase = "bg-warning text-dark";
                     break;
-                case "resuelto":
+                case "Resuelto":
                     clase = "bg-success";
                     break;
-                case "cerrado":
+                case "Cerrado":
                     clase = "bg-danger";
                     break;
             }

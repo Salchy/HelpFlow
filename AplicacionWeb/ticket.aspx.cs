@@ -15,6 +15,33 @@ namespace AplicacionWeb
     public partial class ticket : System.Web.UI.Page
     {
         private List<UsuarioColaboradorDTO> Colaboradores = new List<UsuarioColaboradorDTO>();
+        private List<CommitDTO> ListaCommits
+        {
+            get
+            {
+                if (Session["Commits"] == null)
+                    Session["Commits"] = new List<CommitDTO>();
+                return (List<CommitDTO>)Session["Commits"];
+            }
+            set
+            {
+                Session["Commits"] = value;
+            }
+        }
+
+        private Ticket TicketActual
+        {
+            get
+            {
+                if (Session["Ticket"] == null)
+                    Session["Ticket"] = new Ticket();
+                return (Ticket)Session["Ticket"];
+            }
+            set
+            {
+                Session["Ticket"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             TicketDatos ticketDatos = new TicketDatos();
@@ -32,8 +59,8 @@ namespace AplicacionWeb
                 try
                 {
                     int ticketID = int.Parse(idRuta);
-                    ViewState["TicketID"] = ticketID;
                     Ticket ticket = ticketDatos.ObtenerTicket(ticketID);
+                    TicketActual = ticket;
 
                     tituloTicket.InnerText = "Ticket #" + ticketID;
 
@@ -42,9 +69,9 @@ namespace AplicacionWeb
                     lblDescripcion.Text = ticket.Descripcion;
                     lblEstado.Text = ticket.Estado.NombreEstado;
                     lblFecha.Text = ticket.FechaCreacion.ToString("dd/MM/yyyy");
-                    MostrarEstado(ticket.Estado.Id);
-                    cargarColaboradores(ticketID);
-                    cargarCommits(ticketID);
+                    MostrarEstado();
+                    cargarColaboradores();
+                    cargarCommits();
                 }
                 catch (Exception)
                 {
@@ -53,26 +80,12 @@ namespace AplicacionWeb
             }
         }
 
-        private List<CommitDTO> ListaCommits
-        {
-            get
-            {
-                if (Session["Commits"] == null)
-                    Session["Commits"] = new List<CommitDTO>();
-                return (List<CommitDTO>)Session["Commits"];
-            }
-            set
-            {
-                Session["Commits"] = value;
-            }
-        }
-
-        private void cargarColaboradores(int IdTicket)
+        private void cargarColaboradores()
         {
             try
             {
                 TicketDatos ticketDatos = new TicketDatos();
-                Colaboradores = ticketDatos.ObtenerColaboradores(IdTicket);
+                Colaboradores = ticketDatos.ObtenerColaboradores(TicketActual.Id);
                 mostrarColaboradores(Colaboradores);
             }
             catch (Exception Ex)
@@ -92,9 +105,9 @@ namespace AplicacionWeb
             lblUsuarioAsignado.Text = string.Join(", ", colaboradores.Select(c => c.Nombre));
         }
 
-        private void MostrarEstado(int IdEstado)
+        private void MostrarEstado()
         {
-            switch (IdEstado)
+            switch (TicketActual.Id)
             {
                 case 0:
                     lblEstado.CssClass = "badge bg-primary";
@@ -126,13 +139,13 @@ namespace AplicacionWeb
             pnlSinCommits.Visible = (rptCommits.Items.Count == 0);
         }
 
-        private void cargarCommits(int ticketID)
+        private void cargarCommits()
         {
             CommitDatos commitDatos = new CommitDatos();
 
             try
             {
-                ListaCommits = commitDatos.GetTicketCommitsDTOs(ticketID);
+                ListaCommits = commitDatos.GetTicketCommitsDTOs(TicketActual.Id);
                 bindearDatos();
             }
             catch (Exception Ex)
@@ -168,7 +181,7 @@ namespace AplicacionWeb
 
         }
 
-        private bool obtenerTipoCommit () // True: nota interna, False: al cliente
+        private bool obtenerTipoCommit() // True: nota interna, False: al cliente
         {
             if (!rbInterno.Checked) // Si no está marcado el radio de nota interna, entonces debe ser al cliente
             {
@@ -180,7 +193,7 @@ namespace AplicacionWeb
             }
         }
 
-        private bool RegistrarCommit(string commitMsg, bool typeCommit)
+        private bool RegistrarCommit(string commitMsg, bool esInterno)
         {
             CommitDatos commitDatos = new CommitDatos();
             Usuario usuario = UsuarioDatos.UsuarioActual(Session["Usuario"]);
@@ -190,8 +203,8 @@ namespace AplicacionWeb
                 IdAutor = usuario.Id,
                 AutorNombre = usuario.Nombre,
                 Mensaje = commitMsg,
-                IdTicketRelacionado = (int)ViewState["TicketID"],
-                TipoCommit = typeCommit
+                IdTicketRelacionado = TicketActual.Id,
+                TipoCommit = esInterno
             };
 
             bool Success = commitDatos.InsertCommit(commit);
@@ -201,7 +214,11 @@ namespace AplicacionWeb
             }
             ListaCommits.Add(commit);
             bindearDatos();
-            Modal.Mostrar(this, "Éxito", "Commit registrado correctamente.", "success");
+            if (!esInterno) // Si no es interno, notificar al cliente
+            {
+                MailHelper.SendEmail(TicketActual.UsuarioCreador.Correo, "Novedades Ticket - #" + commit.Id, "Respuesta de " + usuario.Nombre + ":<b>" + commitMsg);
+            }
+            Modal.Mostrar(this, "Éxito", "Commit registrado correctamente.", "exito");
             return Success;
         }
     }

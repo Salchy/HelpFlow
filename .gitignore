@@ -4,7 +4,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
 # excluded files
-AplicacionWeb\Helpers\MailHelper.cs
+AplicacionWeb/Helpers/MailHelper.cs
 
 # User-specific files
 *.rsuser

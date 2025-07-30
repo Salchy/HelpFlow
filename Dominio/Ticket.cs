@@ -8,7 +8,7 @@ namespace Dominio
 {
     public class Ticket
     {
-        public int Id { get; }
+        public int Id { get; } = -1; // Por defecto, se crea con ID -1, no es un ticket válido
         public Usuario UsuarioCreador { get; set; }
         public string Asunto { get; set; }
         public Estado Estado { get; set; }

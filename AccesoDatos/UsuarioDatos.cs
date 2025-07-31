@@ -92,6 +92,30 @@ namespace AccesoDatos
                 throw Ex;
             }
         }
+
+        public List<UsuarioDTO> GetUsuarios()
+        {
+            List<UsuarioDTO> list = new List<UsuarioDTO>();
+            try
+            {
+                database.SetQuery("SELECT Id, UserName, Nombre, Correo, TipoUsuario, Estado FROM Usuarios");
+                database.ExecQuery();
+                while (database.reader.Read())
+                {
+                    UsuarioDTO usuario = new UsuarioDTO(Convert.ToInt32(database.reader["Id"]), database.reader["UserName"].ToString(), database.reader["Nombre"].ToString(), database.reader["Correo"].ToString(), Convert.ToInt32(database.reader["TipoUsuario"]), Convert.ToBoolean(database.reader["Estado"]));
+                    list.Add(usuario);
+                }
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+                database.CloseConnection();
+            }
+            return list;
+        }
         public bool registrarUsuario(UsuarioDTO usuario, string password)
         {
             try

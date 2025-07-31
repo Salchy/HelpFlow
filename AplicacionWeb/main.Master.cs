@@ -28,7 +28,6 @@ namespace AplicacionWeb
                 panelAdmin.Visible = ((int)usuarioActual.TipoUsuario == 0); // Admin
                 panelUsuario.Visible = ((int)usuarioActual.TipoUsuario == 1); // Usuario
                 //panelCerrarSesion.Visible = true;
-
             }
         }
 

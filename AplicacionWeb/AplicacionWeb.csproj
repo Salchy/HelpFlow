@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DetalleTicket.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="main.aspx" />
@@ -76,6 +77,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DetalleTicket.aspx.cs">
+      <DependentUpon>DetalleTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetalleTicket.aspx.designer.cs">
+      <DependentUpon>DetalleTicket.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

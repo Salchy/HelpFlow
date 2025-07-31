@@ -107,7 +107,7 @@ namespace AplicacionWeb
 
         private void MostrarEstado()
         {
-            switch (TicketActual.Id)
+            switch (TicketActual.Estado.Id)
             {
                 case 0:
                     lblEstado.CssClass = "badge bg-primary";

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,12 +37,15 @@ namespace AccesoDatos
                 throw Ex;
             }
         }
-        public List<CommitDTO> GetTicketCommitsDTOs(int idTicket)
+        public List<CommitDTO> GetTicketCommitsDTOs(int idTicket, bool isClient = false)
         {
             List<CommitDTO> commits = new List<CommitDTO>();
             try
             {
-                database.SetQuery("SELECT * FROM VW_GetCommits WHERE IdTicketRelacionado = @IdTicket");
+                string query = "SELECT * FROM VW_GetCommits WHERE IdTicketRelacionado = @IdTicket";
+                if (isClient)
+                    query += " AND TipoCommit = 0";
+                database.SetQuery(query);
                 database.SetParameter("@IdTicket", idTicket);
                 database.ExecQuery();
 

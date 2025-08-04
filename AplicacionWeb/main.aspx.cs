@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using AccesoDatos;
 using DTO;
+using Dominio;
 
 namespace AplicacionWeb
 {
@@ -19,7 +20,12 @@ namespace AplicacionWeb
             {
                 try
                 {
-                    List<DashboardDTO> listaTickets = dashboard.GetTicketsCount();
+                    List<DashboardDTO> listaTickets;
+                    Usuario usuario = UsuarioDatos.UsuarioActual(Session["Usuario"]);
+                    if ((int)usuario.TipoUsuario == 1) // Es usuario, filtrar los tickets
+                        listaTickets = dashboard.GetTicketsCount(usuario.Id);
+                    else
+                        listaTickets = dashboard.GetTicketsCount();
                     for (int i = 0; i < listaTickets.Count; i++)
                     {
                         string cantidad = listaTickets[i].Cantidad.ToString();

@@ -38,6 +38,22 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE SP_ModificarUsuario (
+	@id INT,
+	@name VARCHAR(50),
+	@email VARCHAR(100),
+	@tipoUsuario BIT
+)
+AS
+BEGIN
+	UPDATE Usuarios SET
+		Nombre = @name,
+		Correo = @email,
+		TipoUsuario = @tipoUsuario
+	WHERE Id = @Id;
+END
+GO
+
 CREATE PROCEDURE SP_CrearTicket (
 	@owner INT,
 	@idSubCategoria TINYINT,
@@ -47,6 +63,15 @@ AS BEGIN
 	INSERT INTO Tickets(IdUsuarioCreador, IdSubCategoria, Descripcion)
 	OUTPUT inserted.Id
 	VALUES (@owner, @idSubCategoria, @message);
+END
+GO
+
+CREATE PROCEDURE SP_UpdatePassword (
+	@idUsuario INT,
+	@clave CHAR(64)
+)
+AS BEGIN
+	UPDATE Usuarios SET Clave = @clave WHERE Id = @idUsuario;
 END
 GO
 
@@ -60,5 +85,19 @@ AS BEGIN
 	INSERT INTO Commits(TipoCommit, IdTicketRelacionado, IdAutor, Mensaje)
 	OUTPUT inserted.Id
 	VALUES (@typeCommit, @idTicket, @idAutor, @message);
+END
+GO
+
+CREATE PROCEDURE SP_GetTicketsCountByUser
+    @idUsuario INT
+AS
+BEGIN
+    SELECT
+        ET.NombreEstado AS Estado,
+        COUNT(*) AS Cantidad
+    FROM Tickets AS T
+    INNER JOIN EstadosTicket AS ET ON T.idEstado = ET.Id
+    WHERE T.IdUsuarioCreador = @idUsuario
+    GROUP BY ET.NombreEstado;
 END
 GO

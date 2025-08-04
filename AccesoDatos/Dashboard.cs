@@ -15,12 +15,18 @@ namespace AccesoDatos
             database = new Database();
         }
 
-        public List<DashboardDTO> GetTicketsCount()
+        public List<DashboardDTO> GetTicketsCount(int idUsuario = 0)
         {
             List<DashboardDTO> ticketsCount = new List<DashboardDTO>();
             try
             {
-                database.SetQuery("SELECT * FROM VW_GetTicketsCount");
+                if (idUsuario != 0)
+                {
+                    database.SetProcedure("SP_GetTicketsCountByUser");
+                    database.SetParameter("@idUsuario", idUsuario);
+                }
+                else
+                    database.SetQuery("SELECT * FROM VW_GetTicketsCount;");
                 database.ExecQuery();
 
                 while (database.reader.Read())

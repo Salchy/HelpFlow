@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using AccesoDatos;
 using Dominio;
 using DTO;
+using AplicacionWeb.Helpers;
 
 namespace AplicacionWeb
 {
@@ -48,6 +49,27 @@ namespace AplicacionWeb
         protected void btnGuardarUsuario_Click(object sender, EventArgs e)
         {
 
+        }
+
+        protected void btnGuardarResetPassword_Click(object sender, EventArgs e)
+        {
+            UsuarioDatos usuarioDatos = new UsuarioDatos();
+            try
+            {
+                int idUsuario = int.Parse(hfUsuarioResetID.Value);
+                string nuevaContrasena = txtNuevaPassword.Text.Trim();
+                if (nuevaContrasena.Length < 6)
+                {
+                    Modal.Mostrar(this, "Error", "La contraseña debe tener al menos 6 caracteres.", "error");
+                    return;
+                }
+                usuarioDatos.updatePassword(idUsuario, nuevaContrasena);
+                Modal.Mostrar(this, "Éxito", "Contraseña restablecida correctamente.", "exito");
+            }
+            catch (Exception ex)
+            {
+                Modal.Mostrar(this, "Error", "No se pudo restablecer la contraseña: " + ex.Message, "error");
+            }
         }
     }
 }

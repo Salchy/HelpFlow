@@ -18,11 +18,16 @@
                             <%--<asp:LinkButton ID="btnEditar" runat="server" CommandArgument='<%# Eval("Id") %>' CssClass="btn btn-sm btn-primary me-1" OnClick="btnEditar_Click">Editar</asp:LinkButton>--%>
                             <a href="javascript:void(0);"
                                 class="btn btn-sm btn-primary"
-                                data-nombre='<%# HttpUtility.JavaScriptStringEncode(Eval("Nombre").ToString()) %>'
-                                data-correo='<%# HttpUtility.JavaScriptStringEncode(Eval("Correo").ToString()) %>'
-                                data-nivel='<%# Eval("TipoUsuario").ToString() %>'
+                                data-id='<%# Eval("Id") %>'
+                                data-nombre='<%# Eval("Nombre").ToString() %>'
+                                data-correo='<%# Eval("Correo").ToString() %>'
+                                data-nivel='<%# (int)Eval("TipoUsuario") %>'
                                 onclick="cargarDatosUsuario(this); return false;">Editar</a>
-                            <asp:LinkButton ID="btnResetPass" runat="server" CommandArgument='<%# Eval("Id") %>' CssClass="btn btn-sm btn-warning text-dark" OnClick="btnResetPass_Click">Reestablecer Contraseña</asp:LinkButton>
+                            <a href="javascript:void(0);"
+                                class="btn btn-sm btn-warning text-dark"
+                                data-id='<%# Eval("Id") %>'
+                                data-nombre='<%# Eval("Nombre") %>'
+                                onclick="abrirModalResetPassword(this); return false;">Reestablecer Contraseña</a>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
@@ -41,15 +46,15 @@
                 <div class="modal-body">
                     <asp:HiddenField ID="hfUsuarioID" runat="server" />
                     <div class="mb-3">
-                        <label for="txtNombre" class="form-label">Nombre</label>
+                        <label for="txtNombreLabel" class="form-label">Nombre</label>
                         <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" />
                     </div>
                     <div class="mb-3">
-                        <label for="txtCorreo" class="form-label">Correo Electrónico</label>para
+                        <label for="txtCorreoLabel" class="form-label">Correo Electrónico</label>para
                         <asp:TextBox ID="txtCorreo" runat="server" CssClass="form-control" />
                     </div>
                     <div class="mb-3">
-                        <label for="ddlNivel" class="form-label">Nivel</label>
+                        <label for="ddlNivelLabel" class="form-label">Nivel</label>
                         <asp:DropDownList ID="ddlNivel" runat="server" CssClass="form-select">
                             <asp:ListItem Text="Administrador" Value="0" />
                             <asp:ListItem Text="Usuario" Value="1" />
@@ -64,29 +69,74 @@
         </div>
     </div>
 
+    <!-- Modal de Reestablecer Contraseña -->
+    <div class="modal fade" id="modalResetPassword" tabindex="-1" aria-labelledby="modalResetPasswordLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-secondary text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalResetPasswordLabel">Reestablecer Contraseña</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <asp:HiddenField ID="hfUsuarioResetID" runat="server" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Usuario</label>
+                        <asp:Label ID="lblUsuarioResetNombre" runat="server" CssClass="form-control text-white-50 bg-dark" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="txtNuevaPassword" class="form-label">Nueva Contraseña</label>
+                        <asp:TextBox ID="txtNuevaPassword" runat="server" TextMode="Password" CssClass="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <asp:Button ID="btnGuardarResetPassword" runat="server" Text="Guardar" CssClass="btn btn-warning text-dark" OnClick="btnGuardarResetPassword_Click" />
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Script para abrir el modal -->
     <script>
         function cargarDatosUsuario(elem) {
+
+            const id = elem.getAttribute('data-id');
             const nombre = elem.getAttribute('data-nombre');
             const correo = elem.getAttribute('data-correo');
             const nivel = elem.getAttribute('data-nivel');
 
+            document.getElementById("modalUsuarioLabel").innerText = "Modificar usuario";
+            document.getElementById('<%= hfUsuarioID.ClientID %>').value = id;
             document.getElementById('<%= txtNombre.ClientID %>').value = nombre;
             document.getElementById('<%= txtCorreo.ClientID %>').value = correo;
-            document.getElementById('<%= ddlNivel.ClientID %>').value = nivel; // TODO: Hacer que aparezca preseleccionado el nivel del usuario
+            document.getElementById('<%= ddlNivel.ClientID %>').value = nivel;
 
-            var modal = new bootstrap.Modal(document.getElementById('modalUsuario'));
+            const modal = new bootstrap.Modal(document.getElementById('modalUsuario'));
             modal.show();
         }
 
         function mostrarModalUsuario() {
-            var myModal = new bootstrap.Modal(document.getElementById('modalUsuario'));
-            limpiarYMostrarModal();
+            document.getElementById("modalUsuarioLabel").innerText = "Crear usuario";
+            const myModal = new bootstrap.Modal(document.getElementById('modalUsuario'));
+            limpiarModal();
             myModal.show();
         }
 
+        function abrirModalResetPassword(elem) {
+            const id = elem.getAttribute('data-id');
+            const nombre = elem.getAttribute('data-nombre');
 
-        function limpiarYMostrarModal() {
+            document.getElementById('<%= hfUsuarioResetID.ClientID %>').value = id;
+            document.getElementById('<%= lblUsuarioResetNombre.ClientID %>').innerText = nombre;
+            document.getElementById('<%= txtNuevaPassword.ClientID %>').value = '';
+
+            const modal = new bootstrap.Modal(document.getElementById('modalResetPassword'));
+            modal.show();
+        }
+
+        function limpiarModal() {
             document.getElementById('<%= txtNombre.ClientID %>').value = '';
             document.getElementById('<%= txtCorreo.ClientID %>').value = '';
             document.getElementById('<%= ddlNivel.ClientID %>').value = '1';

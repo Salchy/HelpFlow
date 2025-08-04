@@ -138,6 +138,40 @@ namespace AccesoDatos
             }
         }
 
+        public bool actualizarUsuario(UsuarioDTO usuario)
+        {
+            try
+            {
+                database.SetProcedure("SP_ModificarUsuario");
+                database.SetParameter("@id", usuario.Id);
+                database.SetParameter("@name", usuario.Nombre);
+                database.SetParameter("@email", usuario.Correo);
+                database.SetParameter("@tipoUsuario", usuario.TipoUsuario);
+                database.SetParameter("@tipoUsuario", usuario.TipoUsuario);
+                database.ExecNonQuery();
+                return true;
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        public bool updatePassword(int idUsuario, string password)
+        {
+            try
+            {
+                database.SetProcedure("SP_UpdatePassword");
+                database.SetParameter("@idUsuario", idUsuario);
+                database.SetParameter("@clave", generateHashPassword(password));
+                database.ExecNonQuery();
+                return true;
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+        }
         private string generateHashPassword(string password)
         {
             byte[] inputBytes = Encoding.UTF8.GetBytes(password);

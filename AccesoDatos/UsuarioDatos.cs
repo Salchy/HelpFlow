@@ -68,6 +68,10 @@ namespace AccesoDatos
             {
                 throw Ex;
             }
+            finally
+            {
+                database.CloseConnection();
+            }
         }
 
         /// <summary>
@@ -96,6 +100,10 @@ namespace AccesoDatos
             catch (Exception Ex)
             {
                 throw Ex;
+            }
+            finally
+            {
+                database.CloseConnection();
             }
         }
 
@@ -130,6 +138,10 @@ namespace AccesoDatos
             catch (Exception Ex)
             {
                 throw Ex;
+            }
+            finally
+            {
+                database.CloseConnection();
             }
         }
 
@@ -176,6 +188,10 @@ namespace AccesoDatos
             {
                 throw Ex;
             }
+            finally
+            {
+                database.CloseConnection();
+            }
         }
 
         public bool actualizarUsuario(UsuarioDTO usuario)
@@ -194,6 +210,10 @@ namespace AccesoDatos
             {
                 throw Ex;
             }
+            finally
+            {
+                database.CloseConnection();
+            }
         }
 
         public bool updatePassword(int idUsuario, string password)
@@ -209,6 +229,10 @@ namespace AccesoDatos
             catch (Exception Ex)
             {
                 throw Ex;
+            }
+            finally
+            {
+                database.CloseConnection();
             }
         }
         private string generateHashPassword(string password)

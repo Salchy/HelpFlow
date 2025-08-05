@@ -154,6 +154,8 @@
         function limpiarModal() {
             document.getElementById('<%= txtNombre.ClientID %>').value = '';
             document.getElementById('<%= txtCorreo.ClientID %>').value = '';
+            document.getElementById('<%= txtUserName.ClientID %>').value = '';
+            document.getElementById('<%= txtPassword.ClientID %>').value = '';
             document.getElementById('<%= ddlNivel.ClientID %>').value = '1';
         }
     </script>

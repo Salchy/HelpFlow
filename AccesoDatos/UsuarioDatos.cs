@@ -41,12 +41,17 @@ namespace AccesoDatos
             return usuario;
         }
 
-        public Usuario GetUsuario(string idUsuario)
+        /// <summary>
+        /// Obtiene un usuario por su ID.
+        /// </summary>
+        /// <param name="idUser"></param>
+        /// <returns></returns>
+        public Usuario GetUsuario(int idUser)
         {
             try
             {
-                database.SetQuery("SELECT * FROM Usuarios WHERE Id = @Id");
-                database.SetParameter("@Id", idUsuario);
+                database.SetQuery("SELECT * FROM Usuarios WHERE Id = @idUser");
+                database.SetParameter("@idUser", idUser);
                 database.ExecQuery();
                 if (!database.reader.Read())
                 {
@@ -65,6 +70,41 @@ namespace AccesoDatos
             }
         }
 
+        /// <summary>
+        /// Obtiene un usuario por su nombre de usuario.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public Usuario GetUsuario(string userName)
+        {
+            try
+            {
+                database.SetQuery("SELECT * FROM Usuarios WHERE UserName = @userName");
+                database.SetParameter("@userName", userName);
+                database.ExecQuery();
+                if (!database.reader.Read())
+                {
+                    return null;
+                }
+                return new Usuario(
+                        Convert.ToInt32(database.reader["Id"]),
+                        database.reader["Nombre"].ToString(),
+                        database.reader["Correo"].ToString(),
+                        Convert.ToInt32(database.reader["TipoUsuario"])
+                    );
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene un usuario por su nombre de usuario y contraseña. (Útil para la validacion del login)
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public Usuario GetUsuario(string userName, string password)
         {
             try
@@ -146,7 +186,6 @@ namespace AccesoDatos
                 database.SetParameter("@id", usuario.Id);
                 database.SetParameter("@name", usuario.Nombre);
                 database.SetParameter("@email", usuario.Correo);
-                database.SetParameter("@tipoUsuario", usuario.TipoUsuario);
                 database.SetParameter("@tipoUsuario", usuario.TipoUsuario);
                 database.ExecNonQuery();
                 return true;

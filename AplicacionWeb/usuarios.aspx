@@ -46,15 +46,27 @@
                 <div class="modal-body">
                     <asp:HiddenField ID="hfUsuarioID" runat="server" />
                     <div class="mb-3">
-                        <label for="txtNombreLabel" class="form-label">Nombre</label>
+                        <label for="txtNombre" class="form-label">Nombre Completo</label>
                         <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" />
                     </div>
                     <div class="mb-3">
-                        <label for="txtCorreoLabel" class="form-label">Correo Electrónico</label>para
+                        <label for="txtCorreo" class="form-label">Correo Electrónico</label>
                         <asp:TextBox ID="txtCorreo" runat="server" CssClass="form-control" />
                     </div>
+                    <%-- Esto va a aparecer dependiendo de si es un registro o es una modificacion --%>
+                    <div id="divPassword">
+                        <div class="mb-3">
+                            <label for="txtUserName" class="form-label">Nombre de Usuario</label>
+                            <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtPassword" class="form-label">Contraseña</label>
+                            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="form-control" />
+                        </div>
+                    </div>
+                    <%--  --%>
                     <div class="mb-3">
-                        <label for="ddlNivelLabel" class="form-label">Nivel</label>
+                        <label for="ddlNivel" class="form-label">Nivel</label>
                         <asp:DropDownList ID="ddlNivel" runat="server" CssClass="form-select">
                             <asp:ListItem Text="Administrador" Value="0" />
                             <asp:ListItem Text="Usuario" Value="1" />
@@ -112,6 +124,7 @@
             document.getElementById('<%= txtNombre.ClientID %>').value = nombre;
             document.getElementById('<%= txtCorreo.ClientID %>').value = correo;
             document.getElementById('<%= ddlNivel.ClientID %>').value = nivel;
+            document.getElementById("divPassword").style.display = "none";
 
             const modal = new bootstrap.Modal(document.getElementById('modalUsuario'));
             modal.show();
@@ -119,6 +132,8 @@
 
         function mostrarModalUsuario() {
             document.getElementById("modalUsuarioLabel").innerText = "Crear usuario";
+            document.getElementById("divPassword").style.display = "block";
+            document.getElementById('<%= hfUsuarioID.ClientID %>').value = -1;
             const myModal = new bootstrap.Modal(document.getElementById('modalUsuario'));
             limpiarModal();
             myModal.show();

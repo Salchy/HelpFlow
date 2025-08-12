@@ -179,7 +179,6 @@ namespace AccesoDatos
                 database.SetParameter("@password", generateHashPassword(password));
                 database.SetParameter("@TipoUsuario", usuario.TipoUsuario);
 
-                database.ExecNonQuery();
                 int newID = database.ExecScalar();
                 usuario.Id = newID;
                 return true;
@@ -225,6 +224,31 @@ namespace AccesoDatos
                 database.SetParameter("@clave", generateHashPassword(password));
                 database.ExecNonQuery();
                 return true;
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+                database.CloseConnection();
+            }
+        }
+
+        public bool emailInUse(string emailToFind)
+        {
+            try
+            {
+                database.SetQuery("SELECT COUNT(Correo) FROM Usuarios WHERE Correo = @correo;");
+                database.SetParameter("@correo", emailToFind);
+                database.ExecQuery();
+
+                if (database.reader.Read())
+                {
+                    int count = Convert.ToInt32(database.reader[0]);
+                    return count > 0;
+                }
+                return false;
             }
             catch (Exception Ex)
             {

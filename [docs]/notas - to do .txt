@@ -1,3 +1,27 @@
-21/07/2025
+CssClass de los estados del ticket:
 
-Crear DTO de Usuarios, para mostrar en el front de ticket.aspx
+4 Estados:
+Solicitado (Azul) (bg-primary)
+Progreso (Amarillo) (bg-warning)
+Resuelto (Verde) (bg-success)
+Cerrado (Gris) (bg-secondary)
+
+    dropdown.classList.add("bg-primary", "text-white");
+    dropdown.classList.add("bg-warning", "text-dark");
+    dropdown.classList.add("bg-success", "text-white");
+    dropdown.classList.add("bg-secondary", "text-white");
+
+TODO:
+En ticket.aspx, separar los apartados de la pagina, en updatepanels:
+
+<asp:UpdatePanel ID="upInfoTicket" runat="server">
+    <ContentTemplate>
+	// información de ticket
+    </ContentTemplate>
+</asp:UpdatePanel>
+
+<asp:UpdatePanel ID="upComentarios" runat="server">
+    <ContentTemplate>
+	// Comentarios e historial del ticket
+    </ContentTemplate>
+</asp:UpdatePanel>

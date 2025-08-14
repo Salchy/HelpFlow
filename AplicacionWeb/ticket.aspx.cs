@@ -59,16 +59,25 @@ namespace AplicacionWeb
                 try
                 {
                     int ticketID = int.Parse(idRuta);
-                    Ticket ticket = ticketDatos.ObtenerTicket(ticketID);
-                    TicketActual = ticket;
-
+                    TicketActual = ticketDatos.ObtenerTicket(ticketID);
+                    if (TicketActual.Id == -1)
+                    {
+                        // TODO: Hacer que muestre en la página de ticket, que el ticket no existe.
+                        Modal.Mostrar(this, "Error", "El ticket no existe o no está disponible.", "error");
+                        Response.Redirect("tickets.aspx");
+                        return;
+                    }
                     tituloTicket.InnerText = "Ticket #" + ticketID;
 
-                    lblTitulo.Text = ticket.Asunto;
-                    lblSolicitante.Text = ticket.UsuarioCreador.Nombre;
-                    lblDescripcion.Text = ticket.Descripcion;
-                    lblEstado.Text = ticket.Estado.NombreEstado;
-                    lblFecha.Text = ticket.FechaCreacion.ToString("dd/MM/yyyy");
+                    ddlEstado.Items.Add(new ListItem("Solicitado", "0"));
+                    ddlEstado.Items.Add(new ListItem("En Progreso", "1"));
+                    ddlEstado.Items.Add(new ListItem("Resuelto", "2"));
+                    ddlEstado.Items.Add(new ListItem("Cerrado", "3"));
+
+                    lblTitulo.Text = TicketActual.Asunto;
+                    lblSolicitante.Text = TicketActual.UsuarioCreador.Nombre;
+                    lblDescripcion.Text = TicketActual.Descripcion;
+                    lblFecha.Text = TicketActual.FechaCreacion.ToString("dd/MM/yyyy");
                     MostrarEstado();
                     cargarColaboradores();
                     cargarCommits();
@@ -107,28 +116,27 @@ namespace AplicacionWeb
 
         private void MostrarEstado()
         {
+            ddlEstado.SelectedValue = TicketActual.Estado.Id.ToString();
+            string stringClass = "";
             switch (TicketActual.Estado.Id)
             {
                 case 0:
-                    lblEstado.CssClass = "badge bg-primary";
+                    stringClass = "form-select bg-primary text-white";
                     break;
 
                 case 1:
-                    lblEstado.CssClass = "badge bg-warning text-dark";
+                    stringClass = "form-select bg-warning text-dark";
                     break;
 
                 case 2:
-                    lblEstado.CssClass = "badge bg-success";
+                    stringClass = "form-select bg-success text-white";
                     break;
 
                 case 3:
-                    lblEstado.CssClass = "badge bg-secondary";
-                    break;
-
-                default:
-                    lblEstado.CssClass = "badge bg-dark";
+                    stringClass = "form-select bg-secondary text-white";
                     break;
             }
+            ddlEstado.CssClass = stringClass;
         }
 
         private void bindearDatos()
@@ -221,6 +229,11 @@ namespace AplicacionWeb
             Modal.Mostrar(this, "Éxito", "Commit registrado correctamente.", "exito");
             txtMensaje.Text = "";
             return Success;
+        }
+
+        protected void btnGuardarDescripcion_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

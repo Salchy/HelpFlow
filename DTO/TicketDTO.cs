@@ -15,4 +15,12 @@ namespace DTO
         public DateTime FechaCreacion { get; set; }
         public string Colaboradores { get; set; }
     }
+
+    public class TicketCreacionDTO
+    {
+        public int Id { get; set; } = -1;
+        public int IdCreador { get; set; }
+        public int IdSubCategoria { get; set; }
+        public string Descripcion { get; set; }
+    }
 }

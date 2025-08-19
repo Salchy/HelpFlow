@@ -168,25 +168,27 @@ namespace AccesoDatos
                 throw Ex;
             }
         }
+        public int CrearTicket(TicketCreacionDTO ticket)
+        {
+            try
+            {
+                database.SetProcedure("SP_CrearTicket");
+                database.SetParameter("@owner", ticket.IdCreador);
+                database.SetParameter("@idSubCategoria", ticket.IdSubCategoria);
+                database.SetParameter("@message", ticket.Descripcion);
+                int newID = database.ExecScalar();
+                ticket.Id = newID;
 
-        //public void CrearTicket(Ticket ticket)
-        //{
-        //    try
-        //    {
-        //        database.SetProcedure("SP_CrearTicket");
-        //        database.SetParameter("@IdUsuarioCreador", ticket.UsuarioCreador.Id);
-        //        database.SetParameter("@Titulo", ticket.Asunto);
-        //        database.SetParameter("@Descripcion", ticket.Descripcion);
-        //        database.ExecNonQuery();
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    finally
-        //    {
-        //        database.CloseConnection();
-        //    }
-        //}
+                return newID;
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+                database.CloseConnection();
+            }
+        }
     }
 }

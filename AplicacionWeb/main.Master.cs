@@ -23,6 +23,11 @@ namespace AplicacionWeb
 
                 // Obtener el nivel de usuario del usuario
                 Usuario usuarioActual = UsuarioDatos.UsuarioActual(Session["Usuario"]);
+                if (usuarioActual == null)
+                {
+                    Response.Redirect("Login.aspx", false);
+                    return;
+                }
 
                 // Mostrar opciones según nivel
                 panelAdmin.Visible = ((int)usuarioActual.TipoUsuario == 0); // Admin

@@ -22,6 +22,12 @@ namespace AplicacionWeb
                 {
                     List<DashboardDTO> listaTickets;
                     Usuario usuario = UsuarioDatos.UsuarioActual(Session["Usuario"]);
+                    if (usuario == null)
+                    {
+                        Response.Redirect("Login.aspx", false);
+                        return;
+                    }
+
                     if ((int)usuario.TipoUsuario == 1) // Es usuario, filtrar los tickets
                         listaTickets = dashboard.GetTicketsCount(usuario.Id);
                     else

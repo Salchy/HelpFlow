@@ -3,12 +3,12 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container my-5">
+    <div class="container my-4">
         <h2 class="text-center mb-4" style="color: #ffffff;">Listado de usuarios</h2>
-        <div class="card shadow rounded-4 p-4">
+        <div class="container mt-4 bg-light p-3 rounded shadow-sm">
             <asp:Button ID="btnNuevoUsuario" runat="server" Text="Nuevo Usuario" CssClass="btn btn-success mb-3" OnClientClick="mostrarModalUsuario(); return false;" />
 
-            <asp:GridView ID="gvUsuarios" runat="server" CssClass="table table-bordered table-dark table-hover" AutoGenerateColumns="False">
+            <asp:GridView ID="gvUsuarios" runat="server" CssClass="table table-bordered table-dark table-hover mb-0" AutoGenerateColumns="False">
                 <Columns>
                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                     <asp:BoundField DataField="UserName" HeaderText="Usuario" />

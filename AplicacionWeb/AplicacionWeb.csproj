@@ -67,17 +67,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="crearTicket.aspx" />
     <Content Include="DetalleTicket.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="main.aspx" />
     <Content Include="misTickets.aspx" />
+    <Content Include="modificarTicket.aspx" />
     <Content Include="ticket.aspx" />
     <Content Include="tickets.aspx" />
     <Content Include="usuarios.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="crearTicket.aspx.cs">
+      <DependentUpon>crearTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="crearTicket.aspx.designer.cs">
+      <DependentUpon>crearTicket.aspx</DependentUpon>
+    </Compile>
     <Compile Include="DetalleTicket.aspx.cs">
       <DependentUpon>DetalleTicket.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -118,6 +127,13 @@
       <DependentUpon>misTickets.aspx</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Modal.cs" />
+    <Compile Include="modificarTicket.aspx.cs">
+      <DependentUpon>modificarTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="modificarTicket.aspx.designer.cs">
+      <DependentUpon>modificarTicket.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ticket.aspx.cs">
       <DependentUpon>ticket.aspx</DependentUpon>

@@ -19,8 +19,6 @@ CREATE TABLE EstadosTicket (
  );
  GO
 
--- Crear Indice en UserName
-
 CREATE TABLE Categorias (
 	Id TINYINT PRIMARY KEY IDENTITY(1, 1),
 	Nombre VARCHAR(75) NOT NULL UNIQUE,
@@ -43,7 +41,7 @@ CREATE TABLE Tickets (
 	IdEstado TINYINT NOT NULL DEFAULT 0,
 	FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
 	FechaActualizacion DATETIME NOT NULL DEFAULT GETDATE(),
-	Descripcion VARCHAR(500),
+	Descripcion VARCHAR(2000),
 
 	FOREIGN KEY (IdUsuarioCreador) REFERENCES Usuarios(Id),
 	FOREIGN KEY (IdSubCategoria) REFERENCES SubCategorias(Id),
@@ -66,7 +64,7 @@ GO
 	IdTicketRelacionado INT NOT NULL,
 	IdAutor INT NOT NULL,
 	Fecha DATETIME NOT NULL DEFAULT GETDATE(),
-	Mensaje VARCHAR(500) NOT NULL,
+	Mensaje VARCHAR(2000) NOT NULL,
 
 	FOREIGN KEY (IdTicketRelacionado) REFERENCES Tickets(Id),
 	FOREIGN KEY (IdAutor) REFERENCES Usuarios(Id),

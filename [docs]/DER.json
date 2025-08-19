@@ -8,7 +8,7 @@
       "locked": false,
       "fields": [
         {
-          "name": "id",
+          "name": "Id",
           "type": "INTEGER",
           "default": "",
           "check": "",
@@ -100,7 +100,7 @@
           "notNull": true,
           "increment": false,
           "comment": "",
-          "size": 500
+          "size": 2000
         }
       ],
       "comment": "",
@@ -109,9 +109,7 @@
           "id": 0,
           "name": "Tickets_index_0",
           "unique": false,
-          "fields": [
-            "id"
-          ]
+          "fields": []
         }
       ],
       "color": "#175e7a"
@@ -220,9 +218,7 @@
           "id": 0,
           "name": "Usuarios_index_0",
           "unique": false,
-          "fields": [
-            "id"
-          ]
+          "fields": []
         }
       ],
       "color": "#175e7a"
@@ -299,7 +295,7 @@
           "notNull": true,
           "increment": false,
           "comment": "",
-          "size": 500
+          "size": 2000
         },
         {
           "id": "1x8jQb9t9feuERM3fXcGA",
@@ -397,9 +393,9 @@
     },
     {
       "id": "BLnlmGcPNF-9xORhiOzyb",
-      "name": "Categoria",
-      "x": -120,
-      "y": -744,
+      "name": "Categorias",
+      "x": -72,
+      "y": -24,
       "locked": false,
       "fields": [
         {
@@ -436,9 +432,9 @@
     },
     {
       "id": "UmChkBFKUFmAyIhENItVT",
-      "name": "Subcategoria",
-      "x": -96,
-      "y": -600,
+      "name": "Subcategorias",
+      "x": -72,
+      "y": -240,
       "locked": false,
       "fields": [
         {

@@ -59,6 +59,25 @@ namespace AplicacionWeb
                     ddlCategoria.Items.Insert(0, new ListItem("-- Seleccione una categoría --", "0"));
 
                     ddlSubCategoria.Items.Insert(0, new ListItem("-- Seleccione una categoría --", "0"));
+                    panelEdicion.Visible = false;
+                    // Ver si recibió por parametro URL un ticket ID, para ver si es modificacion, o si es una creacion de un ticket nuevo
+                    if (!string.IsNullOrEmpty(Request.QueryString["ticketID"]))
+                    {
+                        int ticketID = int.Parse(Request.QueryString["ticketID"]);
+                        TicketDatos ticketDatos = new TicketDatos();
+                        TicketCreacionDTO ticket = ticketDatos.GetTicket(ticketID);
+                        if (ticket.Id == -1)
+                        {
+                            Modal.Mostrar(this, "Error", "El ticket no existe o no está disponible.", "error");
+                            Response.Redirect("tickets.aspx");
+                            return;
+                        }
+                        hfTicketID.Value = ticket.Id.ToString();
+                        // El id subcategoria del ticket, va a hacer referencia al id subcategoria de la lista de subcategorias
+                        // y el idCategoriaPadre de la subcategoria esa, va a hacer referencia al idCategoria de la lista de categorias
+                        txtDescripcion.Text = ticket.Descripcion;
+                        panelEdicion.Visible = true;
+                    }
                 }
                 catch (Exception Ex)
                 {

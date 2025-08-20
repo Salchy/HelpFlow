@@ -21,6 +21,7 @@ namespace DTO
         public int Id { get; set; } = -1;
         public int IdCreador { get; set; }
         public int IdSubCategoria { get; set; }
+        public int IdEstado { get; set; } = 1; // Por defecto, el estado es "Solicitado"
         public string Descripcion { get; set; }
     }
 }

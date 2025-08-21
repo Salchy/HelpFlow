@@ -60,10 +60,12 @@ namespace AplicacionWeb
 
                     ddlSubCategoria.Items.Insert(0, new ListItem("-- Seleccione una categoría --", "0"));
                     panelEdicion.Visible = false;
+
+                    string queryString = Request.QueryString["id"];
                     // Ver si recibió por parametro URL un ticket ID, para ver si es modificacion, o si es una creacion de un ticket nuevo
-                    if (!string.IsNullOrEmpty(Request.QueryString["ticketID"]))
+                    if (queryString != null)
                     {
-                        int ticketID = int.Parse(Request.QueryString["ticketID"]);
+                        int ticketID = int.Parse(queryString);
                         TicketDatos ticketDatos = new TicketDatos();
                         TicketCreacionDTO ticket = ticketDatos.GetTicket(ticketID);
                         if (ticket.Id == -1)
@@ -73,8 +75,22 @@ namespace AplicacionWeb
                             return;
                         }
                         hfTicketID.Value = ticket.Id.ToString();
+
+                        // Documentar, porque nose bien lo que hice, pero funciona JAJAJA
+
+                        string categoriaTicket = SubCategorias.FirstOrDefault(sc => sc.Id == ticket.IdSubCategoria)?.IdCategoria.ToString() ?? "0";
+
+                        ddlSubCategoria.DataSource = SubCategorias.Where(sc => sc.IdCategoria == int.Parse(categoriaTicket)).ToList();
+                        ddlSubCategoria.DataTextField = "Nombre";
+                        ddlSubCategoria.DataValueField = "Id";
+                        ddlSubCategoria.DataBind();
+
                         // El id subcategoria del ticket, va a hacer referencia al id subcategoria de la lista de subcategorias
                         // y el idCategoriaPadre de la subcategoria esa, va a hacer referencia al idCategoria de la lista de categorias
+                        
+                        ddlCategoria.SelectedValue = categoriaTicket;
+
+                        ddlSubCategoria.SelectedValue = ticket.IdSubCategoria.ToString();
                         txtDescripcion.Text = ticket.Descripcion;
                         panelEdicion.Visible = true;
                     }

@@ -3,9 +3,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container mt-4">
+    <div class="container my-4">
         <div class="container mt-4 bg-light p-3 rounded shadow-sm">
-            <asp:GridView ID="dataGridTickets" runat="server" AutoGenerateColumns="false" CssClass="table table-hover table-bordered mb-0 bg-secondary">
+            <asp:GridView ID="dataGridTickets" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-hover mb-0 bg-secondary">
                 <HeaderStyle CssClass="table-secondary" />
 
                 <Columns>

@@ -190,5 +190,33 @@ namespace AccesoDatos
                 database.CloseConnection();
             }
         }
+
+        public TicketCreacionDTO GetTicket(int idTicket)
+        {
+            try
+            {
+                database.SetQuery("SELECT * FROM Tickets WHERE Id = @idTicket");
+                database.SetParameter("@idTicket", idTicket);
+                database.ExecQuery();
+                TicketCreacionDTO ticket = new TicketCreacionDTO();
+                if (database.reader.Read())
+                {
+                    ticket.Id = Convert.ToInt32(database.reader["Id"]);
+                    ticket.IdCreador = Convert.ToInt32(database.reader["IdUsuarioCreador"]);
+                    ticket.IdSubCategoria = Convert.ToInt32(database.reader["IdSubCategoria"]);
+                    ticket.IdEstado = Convert.ToInt32(database.reader["IdEstado"]);
+                    ticket.Descripcion = database.reader["Descripcion"].ToString();
+                }
+                return ticket;
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+                database.CloseConnection();
+            }
+        }
     }
 }

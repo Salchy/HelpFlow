@@ -7,7 +7,6 @@
     <div class="container my-4">
         <div class="card shadow rounded-4 p-4">
             <h2 class="mb-3 text-primary" id="tituloTicket" runat="server">Detalle del Ticket</h2>
-
             <%-- Título ticket y estado --%>
             <div class="row mb-4">
                 <%-- Título Ticket --%>
@@ -34,11 +33,11 @@
                 <div class="col-md-6">
                     <div class="d-flex align-items-center">
                         <label class="fw-bold me-2 mb-0">Solicitante:</label>
-                        <button type="button" class="btn btn-sm btn-outline-info" onclick="habilitarEdicion('lblSolicitante')">
+                        <asp:LinkButton ID="modificarSoliciante" runat="server" CssClass="btn btn-sm btn-outline-info" OnClick="modificarTicket_Click">
                             <i class="fas fa-pencil-alt"></i>
-                        </button>
+                        </asp:LinkButton>
                     </div>
-                    <asp:Label ID="lblSolicitante" runat="server" ClientIDMode="Static" CssClass="form-control-plaintext" />
+                    <asp:Label ID="lblSolicitante" runat="server" data-field="solicitante" CssClass="form-control-plaintext" />
                 </div>
 
                 <%-- Fecha de creación --%>
@@ -57,7 +56,7 @@
                             <i class="fas fa-pencil-alt"></i>
                         </button>
                     </div>
-                    <asp:Label ID="lblDescripcion" runat="server" ClientIDMode="Static" CssClass="form-control-plaintext" />
+                    <asp:Label ID="lblDescripcion" runat="server" data-field="descripcion" ClientIDMode="Static" CssClass="form-control-plaintext" />
                 </div>
             </div>
 
@@ -66,11 +65,11 @@
                 <div class="col-md-6">
                     <div class="d-flex align-items-center">
                         <label class="fw-bold me-2 mb-0">Usuarios asignados:</label>
-                        <button type="button" class="btn btn-sm btn-outline-info" onclick="habilitarEdicion('lblUsuarioAsignado')">
+                        <asp:LinkButton ID="modificarAsignados" runat="server" CssClass="btn btn-sm btn-outline-info" OnClick="modificarTicket_Click">
                             <i class="fas fa-pencil-alt"></i>
-                        </button>
+                        </asp:LinkButton>
                     </div>
-                    <asp:Label ID="lblUsuarioAsignado" runat="server" ClientIDMode="Static" CssClass="form-control-plaintext" />
+                    <asp:Label ID="lblUsuarioAsignado" runat="server" data-field="colaboradores" ClientIDMode="Static" CssClass="form-control-plaintext" />
                 </div>
             </div>
 
@@ -79,6 +78,16 @@
                 <asp:Button ID="btnMostrarFormulario" runat="server" AutoPostBack="false" Text="Agregar Commit" CssClass="btn btn-outline-success" OnClientClick="mostrarFormulario(); return false;" />
             </div>
 
+            <asp:HiddenField ID="hfCampoEditado" runat="server" />
+            <asp:HiddenField ID="hfValorEditado" runat="server" />
+
+            <button type="button" id="btnConfirmEdit" class="btn btn-sm btn-outline-success" style="display: none;" onclick="aceptarEdicion('lblSolicitante')">
+                <i class="fas fa-check"></i>
+            </button>
+
+            <asp:Button ID="btnGuardarCampoEditado" runat="server" OnClick="btnGuardarCampoEditado_Click" Style="display: none;" />
+
+            <%-- Commits --%>
             <div id="formCommit" style="display: none;">
                 <div class="card mt-4">
                     <div class="card-header bg-success text-white">
@@ -107,10 +116,6 @@
                     </div>
                 </div>
             </div>
-
-            <button type="button" id="btnConfirmEdit" class="btn btn-sm btn-outline-success" style="display: none;" onclick="aceptarEdicion('lblSolicitante')">
-                <i class="fas fa-check"></i>
-            </button>
 
             <div class="card mt-4">
                 <div class="card-header bg-primary text-white">
@@ -215,7 +220,7 @@
                         break;
                 }
             }
-            
+
             function habilitarEdicion(idInput) {
                 const inputInEdit = document.getElementById(idInput);
 
@@ -263,6 +268,8 @@
 
                 // Ocultar botón de confirmación
                 document.getElementById("btnConfirmEdit").style.display = "none";
+
+                document.getElementById('btnGuardarCampoEditado.ClientID').click();
             }
         </script>
 </asp:Content>

@@ -230,8 +230,12 @@ namespace AplicacionWeb
             txtMensaje.Text = "";
             return Success;
         }
+        protected void modificarTicket_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("TicketForm.aspx?id=" + TicketActual.Id);
+        }
 
-        protected void btnGuardarDescripcion_Click(object sender, EventArgs e)
+        protected void btnGuardarCampoEditado_Click(object sender, EventArgs e)
         {
 
         }

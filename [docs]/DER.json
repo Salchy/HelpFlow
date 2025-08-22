@@ -186,6 +186,20 @@
           "size": 64
         },
         {
+          "id": "TBiXgsm64EnwFB8nrnCv0",
+          "name": "IdEmpresa",
+          "type": "TINYINT",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": "",
+          "values": []
+        },
+        {
           "id": "y6n2J74WXNSa7SvC82HQZ",
           "name": "TipoUsuario",
           "type": "TINYINT",
@@ -482,6 +496,45 @@
       "comment": "",
       "indices": [],
       "color": "#175e7a"
+    },
+    {
+      "id": "jnHcRUV4vSZbMpVir2MqJ",
+      "name": "Empresas",
+      "x": -1176,
+      "y": -168,
+      "locked": false,
+      "fields": [
+        {
+          "name": "Id",
+          "type": "TINYINT",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": true,
+          "notNull": true,
+          "increment": true,
+          "comment": "",
+          "id": "vPEHXmbO536JOeNhMX7sK",
+          "size": "",
+          "values": []
+        },
+        {
+          "id": "YOd6QShXRau3dp68jIqZ0",
+          "name": "Nombre",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "size": 50
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "color": "#175e7a"
     }
   ],
   "relationships": [
@@ -572,6 +625,17 @@
       "deleteConstraint": "No action",
       "name": "fk_Subcategoria_idCategoriaPadre_Categoria",
       "id": 7
+    },
+    {
+      "startTableId": "1YsqXZRDh0c_D7CqOePIz",
+      "startFieldId": "TBiXgsm64EnwFB8nrnCv0",
+      "endTableId": "jnHcRUV4vSZbMpVir2MqJ",
+      "endFieldId": "vPEHXmbO536JOeNhMX7sK",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "fk_Usuarios_IdEmpresa_Empresas",
+      "id": 8
     }
   ],
   "notes": [],

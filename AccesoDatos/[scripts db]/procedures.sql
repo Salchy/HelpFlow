@@ -28,13 +28,14 @@ CREATE PROCEDURE SP_CrearUsuario (
 	@name VARCHAR(50),
 	@email VARCHAR(100),
 	@password CHAR(64),
+	@idEmpresa TINYINT,
 	@TipoUsuario BIT
 )
 AS
 BEGIN
-	INSERT INTO Usuarios(UserName, Nombre, Correo, Clave, TipoUsuario)
+	INSERT INTO Usuarios(UserName, Nombre, Correo, Clave, IdEmpresa, TipoUsuario)
 	OUTPUT inserted.Id
-	VALUES (@userName, @name, @email, @password, @TipoUsuario);
+	VALUES (@userName, @name, @email, @password, @idEmpresa, @TipoUsuario);
 END
 GO
 
@@ -42,6 +43,7 @@ CREATE PROCEDURE SP_ModificarUsuario (
 	@id INT,
 	@name VARCHAR(50),
 	@email VARCHAR(100),
+	@idEmpresa VARCHAR(100),
 	@tipoUsuario BIT
 )
 AS
@@ -49,6 +51,7 @@ BEGIN
 	UPDATE Usuarios SET
 		Nombre = @name,
 		Correo = @email,
+		IdEmpresa = @idEmpresa,
 		TipoUsuario = @tipoUsuario
 	WHERE Id = @Id;
 END
@@ -101,3 +104,4 @@ BEGIN
     GROUP BY ET.NombreEstado;
 END
 GO
+

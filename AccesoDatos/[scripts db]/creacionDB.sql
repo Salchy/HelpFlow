@@ -7,6 +7,12 @@ CREATE TABLE EstadosTicket (
 	Id TINYINT PRIMARY KEY IDENTITY(0, 1),
 	NombreEstado VARCHAR(50) NOT NULL UNIQUE
 );
+GO
+
+CREATE TABLE Empresas (
+	Id TINYINT PRIMARY KEY IDENTITY(1, 1),
+	Nombre VARCHAR(50) NOT NULL UNIQUE
+);
 
  CREATE TABLE Usuarios (
 	Id INT PRIMARY KEY IDENTITY(1, 1),
@@ -14,8 +20,11 @@ CREATE TABLE EstadosTicket (
 	Nombre VARCHAR(50) NOT NULL,
 	Correo VARCHAR(100) UNIQUE,
 	Clave CHAR(64),
+	IdEmpresa TINYINT NOT NULL,
 	TipoUsuario BIT NOT NULL DEFAULT 1,
 	Estado BIT NOT NULL DEFAULT 1,
+
+	FOREIGN KEY (IdEmpresa) REFERENCES Empresas(Id),
  );
  GO
 
@@ -127,3 +136,11 @@ VALUES
 	('En progreso'),
 	('Resuelto'),
 	('Cerrado');
+
+-- Empresas
+INSERT INTO Empresas VALUES
+	('Alta Plastica'),
+	('Surplast'),
+	('Poliamerican'),
+	('Advance Plastics'),
+	('APC');

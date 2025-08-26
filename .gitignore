@@ -5,6 +5,12 @@
 
 # excluded files
 AplicacionWeb/Helpers/MailHelper.cs
+AccesoDatos/[scripts db]/migracion.sql
+[docs]/AD_Usuarios.csv
+[docs]/migracion apsa.txt
+
+# excluded folders
+Scripting/
 
 # User-specific files
 *.rsuser

@@ -43,7 +43,7 @@ CREATE PROCEDURE SP_ModificarUsuario (
 	@id INT,
 	@name VARCHAR(50),
 	@email VARCHAR(100),
-	@idEmpresa VARCHAR(100),
+	@idEmpresa TINYINT,
 	@tipoUsuario BIT
 )
 AS
@@ -53,7 +53,7 @@ BEGIN
 		Correo = @email,
 		IdEmpresa = @idEmpresa,
 		TipoUsuario = @tipoUsuario
-	WHERE Id = @Id;
+	WHERE Id = @id;
 END
 GO
 

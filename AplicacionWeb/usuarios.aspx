@@ -23,6 +23,7 @@
                                 data-nombre='<%# Eval("Nombre").ToString() %>'
                                 data-username='<%# Eval("UserName").ToString() %>'
                                 data-correo='<%# Eval("Correo").ToString() %>'
+                                data-empresa='<%# Eval("IdEmpresa") %>'
                                 data-nivel='<%# (int)Eval("TipoUsuario") %>'
                                 onclick="cargarDatosUsuario(this); return false;">Editar</a>
                             <a href="javascript:void(0);"
@@ -56,6 +57,11 @@
                         <label for="txtCorreo" class="form-label">Correo Electrónico</label>
                         <asp:TextBox ID="txtCorreo" runat="server" CssClass="form-control" />
                         <span class="invalid-feedback" id="errorCorreo"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ddlEmpresa" class="form-label">Empresa</label>
+                        <asp:DropDownList ID="ddlEmpresa" runat="server" CssClass="form-select" />
+                        <span class="invalid-feedback" id="errorEmpresa"></span>
                     </div>
                     <%-- Esto va a aparecer dependiendo de si es un registro o es una modificacion --%>
                     <div id="divPassword">
@@ -123,6 +129,7 @@
             const id = elem.getAttribute('data-id');
             const nombre = elem.getAttribute('data-nombre');
             const correo = elem.getAttribute('data-correo');
+            const empresa = elem.getAttribute('data-empresa');
             const nivel = elem.getAttribute('data-nivel');
             const username = elem.getAttribute('data-username');
 
@@ -131,6 +138,7 @@
             document.getElementById('<%= txtNombre.ClientID %>').value = nombre;
             document.getElementById('<%= txtUserName.ClientID %>').value = username;
             document.getElementById('<%= txtCorreo.ClientID %>').value = correo;
+            document.getElementById('<%= ddlEmpresa.ClientID %>').value = empresa;
             document.getElementById('<%= ddlNivel.ClientID %>').value = nivel;
             document.getElementById("divPassword").style.display = "none";
 
@@ -165,6 +173,7 @@
             document.getElementById('<%= txtCorreo.ClientID %>').value = '';
             document.getElementById('<%= txtUserName.ClientID %>').value = '';
             document.getElementById('<%= txtPassword.ClientID %>').value = '';
+            document.getElementById('<%= ddlEmpresa.ClientID %>').value = '0';
             document.getElementById('<%= ddlNivel.ClientID %>').value = '1';
             limpiarErroresUsuario();
         }
@@ -174,6 +183,7 @@
             const campos = [
                 { id: '<%= txtNombre.ClientID %>', error: 'errorNombre' },
                 { id: '<%= txtCorreo.ClientID %>', error: 'errorCorreo' },
+                { id: '<%= ddlEmpresa.ClientID %>', error: 'errorEmpresa' },
                 { id: '<%= txtUserName.ClientID %>', error: 'errorUserName' },
                 { id: '<%= txtPassword.ClientID %>', error: 'errorPassword' },
                 { id: '<%= txtNuevaPassword.ClientID %>', error: 'errorPassword2' }
@@ -192,6 +202,7 @@
             const correo = document.getElementById('<%= txtCorreo.ClientID %>');
             const user = document.getElementById('<%= txtUserName.ClientID %>');
             const pass = document.getElementById('<%= txtPassword.ClientID %>');
+            const idEmpresa = document.getElementById('<%= ddlEmpresa.ClientID %>').value;
             const idUsuario = document.getElementById('<%= hfUsuarioID.ClientID %>').value;
 
             if (nombre.value.trim() === '') {
@@ -202,6 +213,11 @@
             if (correo.value.trim() === '') {
                 correo.classList.add('is-invalid');
                 document.getElementById('errorCorreo').innerText = 'El correo es obligatorio.';
+                valido = false;
+            }
+            if (idEmpresa == 0) {
+                idEmpresa.classList.add('is-invalid');
+                document.getElementById('errorEmpresa').innerText = 'Debes seleccionar una empresa.';
                 valido = false;
             }
             // Solo validar usuario y contraseña si es creación

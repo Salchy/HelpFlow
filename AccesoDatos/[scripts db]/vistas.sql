@@ -56,6 +56,7 @@ CREATE VIEW VW_GetCollaboratorsPerTicket AS
 GO
 
 SELECT * FROM VW_GetCollaboratorsPerTicket Where IdTicket = 1
+GO
 
 CREATE VIEW VW_GetTicketInfo AS
 	SELECT

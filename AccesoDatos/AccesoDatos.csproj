@@ -45,6 +45,7 @@
     <Compile Include="Dashboard.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="DatosClasificacionTicket.cs" />
+    <Compile Include="EmpresaDatos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TicketDatos.cs" />
     <Compile Include="UsuarioDatos.cs" />

@@ -33,6 +33,13 @@ namespace AplicacionWeb
             {
                 listaUsuarios = usuarioDatos.GetUsuarios();
                 bindearDatos();
+
+                gvUsuarios.DataSource = null;
+                ddlEmpresa.DataTextField = "Nombre";
+                ddlEmpresa.DataValueField = "Id";
+                ddlEmpresa.DataSource = new EmpresaDatos().GetEmpresas();
+                ddlEmpresa.DataBind();
+                ddlEmpresa.Items.Insert(0, new ListItem("-- Seleccione una empresa --", "0"));
             }
         }
         private void bindearDatos()
@@ -48,20 +55,23 @@ namespace AplicacionWeb
             {
                 string nombreCompleto = txtNombre.Text.Trim();
                 string correoUsuario = txtCorreo.Text.Trim();
+                int empresaSeleccionada = int.Parse(ddlEmpresa.SelectedItem.Value);
 
                 // Validar si estoy haciendo una modificacion o un registro
                 int idUsuario = int.Parse(hfUsuarioID.Value);
                 if (idUsuario != -1)
                 {
                     // Modificación de usuario existente
-                    if (correoEnUso(correoUsuario))
+                    UsuarioDTO usuarioExistente = listaUsuarios.FirstOrDefault(u => u.Id == idUsuario);
+
+                    if (correoEnUso(correoUsuario) && usuarioExistente.Correo != correoUsuario)
                     {
                         return;
                     }
-                    UsuarioDTO usuarioExistente = listaUsuarios.FirstOrDefault(u => u.Id == idUsuario);
 
                     usuarioExistente.Nombre = nombreCompleto;
                     usuarioExistente.Correo = correoUsuario;
+                    usuarioExistente.IdEmpresa = empresaSeleccionada;
                     usuarioExistente.TipoUsuario = (UsuarioDTO.nivelUsuario)int.Parse(ddlNivel.SelectedValue);
                     usuarioDatos.actualizarUsuario(usuarioExistente);
                     Modal.Mostrar(this, "Éxito", "Usuario modificado correctamente.", "exito");
@@ -74,6 +84,12 @@ namespace AplicacionWeb
                 string password = txtPassword.Text.Trim();
                 if (correoEnUso(correoUsuario))
                 {
+                    string script = $@"
+                    document.getElementById('{txtCorreo.ClientID}').classList.add('is-invalid');
+                    document.getElementById('errorCorreo').innerText = 'El correo ya está en uso.';
+                    var modal = new bootstrap.Modal(document.getElementById('modalUsuario'));
+                    modal.show();";
+                    ScriptManager.RegisterStartupScript(this, GetType(), "errorCorreo", script, true);
                     return;
                 }
                 if (usuarioDatos.GetUsuario(nombreUsuario) != null)
@@ -92,6 +108,7 @@ namespace AplicacionWeb
                     Nombre = nombreCompleto,
                     UserName = nombreUsuario,
                     Correo = correoUsuario,
+                    IdEmpresa = empresaSeleccionada,
                     TipoUsuario = (UsuarioDTO.nivelUsuario)int.Parse(ddlNivel.SelectedValue),
                 };
 
@@ -113,12 +130,6 @@ namespace AplicacionWeb
         {
             if (usuarioDatos.emailInUse(correoUsuario))
             {
-                string script = $@"
-                    document.getElementById('{txtCorreo.ClientID}').classList.add('is-invalid');
-                    document.getElementById('errorCorreo').innerText = 'El correo ya está en uso.';
-                    var modal = new bootstrap.Modal(document.getElementById('modalUsuario'));
-                    modal.show();";
-                ScriptManager.RegisterStartupScript(this, GetType(), "errorCorreo", script, true);
                 return true;
             }
             return false;

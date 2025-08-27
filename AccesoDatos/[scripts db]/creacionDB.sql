@@ -143,4 +143,5 @@ INSERT INTO Empresas VALUES
 	('Surplast'),
 	('Poliamerican'),
 	('Advance Plastics'),
-	('APC');
+	('APC'),
+	('Nortplast');

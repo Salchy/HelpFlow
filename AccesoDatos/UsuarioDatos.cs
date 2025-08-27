@@ -150,11 +150,11 @@ namespace AccesoDatos
             List<UsuarioDTO> list = new List<UsuarioDTO>();
             try
             {
-                database.SetQuery("SELECT Id, UserName, Nombre, Correo, TipoUsuario, Estado FROM Usuarios");
+                database.SetQuery("SELECT Id, UserName, Nombre, Correo, TipoUsuario, IdEmpresa, Estado FROM Usuarios");
                 database.ExecQuery();
                 while (database.reader.Read())
                 {
-                    UsuarioDTO usuario = new UsuarioDTO(Convert.ToInt32(database.reader["Id"]), database.reader["UserName"].ToString(), database.reader["Nombre"].ToString(), database.reader["Correo"].ToString(), Convert.ToInt32(database.reader["TipoUsuario"]), Convert.ToBoolean(database.reader["Estado"]));
+                    UsuarioDTO usuario = new UsuarioDTO(Convert.ToInt32(database.reader["Id"]), database.reader["UserName"].ToString(), database.reader["Nombre"].ToString(), database.reader["Correo"].ToString(), Convert.ToInt32(database.reader["TipoUsuario"]), Convert.ToInt32(database.reader["IdEmpresa"]), Convert.ToBoolean(database.reader["Estado"]));
                     list.Add(usuario);
                 }
             }
@@ -176,6 +176,7 @@ namespace AccesoDatos
                 database.SetParameter("@userName", usuario.UserName);
                 database.SetParameter("@name", usuario.Nombre);
                 database.SetParameter("@email", usuario.Correo);
+                database.SetParameter("@idEmpresa", usuario.IdEmpresa);
                 database.SetParameter("@password", generateHashPassword(password));
                 database.SetParameter("@TipoUsuario", usuario.TipoUsuario);
 
@@ -201,6 +202,7 @@ namespace AccesoDatos
                 database.SetParameter("@id", usuario.Id);
                 database.SetParameter("@name", usuario.Nombre);
                 database.SetParameter("@email", usuario.Correo);
+                database.SetParameter("@idEmpresa", usuario.IdEmpresa);
                 database.SetParameter("@tipoUsuario", usuario.TipoUsuario);
                 database.ExecNonQuery();
                 return true;
@@ -259,6 +261,7 @@ namespace AccesoDatos
                 database.CloseConnection();
             }
         }
+
         private string generateHashPassword(string password)
         {
             byte[] inputBytes = Encoding.UTF8.GetBytes(password);

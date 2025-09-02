@@ -8,6 +8,7 @@ using AccesoDatos;
 using Dominio;
 using DTO;
 using AplicacionWeb.Helpers;
+using System.Collections;
 
 namespace AplicacionWeb
 {
@@ -32,20 +33,27 @@ namespace AplicacionWeb
             if (!IsPostBack)
             {
                 listaUsuarios = usuarioDatos.GetUsuarios();
-                bindearDatos();
+                imprimirUsuarios(listaUsuarios);
 
-                gvUsuarios.DataSource = null;
-                ddlEmpresa.DataTextField = "Nombre";
-                ddlEmpresa.DataValueField = "Id";
-                ddlEmpresa.DataSource = new EmpresaDatos().GetEmpresas();
-                ddlEmpresa.DataBind();
+                cargarEmpresasDropDown(ddlEmpresa);
                 ddlEmpresa.Items.Insert(0, new ListItem("-- Seleccione una empresa --", "0"));
+                cargarEmpresasDropDown(ddlEmpresasFilter);
+                ddlEmpresasFilter.Items.Insert(0, new ListItem("Todas las empresas", "0"));
             }
         }
-        private void bindearDatos()
+
+        private void cargarEmpresasDropDown(DropDownList desplegable)
+        {
+            desplegable.DataSource = null;
+            desplegable.DataTextField = "Nombre";
+            desplegable.DataValueField = "Id";
+            desplegable.DataSource = new EmpresaDatos().GetEmpresas();
+            desplegable.DataBind();
+        }
+        private void imprimirUsuarios(List<UsuarioDTO> lista)
         {
             gvUsuarios.DataSource = null;
-            gvUsuarios.DataSource = listaUsuarios;
+            gvUsuarios.DataSource = lista;
             gvUsuarios.DataBind();
         }
 
@@ -75,7 +83,7 @@ namespace AplicacionWeb
                     usuarioExistente.TipoUsuario = (UsuarioDTO.nivelUsuario)int.Parse(ddlNivel.SelectedValue);
                     usuarioDatos.actualizarUsuario(usuarioExistente);
                     Modal.Mostrar(this, "Éxito", "Usuario modificado correctamente.", "exito");
-                    bindearDatos();
+                    imprimirUsuarios(listaUsuarios);
                     return;
                 }
 
@@ -116,7 +124,7 @@ namespace AplicacionWeb
                 {
                     listaUsuarios.Add(nuevoUsuario);
                     Modal.Mostrar(this, "Éxito", "Usuario creado correctamente.", "exito");
-                    bindearDatos();
+                    imprimirUsuarios(listaUsuarios);
                     return;
                 }
             }
@@ -148,6 +156,46 @@ namespace AplicacionWeb
             {
                 Modal.Mostrar(this, "Error", "No se pudo restablecer la contraseña: " + ex.Message, "error");
             }
+        }
+
+        protected void ddlEstadoFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            imprimirUsuarios(filtrarUsuarios());
+        }
+
+        private List<UsuarioDTO> filtrarUsuarios()
+        {
+            string empresa = ddlEmpresasFilter.SelectedValue;
+            string estado = ddlEstadoFilter.SelectedValue;
+            string toFind = txtBuscar.Text;
+
+            List<UsuarioDTO> listaFiltrada = listaUsuarios;
+
+            if (empresa != "0")
+            {
+                int idEmpresa = int.Parse(empresa);
+                listaFiltrada = listaUsuarios.Where(u => u.IdEmpresa == idEmpresa).ToList();
+            }
+            else
+            {
+                listaFiltrada = listaUsuarios;
+            }
+            if (estado != "2")
+            {
+                bool estadoBool = estado == "1";
+                listaFiltrada = listaFiltrada.Where(u => u.Estado == estadoBool).ToList();
+            }
+            if (toFind != "")
+            {
+                listaFiltrada = listaFiltrada.Where(u => u.Nombre.ToLower().Contains(toFind.ToLower()) || u.Correo.ToLower().Contains(toFind.ToLower()) || u.UserName.ToLower().Contains(toFind.ToLower())).ToList();
+            }
+
+            return listaFiltrada;
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            imprimirUsuarios(filtrarUsuarios());
         }
     }
 }

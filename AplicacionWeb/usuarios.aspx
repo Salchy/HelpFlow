@@ -5,8 +5,38 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container my-4">
         <h2 class="text-center mb-4" style="color: #ffffff;">Listado de usuarios</h2>
-        <div class="container mt-4 bg-light p-3 rounded shadow-sm">
-            <asp:Button ID="btnNuevoUsuario" runat="server" Text="Nuevo Usuario" CssClass="btn btn-success mb-3" OnClientClick="mostrarModalUsuario(); return false;" />
+        <div class="card shadow rounded-4 p-4">
+            <div class="card-body">
+                <div class="row g-2 align-items-center">
+                    <div class="col-md-4">
+                        <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control" placeholder="Buscar por nombre o email..." />
+                    </div>
+
+                    <!-- Filtro: Estado -->
+                    <div class="col-md-2">
+                        <asp:DropDownList ID="ddlEstadoFilter" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlEstadoFilter_SelectedIndexChanged">
+                            <asp:ListItem Text="Todos los estados" Value="2" />
+                            <asp:ListItem Text="Activo" Value="1" />
+                            <asp:ListItem Text="Inactivo" Value="0" />
+                        </asp:DropDownList>
+                    </div>
+
+                    <%-- Filtro: Empresas --%>
+                    <div class="col-md-2">
+                        <asp:DropDownList ID="ddlEmpresasFilter" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlEstadoFilter_SelectedIndexChanged" />
+                    </div>
+
+                    <div class="col-md-2 text-end">
+                        <asp:Button ID="btnBuscar" runat="server" CssClass="btn btn-primary me-2" Text="Buscar" OnClick="btnBuscar_Click" />
+                        <asp:Button ID="btnLimpiar" runat="server" CssClass="btn btn-outline-secondary" Text="Limpiar" />
+                    </div>
+                    <div class="col-md-2 text-end">
+                        <asp:Button ID="Button1" runat="server" CssClass="btn btn-success" Text="Nuevo Usuario" OnClientClick="mostrarModalUsuario(); return false;" />
+                    </div>
+                </div>
+            </div>
+
+            <%--<asp:Button ID="btnNuevoUsuario" runat="server" Text="Nuevo Usuario" CssClass="btn btn-success mb-3" OnClientClick="mostrarModalUsuario(); return false;" />--%>
 
             <asp:GridView ID="gvUsuarios" runat="server" CssClass="table table-bordered table-dark table-hover mb-0" AutoGenerateColumns="False">
                 <Columns>
@@ -63,6 +93,7 @@
                         <asp:DropDownList ID="ddlEmpresa" runat="server" CssClass="form-select" />
                         <span class="invalid-feedback" id="errorEmpresa"></span>
                     </div>
+
                     <%-- Esto va a aparecer dependiendo de si es un registro o es una modificacion --%>
                     <div id="divPassword">
                         <div class="mb-3">
@@ -77,6 +108,7 @@
                         </div>
                     </div>
                     <%--  --%>
+
                     <div class="mb-3">
                         <label for="ddlNivel" class="form-label">Nivel</label>
                         <asp:DropDownList ID="ddlNivel" runat="server" CssClass="form-select">
@@ -121,6 +153,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- Script para abrir el modal -->
@@ -278,3 +311,6 @@
         });
     </script>
 </asp:Content>
+
+
+

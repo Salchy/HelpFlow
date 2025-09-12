@@ -168,6 +168,7 @@ namespace AccesoDatos
             }
             return list;
         }
+
         public bool registrarUsuario(UsuarioDTO usuario, string password)
         {
             try

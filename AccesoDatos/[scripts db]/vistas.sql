@@ -4,6 +4,8 @@ GO
 CREATE VIEW VW_GetAllTickets AS
 	SELECT
 		T.Id AS 'TicketID',
+		C.Id AS 'IdCategoria',
+		SC.Id AS 'IdSubCategoria',
 		C.Nombre + ' - ' + SC.Nombre AS 'Titulo',
 		T.IdUsuarioCreador AS 'IdUsuarioCreador',
 		U.Nombre,
@@ -22,6 +24,8 @@ GO
 CREATE VIEW VW_GetAllTicketsWithColaborators AS
 	SELECT
 		T.Id AS 'TicketID',
+		C.Id AS 'IdCategoria',
+		SC.Id AS 'IdSubCategoria',
 		C.Nombre + ' - ' + SC.Nombre AS 'Titulo',
 		T.IdUsuarioCreador AS 'IdUsuarioCreador',
 		U.Nombre,

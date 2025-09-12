@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
@@ -101,6 +102,75 @@ namespace AccesoDatos
             return listaTickets;
         }
 
+        public List<TicketDTO> ObtenerListaTicketsFiltro(string categoria, string subcategoria, string estado, string criterio, string toFind = "")
+        {
+            List<TicketDTO> listaTickets = new List<TicketDTO>();
+            string query = "SELECT TicketID, IdCategoria, IdSubCategoria, Titulo, Nombre, FechaCreacion, FechaActualizacion, NombreEstado, Colaboradores FROM VW_GetAllTicketsWithColaborators WHERE 1 = 1 ";
+
+            try
+            {
+                // Filtros básicos
+                if (categoria != "-1")
+                    query += " AND IdCategoria = @idCategoria ";
+                if (subcategoria != "-1")
+                    query += " AND IdSubCategoria = @idSubCategoria ";
+                if (estado != "Todos")
+                    query += " AND NombreEstado = @nombreEstado ";
+
+                // Filtros de búsqueda
+                if (toFind != "")
+                {
+                    if (criterio == "Solicitante")
+                    {
+                        query += " AND Nombre LIKE @toFind";
+                    }
+                    else if (criterio == "Colaboradores")
+                    {
+                        query += " AND Colaboradores LIKE @toFind";
+                    }
+                    else if (criterio == "Asunto")
+                    {
+                        query += " AND Titulo LIKE @toFind";
+                    }
+                    else if (criterio == "Codigo")
+                    {
+                        query += " AND TicketID LIKE @toFind";
+                    }
+                }
+
+                database.SetQuery(query);
+                database.SetParameter("@idCategoria", categoria);
+                database.SetParameter("@idSubCategoria", subcategoria);
+                database.SetParameter("@nombreEstado", estado);
+                if (toFind != "")
+                    database.SetParameter("@toFind", $"%{toFind}%");
+                database.ExecQuery();
+
+                while (database.reader.Read())
+                {
+                    TicketDTO ticket = new TicketDTO
+                    {
+                        Id = Convert.ToInt32(database.reader["TicketID"]),
+                        Asunto = database.reader["Titulo"].ToString(),
+                        UsuarioCreador = database.reader["Nombre"].ToString(),
+                        Estado = database.reader["NombreEstado"].ToString(),
+                        FechaCreacion = database.reader.GetDateTime(database.reader.GetOrdinal("FechaCreacion")),
+                        Colaboradores = database.reader["Colaboradores"].ToString()
+                    };
+                    listaTickets.Add(ticket);
+                }
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+                database.CloseConnection();
+            }
+            return listaTickets;
+        }
+
         public List<UsuarioColaboradorDTO> ObtenerColaboradores(int IdTicket)
         {
             try
@@ -133,7 +203,7 @@ namespace AccesoDatos
                 database.SetQuery("SELECT * FROM VW_GetTicketInfo WHERE Id = @idTicket");
                 database.SetParameter("@idTicket", id);
                 database.ExecQuery();
-                
+
                 Ticket Ticket = new Ticket();
 
                 if (database.reader.Read())

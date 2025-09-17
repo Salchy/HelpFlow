@@ -24,6 +24,15 @@ namespace AplicacionWeb
         protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
 
         /// <summary>
+        /// Control form1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+
+        /// <summary>
         /// Control panelAdmin.
         /// </summary>
         /// <remarks>
@@ -51,13 +60,13 @@ namespace AplicacionWeb
         protected global::System.Web.UI.WebControls.Panel panelCerrarSesion;
 
         /// <summary>
-        /// Control form1.
+        /// Control btnCerrarSesion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.LinkButton btnCerrarSesion;
 
         /// <summary>
         /// Control ContentPlaceHolder1.

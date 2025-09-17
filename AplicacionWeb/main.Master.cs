@@ -41,5 +41,12 @@ namespace AplicacionWeb
             string script = $"mostrarModal('{titulo}', '{mensaje}', '{tipo}');";
             ScriptManager.RegisterStartupScript(this, GetType(), "mostrarModal", script, true);
         }
+
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+
+            Response.Redirect("Login.aspx");
+        }
     }
 }

@@ -263,6 +263,30 @@ namespace AccesoDatos
             }
         }
 
+        public List<UsuarioDTO> GetSupporters()
+        {
+            List<UsuarioDTO> list = new List<UsuarioDTO>();
+            try
+            {
+                database.SetQuery("SELECT Id, UserName, Nombre, Correo, TipoUsuario, IdEmpresa, Estado FROM Usuarios WHERE TipoUsuario = 0 AND Estado = 1");
+                database.ExecQuery();
+                while (database.reader.Read())
+                {
+                    UsuarioDTO usuario = new UsuarioDTO(Convert.ToInt32(database.reader["Id"]), database.reader["UserName"].ToString(), database.reader["Nombre"].ToString(), database.reader["Correo"].ToString(), Convert.ToInt32(database.reader["TipoUsuario"]), Convert.ToInt32(database.reader["IdEmpresa"]), Convert.ToBoolean(database.reader["Estado"]));
+                    list.Add(usuario);
+                }
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+                database.CloseConnection();
+            }
+            return list;
+        }
+
         private string generateHashPassword(string password)
         {
             byte[] inputBytes = Encoding.UTF8.GetBytes(password);

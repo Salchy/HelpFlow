@@ -62,7 +62,8 @@ namespace AplicacionWeb
                     panelEdicion.Visible = false;
 
                     string queryString = Request.QueryString["id"];
-                    // Ver si recibió por parametro URL un ticket ID, para ver si es modificacion, o si es una creacion de un ticket nuevo
+
+                    // Ver si recibió por parametro URL un ticket ID, para ver si es modificacion de un ticket, o si es una creacion de un ticket nuevo
                     if (queryString != null)
                     {
                         int ticketID = int.Parse(queryString);
@@ -71,7 +72,7 @@ namespace AplicacionWeb
                         if (ticket.Id == -1)
                         {
                             Modal.Mostrar(this, "Error", "El ticket no existe o no está disponible.", "error");
-                            Response.Redirect("tickets.aspx");
+                            Response.Redirect("tickets.aspx", false);
                             return;
                         }
                         hfTicketID.Value = ticket.Id.ToString();
@@ -93,6 +94,24 @@ namespace AplicacionWeb
                         ddlSubCategoria.SelectedValue = ticket.IdSubCategoria.ToString();
                         txtDescripcion.Text = ticket.Descripcion;
                         panelEdicion.Visible = true;
+
+                        // Cargar solicitante
+
+                        ddlOwner.DataSource = new UsuarioDatos().GetUsuarios();
+                        ddlOwner.DataTextField = "Nombre";
+                        ddlOwner.DataValueField = "Id";
+                        ddlOwner.DataBind();
+                        ddlOwner.SelectedValue = ticket.IdCreador.ToString();
+
+                        // Cargar colaboradores
+
+                        lstDisponibles.DataSource = new UsuarioDatos().GetSupporters();
+                        lstDisponibles.DataTextField = "Nombre";
+                        lstDisponibles.DataValueField = "Id";
+                        lstDisponibles.DataBind();
+
+                        lblTitulo.InnerText = "Modificar Ticket";
+                        btnCrearTicket.Text = "Guardar";
                     }
                 }
                 catch (Exception Ex)
@@ -167,8 +186,8 @@ namespace AplicacionWeb
                     Modal.Mostrar(this, "Error", "No se pudo crear el ticket. Por favor, inténtelo más tarde.", "error");
                     return;
                 }
-                Modal.Mostrar(this, "Éxito", "El ticket se ha creado correctamente.", "exito");
-                txtDescripcion.Text = "";
+                Modal.Mostrar(this, "Éxito", "El ticket se ha creado correctamente.\nSu número de ticket es el TKT-" + nuevoTicket.Id +".", "exito");
+                Response.Redirect("misTickets.aspx", true);
             }
             catch (Exception Ex)
             {

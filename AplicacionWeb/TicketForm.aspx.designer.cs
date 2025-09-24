@@ -15,6 +15,15 @@ namespace AplicacionWeb
     {
 
         /// <summary>
+        /// Control lblTitulo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblTitulo;
+
+        /// <summary>
         /// Control hfTicketID.
         /// </summary>
         /// <remarks>
@@ -60,24 +69,6 @@ namespace AplicacionWeb
         protected global::System.Web.UI.WebControls.Panel panelEdicion;
 
         /// <summary>
-        /// Control ddlUsuario.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlUsuario;
-
-        /// <summary>
-        /// Control ddlSoporte.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSoporte;
-
-        /// <summary>
         /// Control ddlEstado.
         /// </summary>
         /// <remarks>
@@ -85,6 +76,33 @@ namespace AplicacionWeb
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlEstado;
+
+        /// <summary>
+        /// Control ddlOwner.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlOwner;
+
+        /// <summary>
+        /// Control lstDisponibles.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlSelect lstDisponibles;
+
+        /// <summary>
+        /// Control lstAsignados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlSelect lstAsignados;
 
         /// <summary>
         /// Control btnCancelar.

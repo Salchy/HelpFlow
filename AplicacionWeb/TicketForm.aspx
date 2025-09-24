@@ -11,78 +11,86 @@
             <div class="card-body">
                 <asp:HiddenField ID="hfTicketID" runat="server" />
 
-                <div class="row">
-                    <!-- Categoría -->
-                    <div class="col-md-6 mb-3">
-                        <label for="ddlCategoria" class="form-label fw-bold">Categoría</label>
-                        <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlCategoria_SelectedIndexChanged" />
-                    </div>
+                <asp:Panel ID="tittleSection" runat="server">
+                    <div class="row">
+                        <!-- Categoría -->
+                        <div class="col-md-6 mb-3">
+                            <label for="ddlCategoria" class="form-label fw-bold">Categoría</label>
+                            <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlCategoria_SelectedIndexChanged" />
+                        </div>
 
-                    <!-- Subcategoría -->
-                    <div class="col-md-6 mb-3">
-                        <label for="ddlSubCategoria" class="form-label fw-bold">Subcategoría</label>
-                        <asp:DropDownList ID="ddlSubCategoria" runat="server" CssClass="form-select" />
+                        <!-- Subcategoría -->
+                        <div class="col-md-6 mb-3">
+                            <label for="ddlSubCategoria" class="form-label fw-bold">Subcategoría</label>
+                            <asp:DropDownList ID="ddlSubCategoria" runat="server" CssClass="form-select" />
+                        </div>
                     </div>
-                </div>
+                </asp:Panel>
 
                 <!-- Descripción -->
-                <div class="mb-3">
-                    <label for="txtDescripcion" class="form-label fw-bold">Descripción</label>
-                    <asp:TextBox ID="txtDescripcion" runat="server" TextMode="MultiLine" Rows="4" CssClass="form-control" placeholder="Describe el problema en detalle" />
-                </div>
+                <asp:Panel ID="descriptionSection" runat="server">
+                    <div class="mb-3">
+                        <label for="txtDescripcion" class="form-label fw-bold">Descripción</label>
+                        <asp:TextBox ID="txtDescripcion" runat="server" TextMode="MultiLine" Rows="4" CssClass="form-control" placeholder="Describe el problema en detalle" />
+                    </div>
+                </asp:Panel>
 
                 <asp:Panel ID="panelEdicion" runat="server">
                     <%-- Estado --%>
-                    <div class="mb-3">
-                        <label for="ddlEstado" class="form-label fw-bold">Estado</label>
-                        <asp:DropDownList ID="ddlEstado" runat="server" CssClass="form-select">
-                            <asp:ListItem Text="Solicitado" Value="0"></asp:ListItem>
-                            <asp:ListItem Text="En Progreso" Value="1"></asp:ListItem>
-                            <asp:ListItem Text="Resuelto" Value="2"></asp:ListItem>
-                            <asp:ListItem Text="Cerrado" Value="3"></asp:ListItem>
-                        </asp:DropDownList>
-                    </div>
+                    <asp:Panel ID="statusSection" runat="server">
+                        <div class="mb-3">
+                            <label for="ddlEstado" class="form-label fw-bold">Estado</label>
+                            <asp:DropDownList ID="ddlEstado" runat="server" CssClass="form-select">
+                                <asp:ListItem Text="Solicitado" Value="0"></asp:ListItem>
+                                <asp:ListItem Text="En Progreso" Value="1"></asp:ListItem>
+                                <asp:ListItem Text="Resuelto" Value="2"></asp:ListItem>
+                                <asp:ListItem Text="Cerrado" Value="3"></asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                    </asp:Panel>
 
                     <%-- Solicitante --%>
-                    <div class="mb-3">
-                        <label for="ddlOwner" class="form-label fw-bold">Solicitante</label>
-                        <input type="text" id="buscarSoporte" class="form-control mb-2" placeholder="Buscar solicitante..." onkeyup="filtrarLista('ddlOwner', this.value)" />
+                    <asp:Panel ID="ownerSection" runat="server">
+                        <div class="mb-3">
+                            <label for="ddlOwner" class="form-label fw-bold">Solicitante</label>
+                            <input type="text" id="buscarSoporte" class="form-control mb-2" placeholder="Buscar solicitante..." onkeyup="filtrarLista('ddlOwner', this.value)" />
 
-                        <asp:DropDownList ID="ddlOwner" runat="server" ClientIDMode="static" CssClass="form-select" />
-                    </div>
+                            <asp:DropDownList ID="ddlOwner" runat="server" ClientIDMode="static" CssClass="form-select" />
+                        </div>
+                    </asp:Panel>
 
-                    <!-- Lista de disponibles -->
-                    <div class="mb-3">
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <label class="form-label fw-bold">Asignar Colaboradores al Ticket:</label>
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-fill me-2">
-                                        <input type="text" id="buscadorDisponibles" class="form-control mb-2" placeholder="Buscar usuario..." onkeyup="filtrarLista('lstDisponibles', this.value)" />
-                                        <select id="lstDisponibles" runat="server" ClientIDMode="static" class="form-select" size="10"/>
-                                    </div>
+                    <!-- Supporters -->
+                    <asp:Panel ID="supportersSection" runat="server">
+                        <div class="mb-3">
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <label class="form-label fw-bold">Asignar Colaboradores al Ticket:</label>
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-fill me-2">
+                                            <input type="text" id="buscadorDisponibles" class="form-control mb-2" placeholder="Buscar usuario..." onkeyup="filtrarLista('lstDisponibles', this.value)" />
+                                            <select id="lstDisponibles" runat="server" clientidmode="static" class="form-select" size="10" />
+                                        </div>
 
-                                    <!-- Botones agregar/quitar -->
-                                    <div class="d-flex flex-column justify-content-center align-items-center me-2">
-                                        <button type="button" class="btn btn-primary mb-2" onclick="moverSeleccion('lstDisponibles','lstAsignados')">
-                                            &gt;&gt;
-                                        </button>
-                                        <button type="button" class="btn btn-secondary" onclick="moverSeleccion('lstAsignados','lstDisponibles')">
-                                            &lt;&lt;
-                                        </button>
-                                    </div>
+                                        <!-- Botones agregar/quitar -->
+                                        <div class="d-flex flex-column justify-content-center align-items-center me-2">
+                                            <button type="button" class="btn btn-primary mb-2" onclick="moverSeleccion('lstDisponibles','lstAsignados')">
+                                                &gt;&gt;
+                                            </button>
+                                            <button type="button" class="btn btn-secondary" onclick="moverSeleccion('lstAsignados','lstDisponibles')">
+                                                &lt;&lt;
+                                            </button>
+                                        </div>
 
-                                    <!-- Lista de asignados -->
-                                    <div class="flex-fill ms-2">
-                                        <label class="form-label">Asignados:</label>
-                                        <select id="lstAsignados" runat="server" ClientIDMode="static" class="form-select" size="10" />
+                                        <!-- Lista de asignados -->
+                                        <div class="flex-fill ms-2">
+                                            <label class="form-label">Asignados:</label>
+                                            <select id="lstAsignados" runat="server" clientidmode="static" class="form-select" size="10" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-
+                    </asp:Panel>
                 </asp:Panel>
 
                 <!-- Botones -->

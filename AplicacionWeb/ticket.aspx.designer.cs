@@ -78,13 +78,13 @@ namespace AplicacionWeb
         protected global::System.Web.UI.WebControls.Label lblSolicitante;
 
         /// <summary>
-        /// Control LinkButton1.
+        /// Control modificarFechaCreacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::System.Web.UI.WebControls.LinkButton modificarFechaCreacion;
 
         /// <summary>
         /// Control lblFecha.
@@ -94,6 +94,15 @@ namespace AplicacionWeb
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblFecha;
+
+        /// <summary>
+        /// Control modificarDescripcion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton modificarDescripcion;
 
         /// <summary>
         /// Control lblDescripcion.
@@ -132,31 +141,13 @@ namespace AplicacionWeb
         protected global::System.Web.UI.WebControls.Button btnMostrarFormulario;
 
         /// <summary>
-        /// Control hfCampoEditado.
+        /// Control btnModificarTicket.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfCampoEditado;
-
-        /// <summary>
-        /// Control hfValorEditado.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfValorEditado;
-
-        /// <summary>
-        /// Control btnGuardarCampoEditado.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGuardarCampoEditado;
+        protected global::System.Web.UI.WebControls.Button btnModificarTicket;
 
         /// <summary>
         /// Control rbCliente.

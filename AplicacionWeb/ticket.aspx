@@ -49,7 +49,7 @@
                 <div class="col-md-4">
                     <div class="d-flex align-items-center">
                         <label class="fw-bold me-2 mb-0">Fecha de creación:</label>
-                        <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn btn-sm btn-outline-info" OnClick="modificarTicket_Click">
+                        <asp:LinkButton ID="modificarFechaCreacion" runat="server" CssClass="btn btn-sm btn-outline-info" OnClick="modificarTicket_Click">
                             <i class="fas fa-pencil-alt"></i>
                         </asp:LinkButton>
                     </div>
@@ -62,9 +62,9 @@
                 <div class="col-md-6">
                     <div class="d-flex align-items-center">
                         <label class="fw-bold me-2 mb-0">Descripción:</label>
-                        <button type="button" class="btn btn-sm btn-outline-info" onclick="habilitarEdicion('lblDescripcion');">
+                        <asp:LinkButton ID="modificarDescripcion" runat="server" CssClass="btn btn-sm btn-outline-info" OnClick="modificarTicket_Click">
                             <i class="fas fa-pencil-alt"></i>
-                        </button>
+                        </asp:LinkButton>
                     </div>
                     <asp:Label ID="lblDescripcion" runat="server" data-field="descripcion" ClientIDMode="Static" CssClass="form-control-plaintext" />
                 </div>
@@ -86,16 +86,8 @@
             <div class="mt-4">
                 <a href="Tickets.aspx" class="btn btn-outline-primary">← Volver al listado</a>
                 <asp:Button ID="btnMostrarFormulario" runat="server" AutoPostBack="false" Text="Agregar Commit" CssClass="btn btn-outline-success" OnClientClick="mostrarFormulario(); return false;" />
+                <asp:Button ID="btnModificarTicket" runat="server" Text="Modificar Ticket" CssClass="btn btn-outline-warning" OnClick="btnModificarTicket_Click" />
             </div>
-
-            <asp:HiddenField ID="hfCampoEditado" runat="server" />
-            <asp:HiddenField ID="hfValorEditado" runat="server" />
-
-            <button type="button" id="btnConfirmEdit" class="btn btn-sm btn-outline-success" style="display: none;" onclick="aceptarEdicion('lblSolicitante')">
-                <i class="fas fa-check"></i>
-            </button>
-
-            <asp:Button ID="btnGuardarCampoEditado" runat="server" OnClick="btnGuardarCampoEditado_Click" Style="display: none;" />
 
             <%-- Commits --%>
             <div id="formCommit" style="display: none;">
@@ -113,7 +105,7 @@
                                 <label class="btn btn-outline-warning w-50 radioButtonStyle">
                                     <asp:RadioButton ID="rbInterno" runat="server" GroupName="TipoCommit" AutoPostBack="false" CssClass="typeCommit-group d-none" />
                                     Uso Interno
-                                </label>
+                                </label>        
                             </div>
                         </div>
 
@@ -229,57 +221,6 @@
                         dropdown.classList.add("bg-secondary", "text-white");
                         break;
                 }
-            }
-
-            function habilitarEdicion(idInput) {
-                const inputInEdit = document.getElementById(idInput);
-
-                // Guardo el valor actual del campo
-                const valorActual = inputInEdit.innerText;
-
-                // Reemplazar el label por un textarea temporal en caso de ser descripcion
-                let input;
-                if (idInput == 'lblDescripcion') {
-                    input = document.createElement("textarea");
-                    input.rows = 5;
-                } else {
-                    input = document.createElement("input");
-                }
-                input.type = "text";
-                input.value = valorActual;
-                input.className = "form-control";
-                input.style.width = "100%";
-
-                inputInEdit.style.display = "none";
-                inputInEdit.parentNode.appendChild(input);
-                input.focus();
-
-                // Posicionar el botón de confirmación cerca
-                const confirmBtn = document.getElementById("btnConfirmEdit");
-                confirmBtn.style.display = "inline-block";
-                event.currentTarget.parentNode.appendChild(confirmBtn);
-                confirmBtn.onclick = () => aceptarEdicion(input, inputInEdit);
-
-                // Cuando pierda el foco, volver a mostrar el label (se canceló la edición)
-                input.addEventListener("blur", function () {
-                    inputInEdit.innerText = valorActual;
-                    inputInEdit.style.display = "";
-                    input.remove();
-
-                    // Ocultar botón de confirmación
-                    document.getElementById("btnConfirmEdit").style.display = "none";
-                });
-            }
-
-            function aceptarEdicion(input, label) {
-                label.textContent = input.value.trim();
-                label.style.display = "";
-                input.remove();
-
-                // Ocultar botón de confirmación
-                document.getElementById("btnConfirmEdit").style.display = "none";
-
-                document.getElementById('btnGuardarCampoEditado.ClientID').click();
             }
         </script>
 </asp:Content>

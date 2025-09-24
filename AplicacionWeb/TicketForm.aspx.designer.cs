@@ -33,6 +33,15 @@ namespace AplicacionWeb
         protected global::System.Web.UI.WebControls.HiddenField hfTicketID;
 
         /// <summary>
+        /// Control tittleSection.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel tittleSection;
+
+        /// <summary>
         /// Control ddlCategoria.
         /// </summary>
         /// <remarks>
@@ -49,6 +58,15 @@ namespace AplicacionWeb
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSubCategoria;
+
+        /// <summary>
+        /// Control descriptionSection.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel descriptionSection;
 
         /// <summary>
         /// Control txtDescripcion.
@@ -69,6 +87,15 @@ namespace AplicacionWeb
         protected global::System.Web.UI.WebControls.Panel panelEdicion;
 
         /// <summary>
+        /// Control statusSection.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel statusSection;
+
+        /// <summary>
         /// Control ddlEstado.
         /// </summary>
         /// <remarks>
@@ -78,6 +105,15 @@ namespace AplicacionWeb
         protected global::System.Web.UI.WebControls.DropDownList ddlEstado;
 
         /// <summary>
+        /// Control ownerSection.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel ownerSection;
+
+        /// <summary>
         /// Control ddlOwner.
         /// </summary>
         /// <remarks>
@@ -85,6 +121,15 @@ namespace AplicacionWeb
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlOwner;
+
+        /// <summary>
+        /// Control supportersSection.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel supportersSection;
 
         /// <summary>
         /// Control lstDisponibles.

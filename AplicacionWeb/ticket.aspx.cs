@@ -186,7 +186,6 @@ namespace AplicacionWeb
                 Modal.Mostrar(this, "Error", "No se pudo registrar el commit: " + Ex.Message, "error");
                 return;
             }
-
         }
 
         private bool obtenerTipoCommit() // True: nota interna, False: al cliente
@@ -232,12 +231,14 @@ namespace AplicacionWeb
         }
         protected void modificarTicket_Click(object sender, EventArgs e)
         {
-            Response.Redirect("TicketForm.aspx?id=" + TicketActual.Id);
+            LinkButton btnPresionado = (LinkButton)sender;
+
+            Response.Redirect($"TicketForm.aspx?id={TicketActual.Id}&action={btnPresionado.ID}");
         }
 
-        protected void btnGuardarCampoEditado_Click(object sender, EventArgs e)
+        public void btnModificarTicket_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect($"TicketForm.aspx?id={TicketActual.Id}");
         }
     }
 }

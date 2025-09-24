@@ -7,7 +7,7 @@
         <div class="card bg-dark text-white shadow-lg border-0 rounded-4">
             <div class="card-header bg-primary d-flex justify-content-between align-items-center rounded-top-4">
                 <h4 class="mb-0">Mis Tickets</h4>
-                <asp:Button ID="btnNuevo" runat="server" CssClass="btn btn-outline-light btn-sm" Text="+ Nuevo Ticket" OnClick="btnNuevo_Click" />
+                <asp:Button ID="btnNuevo" runat="server" CssClass="btn btn-success" Text="+ Nuevo Ticket" OnClick="btnNuevo_Click" />
             </div>
 
             <div class="card-body p-4 bg-secondary rounded-bottom-4">

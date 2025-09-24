@@ -147,5 +147,10 @@ namespace AplicacionWeb
         {
             printTicketsInGridlist(applyFilters());
         }
+
+        protected void btnCrear_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("TicketForm.aspx", true);
+        }
     }
 }

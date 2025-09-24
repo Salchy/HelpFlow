@@ -50,10 +50,10 @@
 
                     <!-- Botón buscar -->
                     <div class="col-md-2 d-grid">
-                        <asp:Button ID="Button2" runat="server" Text="Buscar" CssClass="btn btn-primary" OnClick="btnBuscar_Click" />
+                        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-primary" OnClick="btnBuscar_Click" />
                     </div>
                     <div class="col-md-2 d-grid">
-                        <asp:Button ID="Button1" runat="server" CssClass="btn btn-success" Text="Nuevo Ticket" />
+                        <asp:Button ID="btnCrear" runat="server" CssClass="btn btn-success" Text="Nuevo Ticket" OnClick="btnCrear_Click" />
                     </div>
                 </div>
             </div>

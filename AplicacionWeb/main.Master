@@ -23,19 +23,19 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <asp:Panel ID="panelAdmin" runat="server" Visible="false">
                         <div class="navbar-nav">
-                            <a class="nav-link" aria-current="page" href="main.aspx">Dashboard</a>
+                            <a class="nav-link" href="main.aspx">Dashboard</a>
                             <a class="nav-link" href="tickets.aspx">Tickets</a>
+                            <a class="nav-link" href="misTickets.aspx">Mis Tickets</a>
                             <a class="nav-link" href="usuarios.aspx">Gestión de Usuarios</a>
                         </div>
                     </asp:Panel>
                     <asp:Panel ID="panelUsuario" runat="server" Visible="false">
                         <div class="navbar-nav">
-                            <a class="nav-link" aria-current="page" href="misTickets.aspx">Mis Tickets</a>
+                            <a class="nav-link" href="misTickets.aspx">Mis Tickets</a>
                             <a class="nav-link" href="miPerfil.aspx">Mi Perfil</a>
                         </div>
                     </asp:Panel>
                     <asp:Panel ID="panelCerrarSesion" runat="server" Visible='<%# Session["usuario"] != null %>'>
-                        <%--<a href="login.aspx" class="nav-link text-danger" onclick="cerrarSesion()">Cerrar sesión</a>--%>
                         <asp:LinkButton ID="btnCerrarSesion" runat="server" CssClass="nav-link text-danger" OnClick="btnCerrarSesion_Click">Cerrar sesión</asp:LinkButton>
                     </asp:Panel>
                 </div>

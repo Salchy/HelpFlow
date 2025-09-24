@@ -11,7 +11,12 @@
             <div class="row mb-4">
                 <%-- Título Ticket --%>
                 <div class="col-md-6">
-                    <label class="fw-bold me-2 mb-0">Título:</label>
+                    <div class="d-flex align-items-center">
+                        <label class="fw-bold me-2 mb-0">Título:</label>
+                        <asp:LinkButton ID="modificarTitulo" runat="server" CssClass="btn btn-sm btn-outline-info" OnClick="modificarTicket_Click">
+                            <i class="fas fa-pencil-alt"></i>
+                        </asp:LinkButton>
+                    </div>
                     <asp:Label ID="lblTitulo" runat="server" CssClass="form-control-plaintext" />
                 </div>
 
@@ -42,7 +47,12 @@
 
                 <%-- Fecha de creación --%>
                 <div class="col-md-4">
-                    <label class="fw-bold me-2 mb-0">Fecha de creación:</label>
+                    <div class="d-flex align-items-center">
+                        <label class="fw-bold me-2 mb-0">Fecha de creación:</label>
+                        <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn btn-sm btn-outline-info" OnClick="modificarTicket_Click">
+                            <i class="fas fa-pencil-alt"></i>
+                        </asp:LinkButton>
+                    </div>
                     <asp:Label ID="lblFecha" runat="server" CssClass="form-control-plaintext" />
                 </div>
             </div>

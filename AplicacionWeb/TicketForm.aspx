@@ -95,7 +95,7 @@
 
                 <!-- Botones -->
                 <div class="text-end">
-                    <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-secondary me-2" />
+                    <asp:Button ID="btnCancelar" runat="server" AutoPostBack="false" Text="Cancelar" CssClass="btn btn-secondary me-2" OnClientClick="history.back(); return false;" />
                     <asp:Button ID="btnCrearTicket" runat="server" Text="Crear Ticket" CssClass="btn btn-primary" OnClick="btnCrearTicket_Click" />
                 </div>
             </div>

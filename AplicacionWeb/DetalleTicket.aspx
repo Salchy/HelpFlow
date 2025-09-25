@@ -42,7 +42,7 @@
             </div>
 
             <div class="mt-4">
-                <a href="Tickets.aspx" class="btn btn-outline-primary">← Volver al listado</a>
+                <asp:Button ID="btnVolver" runat="server" AutoPostBack="false" Text="← Volver al listado" CssClass="btn btn-outline-primary" OnClientClick="history.back(); return false;" />
                 <asp:Button ID="btnMostrarFormulario" runat="server" AutoPostBack="false" Text="Agregar Comentario" CssClass="btn btn-outline-success" OnClientClick="mostrarFormulario(); return false;" />
             </div>
         </div>

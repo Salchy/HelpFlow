@@ -69,6 +69,24 @@ AS BEGIN
 END
 GO
 
+CREATE PROCEDURE SP_ModificarTicket (
+	@id INT,
+	@idCreador INT,
+	@idSubCategoria TINYINT,
+	@idEstado TINYINT,
+	@message VARCHAR(500)
+)
+AS
+BEGIN
+	UPDATE Tickets SET
+		IdUsuarioCreador = @idCreador,
+		IdSubCategoria = @idSubCategoria,
+		IdEstado = @idEstado,
+		Descripcion = @message
+	WHERE Id = @id;
+END
+GO
+
 CREATE PROCEDURE SP_UpdatePassword (
 	@idUsuario INT,
 	@clave CHAR(64)
@@ -91,6 +109,29 @@ AS BEGIN
 END
 GO
 
+CREATE PROCEDURE SP_AgregarColaborador
+	@idTicket INT,
+	@idUsuario TINYINT
+AS
+BEGIN
+	BEGIN TRY
+		INSERT INTO ColaboradoresTickets VALUES (@idTicket, @idUsuario);
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION;
+	END CATCH
+END
+GO
+
+CREATE PROCEDURE SP_QuitarColaborador
+	@idTicket INT,
+	@idUsuario TINYINT
+AS
+BEGIN
+	DELETE FROM ColaboradoresTickets WHERE IdTicket = @idTicket AND IdUsuario = @idUsuario;
+END
+GO
+
 CREATE PROCEDURE SP_GetTicketsCountByUser
     @idUsuario INT
 AS
@@ -104,4 +145,3 @@ BEGIN
     GROUP BY ET.NombreEstado;
 END
 GO
-

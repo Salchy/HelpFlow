@@ -103,3 +103,5 @@ CREATE VIEW VW_GetTicketsCount AS
 	INNER JOIN EstadosTicket AS ET ON T.idEstado = ET.Id
 	GROUP BY ET.NombreEstado
 GO
+
+select * from VW_GetAllTicketsWithColaborators;

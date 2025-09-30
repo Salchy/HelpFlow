@@ -56,7 +56,19 @@ namespace AplicacionWeb
         }
 
         // Para saber lo que se está editando, para saber qué valores actualizar de la db
-        private string editingField;
+        private string editingField
+        {
+            get
+            {
+                if (Session["editingField"] == null)
+                    Session["editingField"] = null;
+                return Session["editingField"] as string;
+            }
+            set
+            {
+                Session["editingField"] = value;
+            }
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -77,6 +89,7 @@ namespace AplicacionWeb
 
                     ddlSubCategoria.Items.Insert(0, new ListItem("-- Seleccione una categoría --", "0"));
                     panelEdicion.Visible = false;
+                    hfTicketID.Value = "0";
 
                     string queryString = Request.QueryString["id"];
 
@@ -86,7 +99,7 @@ namespace AplicacionWeb
                         int ticketID = int.Parse(queryString);
                         TicketDatos ticketDatos = new TicketDatos();
                         ticket = ticketDatos.GetTicket(ticketID);
-                        
+
                         if (ticket.Id == -1)
                         {
                             Modal.Mostrar(this, "Error", "El ticket no existe o no está disponible.", "error");
@@ -98,6 +111,8 @@ namespace AplicacionWeb
 
                         hfTicketID.Value = ticket.Id.ToString();
                         string action = Request.QueryString["action"];
+
+                        cargarColaboradores(ticketID);
 
                         if (action == null)
                         {
@@ -122,7 +137,7 @@ namespace AplicacionWeb
                                 modifySolicitante();
                                 break;
                             case "modificarFechaCreacion":
-                                
+
                                 break;
                             case "modificarDescripcion":
                                 modifyDescription();
@@ -131,6 +146,7 @@ namespace AplicacionWeb
                                 modifySupporters();
                                 break;
                         }
+                        editingField = action;
                     }
                 }
                 catch (Exception Ex)
@@ -138,6 +154,17 @@ namespace AplicacionWeb
                     Modal.Mostrar(this, "Error", "No se pudieron cargar las categorías y subcategorías. Por favor, inténtelo más tarde.", "error");
                 }
             }
+        }
+
+        private void cargarColaboradores(int ticketID)
+        {
+            List<UsuarioColaboradorDTO> colaboradores = new TicketDatos().ObtenerColaboradores(ticketID);
+            lstAsignados.DataSource = colaboradores;
+            lstAsignados.DataTextField = "Nombre";
+            lstAsignados.DataValueField = "Id";
+            lstAsignados.DataBind();
+
+            ticket.IdColaboradores = colaboradores.Select(c => c.Id).ToList();
         }
 
         private void modifyTittle()
@@ -185,6 +212,10 @@ namespace AplicacionWeb
             lstDisponibles.DataValueField = "Id";
             lstDisponibles.DataBind();
 
+            // Removerlos de la lista de supporters disponibles, si es que ya estan asignados:
+            for (int i = 0; i < lstAsignados.Items.Count; i++)
+                lstDisponibles.Items.Remove(lstDisponibles.Items.FindByValue(lstAsignados.Items[i].Value));
+
             panelEdicion.Visible = true;
             supportersSection.Visible = true;
         }
@@ -223,25 +254,28 @@ namespace AplicacionWeb
                 Modal.Mostrar(this, "Error", "Debe iniciar sesión para crear un ticket.", "error");
                 return;
             }
-            string descripcion = txtDescripcion.Text.Trim();
-            if (descripcion.Length < 5)
+            int id = Convert.ToInt32(hfTicketID.Value);
+            if (id == 0) // Es un ticket nuevo
             {
-                Modal.Mostrar(this, "Error", "La descripción del ticket debe tener al menos 5 caracteres.", "error");
-                return;
+                crearNuevoTicket();
             }
-            if (descripcion.Length > 2000)
-            {
-                Modal.Mostrar(this, "Error", "La descripción del ticket no puede exceder los 2000 caracteres.", "error");
-                return;
+            else
+            { // Es una modificacion de un ticket existente
+                modificarTicket(id);
             }
+        }
+
+        private void crearNuevoTicket()
+        {
+            Usuario user = UsuarioDatos.UsuarioActual(Session["Usuario"]);
             TicketDatos datosTicket = new TicketDatos();
             try
             {
-                if (ddlCategoria.SelectedValue == "0" || ddlSubCategoria.SelectedValue == "0")
-                {
-                    Modal.Mostrar(this, "Error", "Debe seleccionar una categoría y una subcategoría.", "error");
+                if (!validarDescripcion())
                     return;
-                }
+                if (validarCategorización())
+                    return;
+
                 TicketCreacionDTO nuevoTicket = new TicketCreacionDTO
                 {
                     IdCreador = user.Id,
@@ -249,6 +283,7 @@ namespace AplicacionWeb
                     Descripcion = txtDescripcion.Text,
                 };
                 datosTicket.CrearTicket(nuevoTicket);
+
                 if (nuevoTicket.IdCreador == -1)
                 {
                     Modal.Mostrar(this, "Error", "No se pudo crear el ticket. Por favor, inténtelo más tarde.", "error");
@@ -261,6 +296,127 @@ namespace AplicacionWeb
             {
                 Modal.Mostrar(this, "Error", "No se pudo crear el ticket. Por favor, inténtelo más tarde.", "error");
             }
+        }
+
+        private bool validarDescripcion()
+        {
+            string descripcion = txtDescripcion.Text.Trim();
+            if (descripcion.Length < 5)
+            {
+                Modal.Mostrar(this, "Error", "La descripción del ticket debe tener al menos 5 caracteres.", "error");
+                return false;
+            }
+            if (descripcion.Length > 2000)
+            {
+                Modal.Mostrar(this, "Error", "La descripción del ticket no puede exceder los 2000 caracteres.", "error");
+                return false;
+            }
+            return true;
+        }
+
+        private bool validarCategorización()
+        {
+            if (ddlCategoria.SelectedValue == "0" || ddlSubCategoria.SelectedValue == "0")
+            {
+                Modal.Mostrar(this, "Error", "Debe seleccionar una categoría y una subcategoría.", "error");
+                return false;
+            }
+            return true;
+        }
+
+        private bool modificarTicket(int id)
+        {
+            TicketDatos datosTicket = new TicketDatos();
+            try
+            {
+                switch (editingField)
+                {
+                    case "modificarTitulo":
+                        if (validarCategorización())
+                            return false;
+                        ticket.IdSubCategoria = int.Parse(ddlSubCategoria.SelectedValue);
+                        break;
+                    case "modificarSoliciante":
+                        ticket.IdCreador = int.Parse(ddlOwner.SelectedValue);
+                        break;
+                    case "modificarDescripcion":
+                        if (!validarDescripcion())
+                            return false;
+                        ticket.Descripcion = txtDescripcion.Text;
+                        break;
+                    case "modificarAsignados":
+                        modificarSupporters();
+                        break;
+                }
+                bool exito = datosTicket.ModificarTicket(ticket);
+                if (!exito)
+                {
+                    Modal.Mostrar(this, "Error", "No se pudo modificar el ticket. Por favor, inténtelo más tarde.", "error");
+                    return false;
+                }
+                Modal.Mostrar(this, "Éxito", "El ticket se ha modificado correctamente.", "exito");
+                Response.Redirect("ticket.aspx?id=" + id, true);
+                return true;
+            }
+            catch (Exception Ex)
+            {
+                Modal.Mostrar(this, "Error", "No se pudo modificar el ticket. Por favor, inténtelo más tarde.", "error");
+                return false;
+            }
+        }
+
+        private void modificarSupporters()
+        {
+            List<int> idsSeleccionados = lstAsignados.Items.Cast<ListItem>().Select(item => int.Parse(item.Value)).ToList();
+            TicketDatos ticketDatos = new TicketDatos();
+
+            // Primero recorro los seleccionados, y los comparo con la lista actual de colaboradores, si no están en la lista actual, añadirlos.
+            foreach (int id in idsSeleccionados)
+            {
+                if (!ticket.IdColaboradores.Contains(id))
+                {
+                    ticket.IdColaboradores.Add(id);
+                    ticketDatos.AgregarColaborador(ticket.Id, id);
+                }
+            }
+
+            // Luego analizo la lista actual de colaboradores, si no estan en la lista de seleccionados, removerlo.
+            List<int> colaboradoresActuales = new List<int>(ticket.IdColaboradores);
+            foreach (int id in colaboradoresActuales)
+            {
+                if (!idsSeleccionados.Contains(id))
+                {
+                    ticket.IdColaboradores.Remove(id);
+                    ticketDatos.QuitarColaborador(ticket.Id, id);
+                }
+            }
+        }
+
+        protected void btnAddSupport_Click(object sender, EventArgs e)
+        {
+            if (lstDisponibles.SelectedItem == null)
+                return;
+
+            string nombreSeleccionado = lstDisponibles.SelectedItem.Text;
+            string idSeleccionado = lstDisponibles.SelectedValue;
+
+            lstAsignados.Items.Add(new ListItem(nombreSeleccionado, idSeleccionado));
+            lstDisponibles.Items.Remove(lstDisponibles.Items.FindByValue(idSeleccionado));
+            //ticket.IdColaboradores.Add(idSeleccionado);
+        }
+
+        protected void btnRemoveSupport_Click(object sender, EventArgs e)
+        {
+            if (lstAsignados.SelectedItem == null)
+                return;
+
+            string nombreSeleccionado = lstAsignados.SelectedItem.Text;
+            string idSeleccionado = lstAsignados.SelectedValue;
+
+            lstDisponibles.Items.Add(new ListItem(nombreSeleccionado, idSeleccionado));
+            lstAsignados.Items.Remove(lstAsignados.Items.FindByValue(idSeleccionado));
+
+            //ticket.IdColaboradores.Remove(idSeleccionado);
         }
     }
 }

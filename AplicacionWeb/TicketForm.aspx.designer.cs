@@ -138,7 +138,25 @@ namespace AplicacionWeb
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect lstDisponibles;
+        protected global::System.Web.UI.WebControls.ListBox lstDisponibles;
+
+        /// <summary>
+        /// Control btnAddSupport.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddSupport;
+
+        /// <summary>
+        /// Control btnRemoveSupport.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRemoveSupport;
 
         /// <summary>
         /// Control lstAsignados.
@@ -147,7 +165,7 @@ namespace AplicacionWeb
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect lstAsignados;
+        protected global::System.Web.UI.WebControls.ListBox lstAsignados;
 
         /// <summary>
         /// Control btnCancelar.

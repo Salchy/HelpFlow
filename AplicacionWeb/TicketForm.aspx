@@ -66,25 +66,23 @@
                                 <div class="col-md-12">
                                     <label class="form-label fw-bold">Asignar Colaboradores al Ticket:</label>
                                     <div class="d-flex align-items-center">
+
+                                        <%-- Lista de disponibles --%>
                                         <div class="flex-fill me-2">
-                                            <input type="text" id="buscadorDisponibles" class="form-control mb-2" placeholder="Buscar usuario..." onkeyup="filtrarLista('lstDisponibles', this.value)" />
-                                            <select id="lstDisponibles" runat="server" clientidmode="static" class="form-select" size="10" />
+                                            <input type="text" id="buscadorDisponibles" class="form-control mb-2" placeholder="Buscar usuario..." />
+                                            <asp:ListBox ID="lstDisponibles" runat="server" CssClass="form-control" SelectionMode="Single"></asp:ListBox>
                                         </div>
 
                                         <!-- Botones agregar/quitar -->
                                         <div class="d-flex flex-column justify-content-center align-items-center me-2">
-                                            <button type="button" class="btn btn-primary mb-2" onclick="moverSeleccion('lstDisponibles','lstAsignados')">
-                                                &gt;&gt;
-                                            </button>
-                                            <button type="button" class="btn btn-secondary" onclick="moverSeleccion('lstAsignados','lstDisponibles')">
-                                                &lt;&lt;
-                                            </button>
+                                            <asp:Button ID="btnAddSupport" Text="&gt;&gt;" runat="server" CssClass="btn btn-primary mb-2" OnClick="btnAddSupport_Click"/>
+                                            <asp:Button ID="btnRemoveSupport" Text="&lt;&lt;" runat="server" CssClass="btn btn-secondary" OnClick="btnRemoveSupport_Click" />
                                         </div>
 
                                         <!-- Lista de asignados -->
                                         <div class="flex-fill ms-2">
                                             <label class="form-label">Asignados:</label>
-                                            <select id="lstAsignados" runat="server" clientidmode="static" class="form-select" size="10" />
+                                            <asp:ListBox ID="lstAsignados" runat="server" CssClass="form-control" SelectionMode="Single"></asp:ListBox>
                                         </div>
                                     </div>
                                 </div>
@@ -110,17 +108,6 @@
                 const opt = list.options[i];
                 opt.style.display = opt.text.toLowerCase().includes(filtro) ? '' : 'none';
             }
-        }
-
-        // Mover elementos seleccionados de una lista a otra
-        function moverSeleccion(idOrigen, idDestino) {
-            const origen = document.getElementById(idOrigen);
-            const destino = document.getElementById(idDestino);
-
-            const seleccionados = Array.from(origen.selectedOptions);
-            seleccionados.forEach(opt => {
-                destino.appendChild(opt);
-            });
         }
     </script>
 </asp:Content>

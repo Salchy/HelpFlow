@@ -196,6 +196,47 @@ namespace AccesoDatos
                 throw Ex;
             }
         }
+
+        public bool AgregarColaborador(int idTicket, int idUsuario)
+        {
+            try
+            {
+                database.SetProcedure("SP_AgregarColaborador");
+                database.SetParameter("@idTicket", idTicket);
+                database.SetParameter("@idUsuario", idUsuario);
+                database.ExecQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+                database.CloseConnection();
+            }
+            return true;
+        }
+
+        public bool QuitarColaborador(int idTicket, int idUsuario)
+        {
+            try
+            {
+                database.SetProcedure("SP_QuitarColaborador");
+                database.SetParameter("@idTicket", idTicket);
+                database.SetParameter("@idUsuario", idUsuario);
+                database.ExecQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+                database.CloseConnection();
+            }
+            return true;
+        }
+
         public Ticket ObtenerTicket(int id)
         {
             try
@@ -238,6 +279,29 @@ namespace AccesoDatos
                 throw Ex;
             }
         }
+
+        public bool ModificarTicket(TicketCreacionDTO ticket)
+        {
+            try
+            {
+                database.SetProcedure("SP_ModificarTicket");
+
+                database.SetParameter("@id", ticket.Id);
+                database.SetParameter("@idCreador", ticket.IdCreador);
+                database.SetParameter("@idSubCategoria", ticket.IdSubCategoria);
+                database.SetParameter("@idEstado", ticket.IdEstado);
+                database.SetParameter("@message", ticket.Descripcion);
+
+                database.ExecQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            
+            return true;
+        }
+
         public int CrearTicket(TicketCreacionDTO ticket)
         {
             try

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http.Headers;
@@ -302,11 +303,34 @@ namespace AccesoDatos
             return true;
         }
 
+        public bool ModificarEstado(int idTicket, int idEstado)
+        {
+            try
+            {
+                database.SetQuery("UPDATE Tickets SET IdEstado = @idEstado WHERE Id = @idTicket;");
+
+                database.SetParameter("@idEstado", idEstado);
+                database.SetParameter("@idTicket", idTicket);
+
+                database.ExecNonQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+                database.CloseConnection();
+            }
+            return true;
+        }
+
         public int CrearTicket(TicketCreacionDTO ticket)
         {
             try
             {
                 database.SetProcedure("SP_CrearTicket");
+
                 database.SetParameter("@owner", ticket.IdCreador);
                 database.SetParameter("@idSubCategoria", ticket.IdSubCategoria);
                 database.SetParameter("@message", ticket.Descripcion);

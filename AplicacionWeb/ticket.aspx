@@ -25,7 +25,7 @@
                     <label class="fw-bold me-2 mb-0">Estado:</label>
                     <div>
                         <asp:DropDownList
-                            ID="ddlEstado" runat="server" CssClass="form-select" onchange="cambiarColorEstado(this)">
+                            ID="ddlEstado" runat="server" AutoPostBack="true" CssClass="form-select" OnSelectedIndexChanged="ddlEstado_SelectedIndexChanged">
                         </asp:DropDownList>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                                 <label class="btn btn-outline-warning w-50 radioButtonStyle">
                                     <asp:RadioButton ID="rbInterno" runat="server" GroupName="TipoCommit" AutoPostBack="false" CssClass="typeCommit-group d-none" />
                                     Uso Interno
-                                </label>        
+                                </label>
                             </div>
                         </div>
 
@@ -200,27 +200,6 @@
 
             function ocultarFormulario() {
                 document.getElementById("formCommit").style.display = "none";
-            }
-
-            function cambiarColorEstado(dropdown) {
-                // Primero sacamos cualquier clase previa de Bootstrap que haya
-                dropdown.classList.remove("bg-secondary", "bg-warning", "bg-success", "bg-primary", "text-white", "text-dark");
-
-                // Asignamos el color según el valor seleccionado
-                switch (dropdown.value) {
-                    case "0":
-                        dropdown.classList.add("bg-primary", "text-white");
-                        break;
-                    case "1":
-                        dropdown.classList.add("bg-warning", "text-dark");
-                        break;
-                    case "2":
-                        dropdown.classList.add("bg-success", "text-white");
-                        break;
-                    case "3":
-                        dropdown.classList.add("bg-secondary", "text-white");
-                        break;
-                }
             }
         </script>
 </asp:Content>

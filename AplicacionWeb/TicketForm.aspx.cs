@@ -114,6 +114,8 @@ namespace AplicacionWeb
 
                         cargarColaboradores(ticketID);
 
+                        editingField = action != null ? action : "all";
+
                         if (action == null)
                         {
                             modifyTittle();
@@ -146,7 +148,6 @@ namespace AplicacionWeb
                                 modifySupporters();
                                 break;
                         }
-                        editingField = action;
                     }
                 }
                 catch (Exception Ex)
@@ -329,25 +330,40 @@ namespace AplicacionWeb
             TicketDatos datosTicket = new TicketDatos();
             try
             {
-                switch (editingField)
+                if (editingField == "all")
                 {
-                    case "modificarTitulo":
-                        if (validarCategorización())
-                            return false;
-                        ticket.IdSubCategoria = int.Parse(ddlSubCategoria.SelectedValue);
-                        break;
-                    case "modificarSoliciante":
-                        ticket.IdCreador = int.Parse(ddlOwner.SelectedValue);
-                        break;
-                    case "modificarDescripcion":
-                        if (!validarDescripcion())
-                            return false;
-                        ticket.Descripcion = txtDescripcion.Text;
-                        break;
-                    case "modificarAsignados":
-                        modificarSupporters();
-                        break;
+                    if (!validarCategorización())
+                        return false;
+                    if (!validarDescripcion())
+                        return false;
+                    ticket.IdSubCategoria = int.Parse(ddlSubCategoria.SelectedValue);
+                    ticket.IdCreador = int.Parse(ddlOwner.SelectedValue);
+                    ticket.Descripcion = txtDescripcion.Text;
+                    modificarSupporters();
                 }
+                else
+                {
+                    switch (editingField)
+                    {
+                        case "modificarTitulo":
+                            if (!validarCategorización())
+                                return false;
+                            ticket.IdSubCategoria = int.Parse(ddlSubCategoria.SelectedValue);
+                            break;
+                        case "modificarSoliciante":
+                            ticket.IdCreador = int.Parse(ddlOwner.SelectedValue);
+                            break;
+                        case "modificarDescripcion":
+                            if (!validarDescripcion())
+                                return false;
+                            ticket.Descripcion = txtDescripcion.Text;
+                            break;
+                        case "modificarAsignados":
+                            modificarSupporters();
+                            break;
+                    }
+                }
+
                 bool exito = datosTicket.ModificarTicket(ticket);
                 if (!exito)
                 {
@@ -355,12 +371,12 @@ namespace AplicacionWeb
                     return false;
                 }
                 Modal.Mostrar(this, "Éxito", "El ticket se ha modificado correctamente.", "exito");
-                Response.Redirect("ticket.aspx?id=" + id, true);
+                Response.Redirect("TKT-" + id, true);
                 return true;
             }
             catch (Exception Ex)
             {
-                Modal.Mostrar(this, "Error", "No se pudo modificar el ticket. Por favor, inténtelo más tarde.", "error");
+                Modal.Mostrar(this, "Error", "No se pudo modificar el ticket. Por favreturn true;or, inténtelo más tarde.", "error");
                 return false;
             }
         }

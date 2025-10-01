@@ -240,5 +240,17 @@ namespace AplicacionWeb
         {
             Response.Redirect($"TicketForm.aspx?id={TicketActual.Id}");
         }
+
+        protected void ddlEstado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Modificar el estado del ticket
+            ListItem estado = ddlEstado.SelectedItem;
+            TicketActual.Estado.Id = int.Parse(estado.Value);
+            TicketActual.Estado.NombreEstado = estado.Text;
+
+            TicketDatos ticketDatos = new TicketDatos();
+            ticketDatos.ModificarEstado(TicketActual.Id, TicketActual.Estado.Id);
+            MostrarEstado();
+        }
     }
 }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Notificación</title>
+</head>
+<body style="font-family: Arial, sans-serif; font-size: 14px; color: #333; margin:0; padding:0;">
+
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f6f6f6; padding:20px 0;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" border="0" style="background:#ffffff; border:1px solid #e0e0e0; border-radius:6px; padding:20px;">
+          <tr>
+            <td>
+              <!-- Encabezado -->
+              <h2 style="margin:0 0 15px 0; font-size:18px; color:#222; text-align:center;">
+                📩 Notificación de Ticket
+              </h2>
+
+              <!-- Contenido -->
+              <p style="margin:0 0 10px 0;">
+                Hola <strong>{NombreUsuario}</strong>,
+              </p>
+
+              <p style="margin:0 0 10px 0;">
+                {Msg}
+              </p>
+
+              <!-- Botón -->
+              <p style="text-align:center;">
+                <a href="{LinkTicket}" style="display:inline-block; background:#007bff; color:#fff; padding:10px 18px; text-decoration:none; border-radius:4px; font-size:14px;">
+                  Ver Ticket
+                </a>
+              </p>
+
+              <!-- Footer -->
+              <hr style="border:none; border-top:1px solid #eee; margin:20px 0;">
+              <p style="font-size:12px; color:#888; text-align:center; margin:0;">
+                Este es un mensaje automático, por favor no responda.
+              </p>
+
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

@@ -274,7 +274,7 @@ namespace AplicacionWeb
             {
                 if (!validarDescripcion())
                     return;
-                if (validarCategorización())
+                if (!validarCategorización())
                     return;
 
                 TicketCreacionDTO nuevoTicket = new TicketCreacionDTO
@@ -291,6 +291,9 @@ namespace AplicacionWeb
                     return;
                 }
                 Modal.Mostrar(this, "Éxito", "El ticket se ha creado correctamente.\nSu número de ticket es el TKT-" + nuevoTicket.Id + ".", "exito");
+
+                MailHelper.SendEmail(user.Correo, "Novedades Ticket - #" + nuevoTicket.Id, "Se creó un nuevo ticket. Su número de ticket es el TKT-" + nuevoTicket.Id, user.Nombre, nuevoTicket.Id.ToString());
+
                 Response.Redirect("misTickets.aspx", true);
             }
             catch (Exception Ex)

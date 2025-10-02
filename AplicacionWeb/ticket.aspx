@@ -198,7 +198,7 @@
                 document.getElementById("formCommit").style.display = "block";
             }
 
-            function ocultarFormulario() {
+            function ocultarFormulario() { 
                 document.getElementById("formCommit").style.display = "none";
             }
         </script>

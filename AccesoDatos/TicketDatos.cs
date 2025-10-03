@@ -41,7 +41,7 @@ namespace AccesoDatos
             List<TicketDTO> listaTickets = new List<TicketDTO>();
             try
             {
-                database.SetQuery("SELECT TicketID, Titulo, Nombre, FechaCreacion, FechaActualizacion, NombreEstado, Colaboradores FROM VW_GetAllTicketsWithColaborators");
+                database.SetQuery("SELECT TicketID, Titulo, Nombre, FechaCreacion, FechaActualizacion, NombreEstado, Colaboradores FROM VW_GetAllTicketsWithColaborators ORDER BY FechaCreacion ASC;");
                 database.ExecQuery();
 
                 while (database.reader.Read())

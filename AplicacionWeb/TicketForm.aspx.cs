@@ -122,6 +122,7 @@ namespace AplicacionWeb
                             modifySolicitante();
                             modifyDescription();
                             modifySupporters();
+                            modifyDate();
                             return;
                         }
                         tittleSection.Visible = false;
@@ -129,6 +130,7 @@ namespace AplicacionWeb
                         statusSection.Visible = false;
                         ownerSection.Visible = false;
                         supportersSection.Visible = false;
+                        dateSection.Visible = false;
 
                         switch (action)
                         {
@@ -139,7 +141,7 @@ namespace AplicacionWeb
                                 modifySolicitante();
                                 break;
                             case "modificarFechaCreacion":
-
+                                modifyDate();
                                 break;
                             case "modificarDescripcion":
                                 modifyDescription();
@@ -219,6 +221,12 @@ namespace AplicacionWeb
 
             panelEdicion.Visible = true;
             supportersSection.Visible = true;
+        }
+
+        private void modifyDate()
+        {
+            panelEdicion.Visible = true;
+            dateSection.Visible = true;
         }
 
         protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
@@ -361,6 +369,20 @@ namespace AplicacionWeb
                                 return false;
                             ticket.Descripcion = txtDescripcion.Text;
                             break;
+                        case "modificarFechaCreacion":
+                            string fechaSeleccionada = txtFecha.Value;
+                            string horaSeleccionada = txtHora.Value;
+
+                            if (string.IsNullOrEmpty(fechaSeleccionada) || string.IsNullOrEmpty(horaSeleccionada))
+                                return false;
+
+                            string fechaHoraIso = $"{fechaSeleccionada}T{horaSeleccionada}";
+
+                            if (!DateTime.TryParse(fechaHoraIso, out DateTime fechaHora))
+                                return false;
+
+                            ticket.FechaCreacion = fechaHora;
+                            break;
                         case "modificarAsignados":
                             modificarSupporters();
                             break;
@@ -379,7 +401,7 @@ namespace AplicacionWeb
             }
             catch (Exception Ex)
             {
-                Modal.Mostrar(this, "Error", "No se pudo modificar el ticket. Por favreturn true;or, inténtelo más tarde.", "error");
+                Modal.Mostrar(this, "Error", "No se pudo modificar el ticket. Por favor, inténtelo más tarde.", "error");
                 return false;
             }
         }

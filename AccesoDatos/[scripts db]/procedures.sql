@@ -74,6 +74,7 @@ CREATE PROCEDURE SP_ModificarTicket (
 	@idCreador INT,
 	@idSubCategoria TINYINT,
 	@idEstado TINYINT,
+	@fechaCreacion DATETIME,
 	@message VARCHAR(500)
 )
 AS
@@ -82,7 +83,9 @@ BEGIN
 		IdUsuarioCreador = @idCreador,
 		IdSubCategoria = @idSubCategoria,
 		IdEstado = @idEstado,
-		Descripcion = @message
+		Descripcion = @message,
+		FechaCreacion = @fechaCreacion,
+		FechaActualizacion = GETDATE()
 	WHERE Id = @id;
 END
 GO

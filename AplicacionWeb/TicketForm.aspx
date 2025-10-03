@@ -75,17 +75,33 @@
 
                                         <!-- Botones agregar/quitar -->
                                         <div class="d-flex flex-column justify-content-center align-items-center me-2">
-                                            <asp:Button ID="btnAddSupport" Text="&gt;&gt;" runat="server" CssClass="btn btn-primary mb-2" OnClick="btnAddSupport_Click"/>
+                                            <asp:Button ID="btnAddSupport" Text="&gt;&gt;" runat="server" CssClass="btn btn-primary mb-2" OnClick="btnAddSupport_Click" />
                                             <asp:Button ID="btnRemoveSupport" Text="&lt;&lt;" runat="server" CssClass="btn btn-secondary" OnClick="btnRemoveSupport_Click" />
                                         </div>
 
                                         <!-- Lista de asignados -->
                                         <div class="flex-fill ms-2">
                                             <label class="form-label">Asignados:</label>
-                                            <asp:ListBox ID="lstAsignados" runat="server" CssClass="form-control" SelectionMode="Single"></asp:ListBox>
+                                            <div class="card shadow-sm p-3">
+                                                <asp:ListBox ID="lstAsignados" runat="server" CssClass="form-control" SelectionMode="Single"></asp:ListBox>
+                                                <
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </asp:Panel>
+
+                    <asp:Panel ID="dateSection" runat="server">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="txtFecha" class="form-label">Fecha</label>
+                                <input type="date" id="txtFecha" runat="server" class="form-control" />
+                            </div>
+                            <div class="col">
+                                <label for="txtHora" class="form-label">Hora</label>
+                                <input type="time" id="txtHora" runat="server" class="form-control" />
                             </div>
                         </div>
                     </asp:Panel>

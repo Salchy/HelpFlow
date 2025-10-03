@@ -291,6 +291,7 @@ namespace AccesoDatos
                 database.SetParameter("@idCreador", ticket.IdCreador);
                 database.SetParameter("@idSubCategoria", ticket.IdSubCategoria);
                 database.SetParameter("@idEstado", ticket.IdEstado);
+                database.SetParameter("@fechaCreacion", ticket.FechaCreacion);
                 database.SetParameter("@message", ticket.Descripcion);
 
                 database.ExecQuery();
@@ -364,6 +365,7 @@ namespace AccesoDatos
                     ticket.IdSubCategoria = Convert.ToInt32(database.reader["IdSubCategoria"]);
                     ticket.IdEstado = Convert.ToInt32(database.reader["IdEstado"]);
                     ticket.Descripcion = database.reader["Descripcion"].ToString();
+                    ticket.FechaCreacion = database.reader.GetDateTime(database.reader.GetOrdinal("FechaCreacion"));
                 }
                 return ticket;
             }

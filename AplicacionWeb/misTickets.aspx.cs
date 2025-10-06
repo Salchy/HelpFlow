@@ -40,7 +40,7 @@ namespace AplicacionWeb
 
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("TicketForm.aspx", true);
         }
 
         public string ObtenerBadgeEstado(string estado)

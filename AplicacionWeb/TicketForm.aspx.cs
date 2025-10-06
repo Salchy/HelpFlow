@@ -225,6 +225,11 @@ namespace AplicacionWeb
 
         private void modifyDate()
         {
+            DateTime date = DateTime.Now;
+
+            txtFecha.Value = date.ToString("yyyy-MM-dd");
+            txtHora.Value = date.ToString("HH:mm");
+
             panelEdicion.Visible = true;
             dateSection.Visible = true;
         }

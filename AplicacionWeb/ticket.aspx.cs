@@ -77,7 +77,7 @@ namespace AplicacionWeb
                     lblTitulo.Text = TicketActual.Asunto;
                     lblSolicitante.Text = TicketActual.UsuarioCreador.Nombre;
                     lblDescripcion.Text = TicketActual.Descripcion;
-                    lblFecha.Text = TicketActual.FechaCreacion.ToString("dd/MM/yyyy");
+                    lblFecha.Text = TicketActual.FechaCreacion.ToString("dd/MM/yyyy HH:mm:ss");
                     MostrarEstado();
                     cargarColaboradores();
                     cargarCommits();

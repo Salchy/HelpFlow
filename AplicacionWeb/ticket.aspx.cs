@@ -196,6 +196,9 @@ namespace AplicacionWeb
             }
             else
             {
+                rbInterno.Checked = false;
+                rbCliente.Checked = true;
+                
                 return true; // Es nota interna
             }
         }

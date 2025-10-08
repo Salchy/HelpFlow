@@ -25,3 +25,7 @@ En ticket.aspx, separar los apartados de la pagina, en updatepanels:
 	// Comentarios e historial del ticket
     </ContentTemplate>
 </asp:UpdatePanel>
+
+---------------
+
+En main.aspx, en cada card, hacer un boton, para ir a la pestaña de tickets, con los filtros del boton que se apretó

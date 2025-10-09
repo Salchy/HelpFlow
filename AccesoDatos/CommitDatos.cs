@@ -37,16 +37,27 @@ namespace AccesoDatos
                 throw Ex;
             }
         }
-        public List<CommitDTO> GetTicketCommitsDTOs(int idTicket, bool isClient = false)
+        public List<CommitDTO> GetTicketCommitsDTOs(int idTicket, int typeCommit = 0)
         {
             List<CommitDTO> commits = new List<CommitDTO>();
             try
             {
                 string query = "SELECT * FROM VW_GetCommits WHERE IdTicketRelacionado = @IdTicket";
-                if (isClient)
-                    query += " AND TipoCommit = 0";
+
                 database.SetQuery(query);
                 database.SetParameter("@IdTicket", idTicket);
+
+                if (typeCommit != 0)
+                {
+                    if (typeCommit == 4)
+                        query += " WHERE TipoCommit IN(1, 3)";
+                    else
+                    {
+                        query += " AND TipoCommit = @typeCommit";
+                        database.SetParameter("@typeCommit", typeCommit);
+                    }
+                }
+
                 database.ExecQuery();
 
                 while (database.reader.Read())
@@ -59,7 +70,7 @@ namespace AccesoDatos
                         Fecha = database.reader.GetDateTime(database.reader.GetOrdinal("Fecha")),
                         Mensaje = database.reader["Mensaje"].ToString(),
                         IdTicketRelacionado = Convert.ToInt32(database.reader["IdTicketRelacionado"]),
-                        TipoCommit = Convert.ToBoolean(database.reader["TipoCommit"])
+                        TipoCommit = Convert.ToByte(database.reader["TipoCommit"])
                     };
                     commits.Add(commit);
                 }

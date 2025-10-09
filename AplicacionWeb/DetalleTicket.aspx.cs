@@ -116,7 +116,7 @@ namespace AplicacionWeb
 
             try
             {
-                ListaCommits = commitDatos.GetTicketCommitsDTOs(TicketActual.Id, true);
+                ListaCommits = commitDatos.GetTicketCommitsDTOs(TicketActual.Id, 4);
                 bindearDatos();
             }
             catch (Exception Ex)

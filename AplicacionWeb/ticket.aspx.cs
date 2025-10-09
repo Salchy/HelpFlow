@@ -147,6 +147,7 @@ namespace AplicacionWeb
             pnlSinCommits.Visible = (rptCommits.Items.Count == 0);
         }
 
+        // TODO: Hacer que se filtren los resultados, dependiendo si tiene presionado el boton de "Todo", "Comentarios" o "Actividad".
         private void cargarCommits()
         {
             CommitDatos commitDatos = new CommitDatos();
@@ -214,7 +215,7 @@ namespace AplicacionWeb
                 AutorNombre = usuario.Nombre,
                 Mensaje = commitMsg,
                 IdTicketRelacionado = TicketActual.Id,
-                TipoCommit = esInterno
+                TipoCommit = esInterno ? (byte)1 : (byte)2
             };
 
             bool Success = commitDatos.InsertCommit(commit);

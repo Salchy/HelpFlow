@@ -106,6 +106,7 @@ namespace AplicacionWeb
                             Response.Redirect("tickets.aspx", false);
                             return;
                         }
+
                         lblTitulo.InnerText = "Modificar Ticket";
                         btnCrearTicket.Text = "Guardar";
 
@@ -185,6 +186,8 @@ namespace AplicacionWeb
             ddlCategoria.SelectedValue = categoriaTicket;
 
             ddlSubCategoria.SelectedValue = ticket.IdSubCategoria.ToString();
+
+            
 
             tittleSection.Visible = true;
         }
@@ -365,6 +368,23 @@ namespace AplicacionWeb
                             if (!validarCategorización())
                                 return false;
                             ticket.IdSubCategoria = int.Parse(ddlSubCategoria.SelectedValue);
+
+                            // TODO: Extraer esto a un método, dentro de commitDatos, para registrar logs.
+                            CommitDatos commitDatos = new CommitDatos();
+
+                            Usuario userActual = UsuarioDatos.UsuarioActual(Session["Usuario"]);
+                            CommitDTO commit = new CommitDTO
+                            {
+                                IdAutor = userActual.Id,
+                                AutorNombre = userActual.Nombre,
+                                Mensaje = userActual.Nombre + " modificó el asunto del ticket.",
+                                IdTicketRelacionado = ticket.Id,
+                                TipoCommit = (byte)3
+                            };
+
+                            bool Success = commitDatos.InsertCommit(commit);
+                            // ----------------------------- //
+
                             break;
                         case "modificarSoliciante":
                             ticket.IdCreador = int.Parse(ddlOwner.SelectedValue);

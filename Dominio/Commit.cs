@@ -13,6 +13,6 @@ namespace Dominio
         public Usuario Autor { get; set; }
         public DateTime Fecha { get; set; }
         public string Mensaje { get; set; }
-        public bool TipoCommit { get; set; } // 0 es interno (Nota interna), 1 es público (al cliente)
+        public int TipoCommit { get; set; } // 0 es interno (Nota interna), 1 es público (al cliente)
     }
 }

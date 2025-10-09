@@ -14,6 +14,6 @@ namespace DTO
         public DateTime Fecha { get; set; }
         public string Mensaje { get; set; }
         public int IdTicketRelacionado { get; set; } // ID del ticket relacionado
-        public bool TipoCommit { get; set; } // 0 es interno (Nota interna), 1 es público (al cliente)
+        public byte TipoCommit { get; set; } // 1 es público (al cliente) || 2 es interno (Nota interna) || 3 es Log de update
     }
 }

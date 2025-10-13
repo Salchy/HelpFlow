@@ -406,6 +406,7 @@ namespace AplicacionWeb
                         case "modificarDescripcion":
                             if (!validarDescripcion())
                                 return false;
+                            registrarLog("modificó la descripción del ticket.");
                             ticket.Descripcion = txtDescripcion.Text;
                             break;
                         case "modificarFechaCreacion":
@@ -420,6 +421,7 @@ namespace AplicacionWeb
                             if (!DateTime.TryParse(fechaHoraIso, out DateTime fechaHora))
                                 return false;
 
+                            registrarLog("modificó la fecha y hora del ticket.");
                             ticket.FechaCreacion = fechaHora;
                             break;
                         case "modificarAsignados":
@@ -449,6 +451,7 @@ namespace AplicacionWeb
         {
             List<int> idsSeleccionados = lstAsignados.Items.Cast<ListItem>().Select(item => int.Parse(item.Value)).ToList();
             TicketDatos ticketDatos = new TicketDatos();
+            UsuarioDatos usuarioDatos = new UsuarioDatos();
 
             // Primero recorro los seleccionados, y los comparo con la lista actual de colaboradores, si no están en la lista actual, añadirlos.
             foreach (int id in idsSeleccionados)
@@ -457,6 +460,7 @@ namespace AplicacionWeb
                 {
                     ticket.IdColaboradores.Add(id);
                     ticketDatos.AgregarColaborador(ticket.Id, id);
+                    registrarLog("asignó a '" + usuarioDatos.GetUsuarioDTO(id).Nombre + "' como colaborador del ticket.");
                 }
             }
 
@@ -468,6 +472,7 @@ namespace AplicacionWeb
                 {
                     ticket.IdColaboradores.Remove(id);
                     ticketDatos.QuitarColaborador(ticket.Id, id);
+                    registrarLog("removió a '" + usuarioDatos.GetUsuarioDTO(id).Nombre + "' como colaborador del ticket.");
                 }
             }
         }

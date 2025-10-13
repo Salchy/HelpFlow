@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dominio;
 using DTO;
 
 namespace AccesoDatos
@@ -37,6 +38,29 @@ namespace AccesoDatos
                 throw Ex;
             }
         }
+
+        public bool registrarLog(int idUser, int ticketRelacionado, string msg)
+        {
+            try
+            {
+                CommitDatos commitDatos = new CommitDatos();
+                UsuarioDTO userActual = new UsuarioDatos().GetUsuarioDTO(idUser);
+
+                CommitDTO commit = new CommitDTO
+                {
+                    IdAutor = idUser,
+                    Mensaje = userActual.Nombre + " " + msg,
+                    IdTicketRelacionado = ticketRelacionado,
+                    TipoCommit = (byte)3
+                };
+                return commitDatos.InsertCommit(commit);
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+        }
+
         public List<CommitDTO> GetTicketCommitsDTOs(int idTicket, int typeCommit = 0)
         {
             List<CommitDTO> commits = new List<CommitDTO>();

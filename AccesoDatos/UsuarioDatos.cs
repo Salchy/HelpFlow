@@ -287,6 +287,31 @@ namespace AccesoDatos
             return list;
         }
 
+        public UsuarioDTO GetUsuarioDTO(int idUser)
+        {
+            try
+            {
+                database.SetQuery("SELECT UserName, Nombre, Correo FROM Usuarios WHERE Id = @idUser");
+
+                database.SetParameter("@idUser", idUser);
+                database.ExecQuery();
+
+                if (!database.reader.Read())
+                {
+                    return null;
+                }
+                return new UsuarioDTO { UserName = database.reader["UserName"].ToString(), Nombre = database.reader["Nombre"].ToString() };
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+                database.CloseConnection();
+            }
+        }
+
         private string generateHashPassword(string password)
         {
             byte[] inputBytes = Encoding.UTF8.GetBytes(password);

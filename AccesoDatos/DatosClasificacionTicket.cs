@@ -9,7 +9,7 @@ namespace AccesoDatos
 {
     public class DatosClasificacionTicket
     {
-        Database database;
+        private Database database;
         public DatosClasificacionTicket()
         {
             database = new Database();
@@ -82,6 +82,31 @@ namespace AccesoDatos
                 database.CloseConnection();
             }
             return SubCategorias;
+        }
+
+        public string getAsunto(int idSubCategoria)
+        {
+            try
+            {
+                database.SetQuery("SELECT C.Nombre, SC.Nombre FROM SubCategorias AS SC INNER JOIN Categorias AS C ON SC.IdCategoriaPadre = C.Id WHERE SC.Id = @idSubCat;");
+                database.SetParameter("@idSubCat", idSubCategoria);
+
+                database.ExecQuery();
+                if (database.reader.Read())
+                {
+                    string asunto = database.reader[0].ToString() + " - " + database.reader[1].ToString();
+                    return asunto;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener el asunto." + ex);
+            }
+            finally
+            {
+                database.CloseConnection();
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -344,6 +345,30 @@ namespace AplicacionWeb
             return true;
         }
 
+        private bool registrarLog(string msg)
+        {
+            try
+            {
+                CommitDatos commitDatos = new CommitDatos();
+
+                Usuario userActual = UsuarioDatos.UsuarioActual(Session["Usuario"]);
+
+                CommitDTO commit = new CommitDTO
+                {
+                    IdAutor = userActual.Id,
+                    AutorNombre = userActual.Nombre,
+                    Mensaje = userActual.Nombre + " " + msg,
+                    IdTicketRelacionado = ticket.Id,
+                    TipoCommit = (byte)3
+                };
+                return commitDatos.InsertCommit(commit);
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+        }
+
         private bool modificarTicket(int id)
         {
             TicketDatos datosTicket = new TicketDatos();
@@ -367,27 +392,14 @@ namespace AplicacionWeb
                         case "modificarTitulo":
                             if (!validarCategorización())
                                 return false;
-                            ticket.IdSubCategoria = int.Parse(ddlSubCategoria.SelectedValue);
-
-                            // TODO: Extraer esto a un método, dentro de commitDatos, para registrar logs.
-                            CommitDatos commitDatos = new CommitDatos();
-
-                            Usuario userActual = UsuarioDatos.UsuarioActual(Session["Usuario"]);
-                            CommitDTO commit = new CommitDTO
-                            {
-                                IdAutor = userActual.Id,
-                                AutorNombre = userActual.Nombre,
-                                Mensaje = userActual.Nombre + " modificó el asunto del ticket.",
-                                IdTicketRelacionado = ticket.Id,
-                                TipoCommit = (byte)3
-                            };
-
-                            bool Success = commitDatos.InsertCommit(commit);
-                            // ----------------------------- //
-
+                            int newIdSubCategoria = int.Parse(ddlSubCategoria.SelectedValue);
+                            DatosClasificacionTicket adminCatsAndSubCats = new DatosClasificacionTicket();
+                            registrarLog("modificó el asunto del ticket de '" + adminCatsAndSubCats.getAsunto(ticket.IdSubCategoria) + "' a '" + adminCatsAndSubCats.getAsunto(newIdSubCategoria) + "'.");
+                            ticket.IdSubCategoria = newIdSubCategoria;
                             break;
                         case "modificarSoliciante":
                             ticket.IdCreador = int.Parse(ddlOwner.SelectedValue);
+                            registrarLog("modificó el solicitante del ticket.");
                             break;
                         case "modificarDescripcion":
                             if (!validarDescripcion())

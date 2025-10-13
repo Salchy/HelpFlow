@@ -247,14 +247,21 @@ namespace AplicacionWeb
 
         protected void ddlEstado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Modificar el estado del ticket
+            CommitDatos commitDatos = new CommitDatos();
+
             ListItem estado = ddlEstado.SelectedItem;
+
+            // Registrar el log
+            commitDatos.registrarLog(((Usuario)UsuarioDatos.UsuarioActual(Session["Usuario"])).Id, TicketActual.Id, "modificó el estado del ticket de '" + TicketActual.Estado.NombreEstado + "' a '" + estado.Text + "'.");
+
+            // Modificar el estado del ticket
             TicketActual.Estado.Id = int.Parse(estado.Value);
             TicketActual.Estado.NombreEstado = estado.Text;
 
             TicketDatos ticketDatos = new TicketDatos();
             ticketDatos.ModificarEstado(TicketActual.Id, TicketActual.Estado.Id);
-
+            
+ 
             MailHelper.SendEmail(TicketActual.UsuarioCreador.Correo, "Novedades Ticket - #" + TicketActual.Id, "Se modificó el estado de tu ticket a " + estado.Text, TicketActual.UsuarioCreador.Nombre, TicketActual.Id.ToString());
 
             MostrarEstado();

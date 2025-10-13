@@ -188,8 +188,6 @@ namespace AplicacionWeb
 
             ddlSubCategoria.SelectedValue = ticket.IdSubCategoria.ToString();
 
-            
-
             tittleSection.Visible = true;
         }
 
@@ -345,33 +343,10 @@ namespace AplicacionWeb
             return true;
         }
 
-        private bool registrarLog(string msg)
-        {
-            try
-            {
-                CommitDatos commitDatos = new CommitDatos();
-
-                Usuario userActual = UsuarioDatos.UsuarioActual(Session["Usuario"]);
-
-                CommitDTO commit = new CommitDTO
-                {
-                    IdAutor = userActual.Id,
-                    AutorNombre = userActual.Nombre,
-                    Mensaje = userActual.Nombre + " " + msg,
-                    IdTicketRelacionado = ticket.Id,
-                    TipoCommit = (byte)3
-                };
-                return commitDatos.InsertCommit(commit);
-            }
-            catch (Exception Ex)
-            {
-                throw Ex;
-            }
-        }
-
         private bool modificarTicket(int id)
         {
             TicketDatos datosTicket = new TicketDatos();
+            CommitDatos datosCommit = new CommitDatos();
             try
             {
                 if (editingField == "all")
@@ -394,19 +369,20 @@ namespace AplicacionWeb
                                 return false;
                             int newIdSubCategoria = int.Parse(ddlSubCategoria.SelectedValue);
                             DatosClasificacionTicket adminCatsAndSubCats = new DatosClasificacionTicket();
-                            registrarLog("modificó el asunto del ticket de '" + adminCatsAndSubCats.getAsunto(ticket.IdSubCategoria) + "' a '" + adminCatsAndSubCats.getAsunto(newIdSubCategoria) + "'.");
+
+                            datosCommit.registrarLog(((Usuario)UsuarioDatos.UsuarioActual(Session["Usuario"])).Id, ticket.Id, "modificó el asunto del ticket de '" + adminCatsAndSubCats.getAsunto(ticket.IdSubCategoria) + "' a '" + adminCatsAndSubCats.getAsunto(newIdSubCategoria) + "'.");
                             ticket.IdSubCategoria = newIdSubCategoria;
                             break;
                         case "modificarSoliciante":
                             int newIdCreador = int.Parse(ddlOwner.SelectedValue);
                             UsuarioDatos adminUsers = new UsuarioDatos();
-                            registrarLog("modificó el solicitante del ticket de '" + adminUsers.GetUsuarioDTO(ticket.IdCreador).Nombre + "' a '" + adminUsers.GetUsuarioDTO(newIdCreador).Nombre + "'.");
+                            datosCommit.registrarLog(((Usuario)UsuarioDatos.UsuarioActual(Session["Usuario"])).Id, ticket.Id, "modificó el solicitante del ticket de '" + adminUsers.GetUsuarioDTO(ticket.IdCreador).Nombre + "' a '" + adminUsers.GetUsuarioDTO(newIdCreador).Nombre + "'.");
                             ticket.IdCreador = newIdCreador;
                             break;
                         case "modificarDescripcion":
                             if (!validarDescripcion())
                                 return false;
-                            registrarLog("modificó la descripción del ticket.");
+                            datosCommit.registrarLog(((Usuario)UsuarioDatos.UsuarioActual(Session["Usuario"])).Id, ticket.Id, "modificó la descripción del ticket.");
                             ticket.Descripcion = txtDescripcion.Text;
                             break;
                         case "modificarFechaCreacion":
@@ -420,8 +396,7 @@ namespace AplicacionWeb
 
                             if (!DateTime.TryParse(fechaHoraIso, out DateTime fechaHora))
                                 return false;
-
-                            registrarLog("modificó la fecha y hora del ticket.");
+                            datosCommit.registrarLog(((Usuario)UsuarioDatos.UsuarioActual(Session["Usuario"])).Id, ticket.Id, "modificó la fecha y hora del ticket.");
                             ticket.FechaCreacion = fechaHora;
                             break;
                         case "modificarAsignados":
@@ -452,6 +427,7 @@ namespace AplicacionWeb
             List<int> idsSeleccionados = lstAsignados.Items.Cast<ListItem>().Select(item => int.Parse(item.Value)).ToList();
             TicketDatos ticketDatos = new TicketDatos();
             UsuarioDatos usuarioDatos = new UsuarioDatos();
+            CommitDatos commitDatos = new CommitDatos();
 
             // Primero recorro los seleccionados, y los comparo con la lista actual de colaboradores, si no están en la lista actual, añadirlos.
             foreach (int id in idsSeleccionados)
@@ -460,7 +436,7 @@ namespace AplicacionWeb
                 {
                     ticket.IdColaboradores.Add(id);
                     ticketDatos.AgregarColaborador(ticket.Id, id);
-                    registrarLog("asignó a '" + usuarioDatos.GetUsuarioDTO(id).Nombre + "' como colaborador del ticket.");
+                    commitDatos.registrarLog(((Usuario)UsuarioDatos.UsuarioActual(Session["Usuario"])).Id, ticket.Id, "asignó a '" + usuarioDatos.GetUsuarioDTO(id).Nombre + "' como colaborador del ticket.");
                 }
             }
 
@@ -472,7 +448,7 @@ namespace AplicacionWeb
                 {
                     ticket.IdColaboradores.Remove(id);
                     ticketDatos.QuitarColaborador(ticket.Id, id);
-                    registrarLog("removió a '" + usuarioDatos.GetUsuarioDTO(id).Nombre + "' como colaborador del ticket.");
+                    commitDatos.registrarLog(((Usuario)UsuarioDatos.UsuarioActual(Session["Usuario"])).Id, ticket.Id, "removió a '" + usuarioDatos.GetUsuarioDTO(id).Nombre + "' como colaborador del ticket.");
                 }
             }
         }

@@ -398,8 +398,10 @@ namespace AplicacionWeb
                             ticket.IdSubCategoria = newIdSubCategoria;
                             break;
                         case "modificarSoliciante":
-                            ticket.IdCreador = int.Parse(ddlOwner.SelectedValue);
-                            registrarLog("modificó el solicitante del ticket.");
+                            int newIdCreador = int.Parse(ddlOwner.SelectedValue);
+                            UsuarioDatos adminUsers = new UsuarioDatos();
+                            registrarLog("modificó el solicitante del ticket de '" + adminUsers.GetUsuarioDTO(ticket.IdCreador).Nombre + "' a '" + adminUsers.GetUsuarioDTO(newIdCreador).Nombre + "'.");
+                            ticket.IdCreador = newIdCreador;
                             break;
                         case "modificarDescripcion":
                             if (!validarDescripcion())

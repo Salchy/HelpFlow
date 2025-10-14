@@ -259,12 +259,12 @@ namespace AplicacionWeb
             TicketActual.Estado.NombreEstado = estado.Text;
 
             TicketDatos ticketDatos = new TicketDatos();
-            ticketDatos.ModificarEstado(TicketActual.Id, TicketActual.Estado.Id);
-            
+            ticketDatos.ModificarEstado(TicketActual.Id, TicketActual.Estado.Id);     
  
             MailHelper.SendEmail(TicketActual.UsuarioCreador.Correo, "Novedades Ticket - #" + TicketActual.Id, "Se modificó el estado de tu ticket a " + estado.Text, TicketActual.UsuarioCreador.Nombre, TicketActual.Id.ToString());
 
             MostrarEstado();
+            cargarCommits();
         }
     }
 }

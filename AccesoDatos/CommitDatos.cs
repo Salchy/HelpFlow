@@ -74,7 +74,7 @@ namespace AccesoDatos
                 if (typeCommit != 0)
                 {
                     if (typeCommit == 4)
-                        query += " WHERE TipoCommit IN(1, 3)";
+                        query += " AND TipoCommit IN(2, 3)";
                     else
                     {
                         query += " AND TipoCommit = @typeCommit";

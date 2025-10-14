@@ -68,9 +68,6 @@ namespace AccesoDatos
             {
                 string query = "SELECT * FROM VW_GetCommits WHERE IdTicketRelacionado = @IdTicket";
 
-                database.SetQuery(query);
-                database.SetParameter("@IdTicket", idTicket);
-
                 if (typeCommit != 0)
                 {
                     if (typeCommit == 4)
@@ -78,9 +75,13 @@ namespace AccesoDatos
                     else
                     {
                         query += " AND TipoCommit = @typeCommit";
-                        database.SetParameter("@typeCommit", typeCommit);
+                        
                     }
                 }
+
+                database.SetQuery(query);
+                database.SetParameter("@IdTicket", idTicket);
+                database.SetParameter("@typeCommit", typeCommit);
 
                 database.ExecQuery();
 

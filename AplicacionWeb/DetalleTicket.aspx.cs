@@ -14,19 +14,6 @@ namespace AplicacionWeb
     public partial class DetalleTicket : System.Web.UI.Page
     {
         private Ticket TicketActual;
-        private List<CommitDTO> ListaCommits
-        {
-            get
-            {
-                if (Session["Commits"] == null)
-                    Session["Commits"] = new List<CommitDTO>();
-                return (List<CommitDTO>)Session["Commits"];
-            }
-            set
-            {
-                Session["Commits"] = value;
-            }
-        }
         protected void Page_Load(object sender, EventArgs e)
         {
             TicketDatos ticketDatos = new TicketDatos();
@@ -116,21 +103,15 @@ namespace AplicacionWeb
 
             try
             {
-                ListaCommits = commitDatos.GetTicketCommitsDTOs(TicketActual.Id, 4);
-                bindearDatos();
+                rptCommits.DataSource = null;
+                rptCommits.DataSource = commitDatos.GetTicketCommitsDTOs(TicketActual.Id, 4);
+                rptCommits.DataBind();
+                pnlSinCommits.Visible = (rptCommits.Items.Count == 0);
             }
             catch (Exception Ex)
             {
                 throw Ex;
             }
-        }
-
-        private void bindearDatos()
-        {
-            rptCommits.DataSource = null;
-            rptCommits.DataSource = ListaCommits;
-            rptCommits.DataBind();
-            pnlSinCommits.Visible = (rptCommits.Items.Count == 0);
         }
 
         protected void btnRegistrarCommit_Click(object sender, EventArgs e)

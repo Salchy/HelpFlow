@@ -12,7 +12,19 @@ namespace AplicacionWeb
 {
     public partial class DetalleTicket : System.Web.UI.Page
     {
-        private Ticket TicketActual;
+        private Ticket TicketActual
+        {
+            get
+            {
+                if (Session["Ticket"] == null)
+                    Session["Ticket"] = new Ticket();
+                return (Ticket)Session["Ticket"];
+            }
+            set
+            {
+                Session["Ticket"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             TicketDatos ticketDatos = new TicketDatos();
@@ -113,9 +125,57 @@ namespace AplicacionWeb
             }
         }
 
+        private bool RegistrarCommit(string commitMsg)
+        {
+            CommitDatos commitDatos = new CommitDatos();
+            Usuario usuario = UsuarioDatos.UsuarioActual(Session["Usuario"]);
+
+            CommitDTO commit = new CommitDTO
+            {
+                IdAutor = usuario.Id,
+                AutorNombre = usuario.Nombre,
+                Mensaje = commitMsg,
+                IdTicketRelacionado = TicketActual.Id,
+                TipoCommit = 4 // Es un commit de un cliente
+            };
+
+            bool Success = commitDatos.InsertCommit(commit);
+            if (!Success)
+            {
+                throw new Exception("Error al registrar el commit en la base de datos.");
+            }
+            cargarCommits();
+
+            Helper.notificarSupporters(TicketActual.Id, "Novedades Ticket - #" + TicketActual.Id, "Respuesta de " + usuario.Nombre + ": " + commitMsg);
+
+            Modal.Mostrar(this, "Éxito", "Commit registrado correctamente.", "exito");
+            txtMensaje.Text = "";
+            return Success;
+        }
+
         protected void btnRegistrarCommit_Click(object sender, EventArgs e)
         {
+            string commitMsg = txtMensaje.Text;
 
+            if (commitMsg.Length < 5)
+            {
+                Modal.Mostrar(this, "Error", "El mensaje del commit debe tener al menos 5 caracteres.", "error");
+                return;
+            }
+            if (commitMsg.Length > 500)
+            {
+                Modal.Mostrar(this, "Error", "El mensaje del commit no puede exceder los 500 caracteres.", "error");
+                return;
+            }
+            try
+            {
+                RegistrarCommit(commitMsg);
+            }
+            catch (Exception Ex)
+            {
+                Modal.Mostrar(this, "Error", "No se pudo registrar el commit: " + Ex.Message, "error");
+                return;
+            }
         }
     }
 }

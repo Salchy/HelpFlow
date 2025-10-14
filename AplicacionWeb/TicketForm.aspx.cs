@@ -308,30 +308,13 @@ namespace AplicacionWeb
                 Modal.Mostrar(this, "Éxito", "El ticket se ha creado correctamente.\nSu número de ticket es el TKT-" + nuevoTicket.Id + ".", "exito");
 
                 MailHelper.SendEmail(user.Correo, "Novedades Ticket - #" + nuevoTicket.Id, "Se creó un nuevo ticket. Su número de ticket es el TKT-" + nuevoTicket.Id, user.Nombre, nuevoTicket.Id.ToString());
-                notificarSupporters(nuevoTicket);
+                Helper.notificarSupporters(nuevoTicket.Id, "Nuevo Ticket - #" + nuevoTicket.Id, "Se creó un nuevo ticket. Con el asunto " + new DatosClasificacionTicket().getAsunto(nuevoTicket.IdEstado));
 
                 Response.Redirect("misTickets.aspx", true);
             }
             catch (Exception Ex)
             {
                 Modal.Mostrar(this, "Error", "No se pudo crear el ticket. Por favor, inténtelo más tarde.", "error");
-            }
-        }
-
-        private void notificarSupporters(TicketCreacionDTO ticket)
-        {
-            UsuarioDatos usuarioDatos = new UsuarioDatos();
-
-            try
-            {
-                foreach (UsuarioDTO supporter in usuarioDatos.GetSupporters())
-                {
-                    MailHelper.SendEmail(supporter.Correo, "Nuevo Ticket - #" + ticket.Id, "Se creó un nuevo ticket. Con el asunto " + new DatosClasificacionTicket().getAsunto(ticket.IdEstado), supporter.Nombre, ticket.Id.ToString());
-                }
-            }
-            catch (Exception Ex)
-            {
-                throw Ex;
             }
         }
 

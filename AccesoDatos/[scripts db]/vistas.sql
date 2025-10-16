@@ -67,6 +67,7 @@ CREATE VIEW VW_GetTicketInfo AS
 		T.Id,
 		U.Id AS 'IdUsuarioCreador',
 		U.Nombre,
+		U.UserName,
 		U.TipoUsuario,
 		U.Correo,
 		C.Nombre + ' - ' + SC.Nombre AS 'Titulo',

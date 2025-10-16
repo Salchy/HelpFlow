@@ -258,11 +258,12 @@ namespace AccesoDatos
                     // Datos del usuario creador
                     int idUsuarioCreador = Convert.ToInt32(database.reader["IdUsuarioCreador"]);
                     string nombreCreador = database.reader["Nombre"].ToString();
+                    string userNameCreador = database.reader["UserName"].ToString();
                     //string tipoUsuario = Convert.ToBoolean(database.reader["TipoUsuario"]) ? "Usuario" : "Administrador";
                     int tipoUsuario = Convert.ToInt32(database.reader["TipoUsuario"]);
                     string correo = database.reader["Correo"].ToString();
 
-                    Usuario usuarioCreador = new Usuario(idUsuarioCreador, nombreCreador, correo, tipoUsuario);
+                    Usuario usuarioCreador = new Usuario(idUsuarioCreador, userNameCreador, nombreCreador, correo, tipoUsuario);
 
                     // Datos del ticket
                     int ticketId = Convert.ToInt32(database.reader["Id"]);

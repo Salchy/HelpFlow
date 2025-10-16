@@ -9,7 +9,8 @@ namespace Dominio
     public class Usuario
     {
         public int Id { get; }
-        public string Nombre { get; set; }
+        public string UserName { get; }
+        public string Nombre { get; set; } // Nombre y Apellido
         public string Correo { get; set; }
         public nivelUsuario TipoUsuario { get; set; }
         public bool Estado { get; set; } = true; // Por defecto, el usuario está activo.
@@ -20,9 +21,10 @@ namespace Dominio
             Usuario = 1
         }
 
-        public Usuario(int id, string nombre, string correo, int tipoUsuario)
+        public Usuario(int id, string userName, string nombre, string correo, int tipoUsuario)
         {
             Id = id;
+            UserName = userName;
             Nombre = nombre;
             Correo = correo;
             TipoUsuario = (nivelUsuario)tipoUsuario;

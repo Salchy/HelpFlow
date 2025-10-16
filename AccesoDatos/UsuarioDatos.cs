@@ -59,6 +59,7 @@ namespace AccesoDatos
                 }
                 return new Usuario(
                         Convert.ToInt32(database.reader["Id"]),
+                        database.reader["UserName"].ToString(),
                         database.reader["Nombre"].ToString(),
                         database.reader["Correo"].ToString(),
                         Convert.ToInt32(database.reader["TipoUsuario"])
@@ -92,6 +93,7 @@ namespace AccesoDatos
                 }
                 return new Usuario(
                         Convert.ToInt32(database.reader["Id"]),
+                        database.reader["UserName"].ToString(),
                         database.reader["Nombre"].ToString(),
                         database.reader["Correo"].ToString(),
                         Convert.ToInt32(database.reader["TipoUsuario"])
@@ -130,6 +132,7 @@ namespace AccesoDatos
                 }
                 return new Usuario(
                     Convert.ToInt32(database.reader["Id"]),
+                    database.reader["UserName"].ToString(),
                     database.reader["Nombre"].ToString(),
                     database.reader["Correo"].ToString(),
                     Convert.ToInt32(database.reader["TipoUsuario"])

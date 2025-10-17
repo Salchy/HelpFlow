@@ -149,7 +149,7 @@
                         </HeaderTemplate>
 
                         <ItemTemplate>
-                            <div class='<%# (Convert.ToUInt16(Eval("TipoCommit")) == 2 ? "list-group-item bg-light" : Convert.ToUInt16(Eval("TipoCommit")) == 4 ? "list-group-item bg-info" : "list-group-item bg-warning") %> list-group-item-action flex-column align-items-start mb-2'>
+                            <div class='<%# (Convert.ToUInt16(Eval("TipoCommit")) == 2 ? "list-group-item bg-light" : Convert.ToUInt16(Eval("TipoCommit")) == 4 ? "list-group-item list-group-item-info" : "list-group-item list-group-item-warning") %> list-group-item-action flex-column align-items-start mb-2'>
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1"><%# Eval("AutorNombre") %></h5>
                                     <small class="text-muted"><%# Eval("Fecha", "{0:dd/MM/yyyy HH:mm}") %></small>

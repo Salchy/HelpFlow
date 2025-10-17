@@ -115,7 +115,7 @@ namespace AplicacionWeb
             try
             {
                 rptCommits.DataSource = null;
-                rptCommits.DataSource = commitDatos.GetTicketCommitsDTOs(TicketActual.Id, 4);
+                rptCommits.DataSource = commitDatos.GetTicketCommitsDTOs(TicketActual.Id, 5);
                 rptCommits.DataBind();
                 pnlSinCommits.Visible = (rptCommits.Items.Count == 0);
             }

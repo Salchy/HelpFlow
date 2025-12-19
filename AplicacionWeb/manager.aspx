@@ -15,11 +15,11 @@
                     <div class="col-md-4">
                         <h5 class="mb-3">Categorías</h5>
 
-                        <asp:ListBox ID="lstCategorias" runat="server" CssClass="form-select" Rows="12" AutoPostBack="true"></asp:ListBox>
+                        <asp:ListBox ID="lstCategorias" runat="server" CssClass="form-select" Rows="12" AutoPostBack="true" OnSelectedIndexChanged="lstCategorias_SelectedIndexChanged"></asp:ListBox>
 
                         <div class="d-flex gap-2 mt-3">
                             <asp:Button ID="btnNuevaCategoria" runat="server" CssClass="btn btn-success btn-sm" Text="Nueva" OnClick="btnNuevaCategoria_Click" />
-                            <asp:Button ID="btnEditarCategoria" runat="server" CssClass="btn btn-warning btn-sm" Text="Modificar" />
+                            <asp:Button ID="btnEditarCategoria" runat="server" CssClass="btn btn-warning btn-sm" Text="Modificar" OnClick="btnEditarCategoria_Click" />
                             <asp:Button ID="btnEliminarCategoria" runat="server" CssClass="btn btn-danger btn-sm" Text="Eliminar" />
                         </div>
                     </div>
@@ -28,11 +28,11 @@
                     <div class="col-md-8">
                         <h5 class="mb-3">Subcategorías</h5>
 
-                        <asp:ListBox ID="lstSubCategorias" runat="server" CssClass="form-select" Rows="12"></asp:ListBox>
+                        <asp:ListBox ID="lstSubCategorias" runat="server" CssClass="form-select" Rows="12" AutoPostBack="false"></asp:ListBox>
 
                         <div class="d-flex gap-2 mt-3 flex-wrap">
-                            <asp:Button ID="btnNuevaSubcategoria" runat="server" CssClass="btn btn-success btn-sm" Text="Nueva" />
-                            <asp:Button ID="btnEditarSubcategoria" runat="server" CssClass="btn btn-warning btn-sm" Text="Modificar" />
+                            <asp:Button ID="btnNuevaSubcategoria" runat="server" CssClass="btn btn-success btn-sm" Text="Nueva" OnClick="btnNuevaSubcategoria_Click"/>
+                            <asp:Button ID="btnEditarSubcategoria" runat="server" CssClass="btn btn-warning btn-sm" Text="Modificar" OnClick="btnEditarSubcategoria_Click" />
                             <asp:Button ID="btnEliminarSubcategoria" runat="server" CssClass="btn btn-danger btn-sm" Text="Eliminar" />
                         </div>
                     </div>

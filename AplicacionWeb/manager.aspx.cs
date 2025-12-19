@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -25,8 +26,8 @@ namespace AplicacionWeb
 
                 lstCategorias.SelectedIndex = 0;
 
+                loadSubCategories();
             }
-            loadSubCategories();
         }
 
         private void loadSubCategories()
@@ -73,6 +74,53 @@ namespace AplicacionWeb
             hfId.Value = "";
 
             AbrirModal();
+        }
+
+        protected void btnEditarCategoria_Click(object sender, EventArgs e)
+        {
+            if (lstCategorias.SelectedItem == null)
+                return;
+
+            lblModalTitulo.Text = "Editar Categoría";
+            txtNombre.Text = lstCategorias.SelectedItem.Text;
+
+            hfModo.Value = "editar";
+            hfTipo.Value = "categoria";
+            hfId.Value = lstCategorias.SelectedValue;
+
+            AbrirModal();
+        }
+
+        protected void btnEditarSubcategoria_Click(object sender, EventArgs e)
+        {
+            if (lstSubCategorias.SelectedItem == null)
+                return;
+
+            lblModalTitulo.Text = "Editar Subcategoría";
+            txtNombre.Text = lstSubCategorias.SelectedItem.Text;
+
+            hfModo.Value = "editar";
+            hfTipo.Value = "subcategoria";
+            hfId.Value = lstSubCategorias.SelectedValue;
+
+            AbrirModal();
+        }
+
+        protected void btnNuevaSubcategoria_Click(object sender, EventArgs e)
+        {
+            lblModalTitulo.Text = "Nueva Subcategoria";
+            txtNombre.Text = "";
+
+            hfModo.Value = "crear";
+            hfTipo.Value = "subcategoria";
+            hfId.Value = "";
+
+            AbrirModal();
+        }
+
+        protected void lstCategorias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            loadSubCategories();
         }
     }
 }

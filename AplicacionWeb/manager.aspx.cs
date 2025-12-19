@@ -14,20 +14,24 @@ namespace AplicacionWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            DatosClasificacionTicket datosClasificacion = new DatosClasificacionTicket();
-
             if (!IsPostBack)
             {
-                List<Categoria> categorias = datosClasificacion.listarCategorias();
-                lstCategorias.DataSource = categorias;
-                lstCategorias.DataTextField = "Nombre";
-                lstCategorias.DataValueField = "Id";
-                lstCategorias.DataBind();
-
-                lstCategorias.SelectedIndex = 0;
-
+                loadCategories();
                 loadSubCategories();
             }
+        }
+
+        private void loadCategories()
+        {
+            DatosClasificacionTicket datosClasificacion = new DatosClasificacionTicket();
+
+            List<Categoria> categorias = datosClasificacion.listarCategorias();
+            lstCategorias.DataSource = categorias;
+            lstCategorias.DataTextField = "Nombre";
+            lstCategorias.DataValueField = "Id";
+            lstCategorias.DataBind();
+
+            lstCategorias.SelectedIndex = 0;
         }
 
         private void loadSubCategories()
@@ -61,7 +65,39 @@ namespace AplicacionWeb
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
+            string nombre = txtNombre.Text.Trim();
+            string modo = hfModo.Value;
+            string tipo = hfTipo.Value;
+            string id = hfId.Value;
 
+            if (string.IsNullOrEmpty(nombre))
+                return;
+
+            if (tipo == "categoria")
+            {
+                if (modo == "crear")
+                {
+                    // INSERT categoría
+                }
+                else
+                {
+                    // UPDATE categoría WHERE Id = id
+                }
+            }
+            else if (tipo == "subcategoria")
+            {
+                if (modo == "crear")
+                {
+                    // INSERT subcategoría (usar categoría seleccionada)
+                }
+                else
+                {
+                    // UPDATE subcategoría WHERE Id = id
+                }
+            }
+
+            loadCategories();
+            loadSubCategories();
         }
 
         protected void btnNuevaCategoria_Click(object sender, EventArgs e)

@@ -84,6 +84,23 @@ namespace AccesoDatos
             return SubCategorias;
         }
 
+        public bool modify(string type, int id, string newValue)
+        {
+            try
+            {
+                database.SetQuery("UPDATE @table SET Nombre = @newValue WHERE Id = @ModifyID;");
+                return true;
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+                database.CloseConnection();
+            }
+        }
+
         public string getAsunto(int idSubCategoria)
         {
             try

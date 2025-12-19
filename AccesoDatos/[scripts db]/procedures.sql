@@ -148,3 +148,8 @@ BEGIN
     GROUP BY ET.NombreEstado;
 END
 GO
+
+use HelpFlow;
+SELECT * FROM Categorias;
+
+UPDATE Categorias SET Nombre = @newValue WHERE Id = @ModifyID;

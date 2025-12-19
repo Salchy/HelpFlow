@@ -8,7 +8,7 @@
             <div class="card-body">
                 <div class="row g-2 align-items-end">
                     <!-- Texto a buscar -->
-                    <div class="col-md-3">
+                    <div class="col-md-3">w
                         <label for="txtId" class="form-label">Buscador</label>
                         <asp:TextBox ID="txtId" runat="server" CssClass="form-control" />
                     </div>

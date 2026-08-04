@@ -274,6 +274,7 @@ namespace AplicacionWeb
             if (id == 0) // Es un ticket nuevo
             {
                 crearNuevoTicket();
+                Response.Redirect("tickets.aspx", true);
             }
             else
             { // Es una modificacion de un ticket existente
@@ -305,12 +306,17 @@ namespace AplicacionWeb
                     Modal.Mostrar(this, "Error", "No se pudo crear el ticket. Por favor, inténtelo más tarde.", "error");
                     return;
                 }
-                Modal.Mostrar(this, "Éxito", "El ticket se ha creado correctamente.\nSu número de ticket es el TKT-" + nuevoTicket.Id + ".", "exito");
 
-                MailHelper.SendEmail(user.Correo, "Novedades Ticket - #" + nuevoTicket.Id, "Se creó un nuevo ticket. Su número de ticket es el TKT-" + nuevoTicket.Id, user.Nombre, nuevoTicket.Id.ToString());
                 Helper.notificarSupporters(nuevoTicket.Id, "Nuevo Ticket - #" + nuevoTicket.Id, "Se creó un nuevo ticket. Con el asunto " + new DatosClasificacionTicket().getAsunto(nuevoTicket.IdEstado));
 
-                Response.Redirect("misTickets.aspx", true);
+                // deshabilitar boton
+                btnCrearTicket.Enabled = false;
+
+                if (user.Correo != null && user.Correo != "")
+                {
+                    MailHelper.SendEmail(user.Correo, "Novedades Ticket - #" + nuevoTicket.Id, "Se creó un nuevo ticket. Su número de ticket es el TKT-" + nuevoTicket.Id, user.Nombre, nuevoTicket.Id.ToString());
+                }
+                Modal.Mostrar(this, "Éxito", "El ticket se ha creado correctamente.\nSu número de ticket es el TKT-" + nuevoTicket.Id + ".", "exito");
             }
             catch (Exception Ex)
             {

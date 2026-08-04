@@ -227,7 +227,8 @@ namespace AplicacionWeb
             bindearDatos();
             if (!esInterno) // Si no es interno, notificar al cliente
             {
-                MailHelper.SendEmail(TicketActual.UsuarioCreador.Correo, "Novedades Ticket - #" + TicketActual.Id, "Respuesta de " + usuario.Nombre + ": " + commitMsg, TicketActual.UsuarioCreador.Nombre, TicketActual.Id.ToString());
+                if (chkSwitch.Checked)
+                    MailHelper.SendEmail(TicketActual.UsuarioCreador.Correo, "Novedades Ticket - #" + TicketActual.Id, "Respuesta de " + usuario.Nombre + ": " + commitMsg, TicketActual.UsuarioCreador.Nombre, TicketActual.Id.ToString());
             }
             Modal.Mostrar(this, "Éxito", "Commit registrado correctamente.", "exito");
             txtMensaje.Text = "";
@@ -259,9 +260,10 @@ namespace AplicacionWeb
             TicketActual.Estado.NombreEstado = estado.Text;
 
             TicketDatos ticketDatos = new TicketDatos();
-            ticketDatos.ModificarEstado(TicketActual.Id, TicketActual.Estado.Id);     
- 
-            MailHelper.SendEmail(TicketActual.UsuarioCreador.Correo, "Novedades Ticket - #" + TicketActual.Id, "Se modificó el estado de tu ticket a " + estado.Text, TicketActual.UsuarioCreador.Nombre, TicketActual.Id.ToString());
+            ticketDatos.ModificarEstado(TicketActual.Id, TicketActual.Estado.Id);
+
+            if (chkSwitch.Checked)
+                MailHelper.SendEmail(TicketActual.UsuarioCreador.Correo, "Novedades Ticket - #" + TicketActual.Id, "Se modificó el estado de tu ticket a " + estado.Text, TicketActual.UsuarioCreador.Nombre, TicketActual.Id.ToString());
 
             MostrarEstado();
             cargarCommits();

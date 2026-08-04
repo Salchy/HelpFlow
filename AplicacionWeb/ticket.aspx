@@ -6,7 +6,9 @@
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <div class="container my-4">
         <div class="card shadow rounded-4 p-4">
+           
             <h2 class="mb-3 text-primary" id="tituloTicket" runat="server">Detalle del Ticket</h2>
+
             <%-- Título ticket y estado --%>
             <div class="row mb-4">
                 <%-- Título Ticket --%>
@@ -19,6 +21,7 @@
                     </div>
                     <asp:Label ID="lblTitulo" runat="server" CssClass="form-control-plaintext" />
                 </div>
+
 
                 <%-- Estado Ticket --%>
                 <div class="col-md-4">
@@ -57,6 +60,7 @@
                 </div>
             </div>
 
+
             <%-- Descripción del ticket --%>
             <div class="row mb-4">
                 <div class="col-md-6">
@@ -68,13 +72,19 @@
                     </div>
                     <asp:Label ID="lblDescripcion" runat="server" data-field="descripcion" ClientIDMode="Static" CssClass="form-control-plaintext" />
                 </div>
+            <div class="col-md-4">
+                 <div class="form-check form-switch">
+                     <input class="form-check-input" type="checkbox" role="switch" id="chkSwitch" runat="server" />
+                     <label class="form-check-label">Notificar al cliente</label>
+                 </div>
+            </div>
             </div>
 
-            <%-- Usuarios Asignados --%>
+            <%-- Colaboradores Asignados --%>
             <div class="row mb-4">
                 <div class="col-md-6">
                     <div class="d-flex align-items-center">
-                        <label class="fw-bold me-2 mb-0">Usuarios asignados:</label>
+                        <label class="fw-bold me-2 mb-0">Colaboradores asignados:</label>
                         <asp:LinkButton ID="modificarAsignados" runat="server" CssClass="btn btn-sm btn-outline-info" OnClick="modificarTicket_Click">
                             <i class="fas fa-pencil-alt"></i>
                         </asp:LinkButton>

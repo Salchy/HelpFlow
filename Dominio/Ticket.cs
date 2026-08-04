@@ -17,6 +17,7 @@ namespace Dominio
         public string Descripcion { get; set; }
         public List<Usuario> Colaboradores { get; }
         public List<Commit> Commits { get; } // Quizá no haga falta, ya que puedo obtenerlo sólo cuando haga falta, no voy a andar cargando todos los commits cuando creo un objeto Ticket.
+        public bool NotificacionesActivas { get; set; }
 
         // Posibles métodos:
         // AsignarUsuario, cambiar estado, 
@@ -27,7 +28,7 @@ namespace Dominio
         {
 
         }
-        public Ticket(int id, Usuario usuarioCreador, string asunto, Estado estado, DateTime fechaCreacion, DateTime fechaActualizacion, string descripcion)
+        public Ticket(int id, Usuario usuarioCreador, string asunto, Estado estado, DateTime fechaCreacion, DateTime fechaActualizacion, string descripcion, bool notificacionesActivas)
         {
             Id = id;
             UsuarioCreador = usuarioCreador;
@@ -36,6 +37,7 @@ namespace Dominio
             FechaCreacion = fechaCreacion;
             FechaActualizacion = fechaActualizacion;
             Descripcion = descripcion;
+            NotificacionesActivas = notificacionesActivas;
             //Colaboradores = new List<Usuario>();
         }
     }

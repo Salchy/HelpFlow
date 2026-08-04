@@ -74,7 +74,7 @@
                 </div>
             <div class="col-md-4">
                  <div class="form-check form-switch">
-                     <input class="form-check-input" type="checkbox" role="switch" id="chkSwitch" runat="server" />
+                     <input class="form-check-input" type="checkbox" role="switch" id="chkSwitch" runat="server" onserverchange="chkSwitch_ServerChange" onchange="__doPostBack('<%= chkSwitch.UniqueID %>', '');" />
                      <label class="form-check-label">Notificar al cliente</label>
                  </div>
             </div>

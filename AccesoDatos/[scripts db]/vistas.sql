@@ -75,7 +75,8 @@ CREATE VIEW VW_GetTicketInfo AS
 		ET.NombreEstado,
 		T.FechaCreacion,
 		T.FechaActualizacion,
-		T.Descripcion
+		T.Descripcion,
+		T.Notificar
 	FROM Tickets AS T
 	INNER JOIN SubCategorias AS SC ON T.IdSubCategoria = SC.Id
 	INNER JOIN Categorias AS C ON SC.IdCategoriaPadre = C.Id

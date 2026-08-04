@@ -271,8 +271,9 @@ namespace AccesoDatos
                     DateTime fechaCreacion = database.reader.GetDateTime(database.reader.GetOrdinal("FechaCreacion"));
                     DateTime fechaUltimaActualizacion = database.reader.GetDateTime(database.reader.GetOrdinal("FechaActualizacion"));
                     string descripcion = database.reader["Descripcion"].ToString();
+                    bool notificacionesActivas = database.reader["Notificar"].ToString() == "True";
 
-                    return new Ticket(ticketId, usuarioCreador, asunto, estado, fechaCreacion, fechaUltimaActualizacion, descripcion);
+                    return new Ticket(ticketId, usuarioCreador, asunto, estado, fechaCreacion, fechaUltimaActualizacion, descripcion, notificacionesActivas);
                 }
                 return Ticket;
             }
@@ -325,6 +326,26 @@ namespace AccesoDatos
                 database.CloseConnection();
             }
             return true;
+        }
+
+        public void ModificarNotificacionesActivas(int idTicket, bool activo)
+        {
+            int _activo = activo ? 1 : 0;
+            try 
+            {
+                database.SetQuery("UPDATE Tickets SET Notificar = @activo WHERE Id = @idTicket;");
+                database.SetParameter("@activo", _activo);
+                database.SetParameter("@idTicket", idTicket);
+                database.ExecNonQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+                database.CloseConnection();
+            }
         }
 
         public int CrearTicket(TicketCreacionDTO ticket)

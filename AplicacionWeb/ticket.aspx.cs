@@ -78,6 +78,7 @@ namespace AplicacionWeb
                     lblSolicitante.Text = TicketActual.UsuarioCreador.Nombre;
                     lblDescripcion.Text = TicketActual.Descripcion;
                     lblFecha.Text = TicketActual.FechaCreacion.ToString("dd/MM/yyyy HH:mm:ss");
+                    chkSwitch.Checked = TicketActual.NotificacionesActivas;
                     MostrarEstado();
                     cargarColaboradores();
                     cargarCommits();
@@ -244,6 +245,14 @@ namespace AplicacionWeb
         public void btnModificarTicket_Click(object sender, EventArgs e)
         {
             Response.Redirect($"TicketForm.aspx?id={TicketActual.Id}");
+        }
+
+        protected void chkSwitch_ServerChange(object sender, EventArgs e)
+        {
+            TicketActual.NotificacionesActivas = chkSwitch.Checked;
+
+            TicketDatos ticketDatos = new TicketDatos();
+            ticketDatos.ModificarNotificacionesActivas(TicketActual.Id, TicketActual.NotificacionesActivas);
         }
 
         protected void ddlEstado_SelectedIndexChanged(object sender, EventArgs e)

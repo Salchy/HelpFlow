@@ -51,6 +51,7 @@ CREATE TABLE Tickets (
 	FechaCreacion DATETIME NOT NULL DEFAULT GETDATE(),
 	FechaActualizacion DATETIME NOT NULL DEFAULT GETDATE(),
 	Descripcion VARCHAR(2000),
+	Notificar BIT NOT NULL DEFAULT 1,
 
 	FOREIGN KEY (IdUsuarioCreador) REFERENCES Usuarios(Id),
 	FOREIGN KEY (IdSubCategoria) REFERENCES SubCategorias(Id),

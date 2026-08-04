@@ -14,6 +14,7 @@ Tabla Tickets:
 	- (datetime) Fecha
 	- (datetime) FechaUltimaActualizacion
 	- (varchar(360)) Descripcion
+	- (bit) Notificar (Para saber si se debe notificar cambios por correo al cliente o no)
 
 Tabla Usuarios:
 	- (int) (PK) Id

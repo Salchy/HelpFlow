@@ -15,7 +15,12 @@ namespace AplicacionWeb
         {
             if (!IsPostBack)
             {
-                Usuario actualUser = UsuarioDatos.UsuarioActual(Session["Usuario"]);
+                Usuario actualUser = (Usuario)Session["Usuario"];
+                if (actualUser == null)
+                {
+                    Response.Redirect("login.aspx");
+                    return;
+                }
 
                 txtUsuario.Text = actualUser.UserName;
                 txtNombre.Text = actualUser.Nombre;

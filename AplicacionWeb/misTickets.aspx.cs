@@ -21,6 +21,11 @@ namespace AplicacionWeb
                 try
                 {
                     Usuario usuario = (Usuario)Session["Usuario"];
+                    if (usuario == null)
+                    {
+                        Response.Redirect("login.aspx");
+                        return;
+                    }
                     List<TicketDTO> listaTickets = ticketDatos.ObtenerListaTickets(usuario.Id);
                     bindearDatos(listaTickets);
                 }

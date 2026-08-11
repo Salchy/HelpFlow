@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace AccesoDatos
 {
@@ -16,12 +17,13 @@ namespace AccesoDatos
         {
             try
             {
-                connection = new SqlConnection("server =.\\SQLEXPRESS; database = HelpFlow; integrated security = true");
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["HelpFlow"].ConnectionString);
+
                 command = new SqlCommand();
             }
             catch (Exception Ex)
             {
-                throw;
+                throw Ex;
             }
         }
 

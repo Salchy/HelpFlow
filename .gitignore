@@ -8,6 +8,7 @@ AplicacionWeb/Helpers/MailHelper.cs
 AccesoDatos/\[scripts\ db\]/migracion.sql
 \[docs\]/AD_Usuarios.csv
 \[docs\]/migracion apsa.txt
+AplicacionWeb/Web.Release.config
 
 # excluded folders
 Scripting/

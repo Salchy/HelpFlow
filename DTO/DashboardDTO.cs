@@ -9,6 +9,7 @@ namespace DTO
     public class DashboardDTO
     {
         public string Estado { get; set; }
+        public DateTime Fecha { get; set; }
         public int Cantidad { get; set; }
     }
 }

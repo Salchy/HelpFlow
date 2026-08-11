@@ -99,11 +99,10 @@ GO
 
 CREATE VIEW VW_GetTicketsCount AS
 	SELECT
-		ET.NombreEstado AS 'Estado',
-		COUNT (ET.NombreEstado) AS 'Cantidad'
+		ET.NombreEstado AS Estado,
+		CAST(T.FechaCreacion AS DATE) AS Fecha,
+		COUNT(*) AS Cantidad
 	FROM Tickets AS T
 	INNER JOIN EstadosTicket AS ET ON T.idEstado = ET.Id
-	GROUP BY ET.NombreEstado
+	GROUP BY ET.NombreEstado, CAST(T.FechaCreacion AS DATE);
 GO
-
-select * from VW_GetAllTicketsWithColaborators;

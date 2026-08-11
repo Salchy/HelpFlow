@@ -34,6 +34,7 @@ namespace AccesoDatos
                     DashboardDTO ticketCount = new DashboardDTO
                     {
                         Estado = database.reader["Estado"].ToString(),
+                        Fecha = Convert.ToDateTime(database.reader["Fecha"]),
                         Cantidad = Convert.ToInt32(database.reader["Cantidad"])
                     };
                     ticketsCount.Add(ticketCount);

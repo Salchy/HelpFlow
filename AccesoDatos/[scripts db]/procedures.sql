@@ -140,16 +140,14 @@ CREATE PROCEDURE SP_GetTicketsCountByUser
 AS
 BEGIN
     SELECT
-        ET.NombreEstado AS Estado,
-        COUNT(*) AS Cantidad
-    FROM Tickets AS T
-    INNER JOIN EstadosTicket AS ET ON T.idEstado = ET.Id
-    WHERE T.IdUsuarioCreador = @idUsuario
-    GROUP BY ET.NombreEstado;
+		ET.NombreEstado AS Estado,
+		CAST(T.FechaCreacion AS DATE) AS Fecha,
+		COUNT(*) AS Cantidad
+	FROM Tickets AS T
+	INNER JOIN EstadosTicket AS ET ON T.idEstado = ET.Id
+	WHERE T.IdUsuarioCreador = @idUsuario
+	GROUP BY ET.NombreEstado, CAST(T.FechaCreacion AS DATE);
 END
 GO
 
-use HelpFlow;
-SELECT * FROM Categorias;
 
-UPDATE Categorias SET Nombre = @newValue WHERE Id = @ModifyID;

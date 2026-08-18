@@ -31,7 +31,7 @@
             </div>
             <div class="text-center pb-3">
                 <img src="imgs/LOGO APSA.bmp" alt="Logo Empresa" style="height: 28px; opacity: 0.8; margin-top: 20px">
-                <div class="text-muted small mt-1">© 2025 Leandro Correa</div>
+                <div class="text-muted small mt-1">© <%: DateTime.Now.Year %> Leandro Correa</div>
             </div>
         </div>
         <div class="modal fade" id="mensajeModal" tabindex="-1" role="dialog" aria-labelledby="mensajeModalLabel" aria-hidden="true">

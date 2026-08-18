@@ -153,11 +153,11 @@ namespace AccesoDatos
             List<UsuarioDTO> list = new List<UsuarioDTO>();
             try
             {
-                database.SetQuery("SELECT Id, UserName, Nombre, Correo, TipoUsuario, IdEmpresa, Estado FROM Usuarios");
+                database.SetQuery("SELECT Id, UserName, Nombre, Correo, TipoUsuario, IdEmpresa, Estado, NotificacionesActivas FROM Usuarios");
                 database.ExecQuery();
                 while (database.reader.Read())
                 {
-                    UsuarioDTO usuario = new UsuarioDTO(Convert.ToInt32(database.reader["Id"]), database.reader["UserName"].ToString(), database.reader["Nombre"].ToString(), database.reader["Correo"].ToString(), Convert.ToInt32(database.reader["TipoUsuario"]), Convert.ToInt32(database.reader["IdEmpresa"]), Convert.ToBoolean(database.reader["Estado"]));
+                    UsuarioDTO usuario = new UsuarioDTO(Convert.ToInt32(database.reader["Id"]), database.reader["UserName"].ToString(), database.reader["Nombre"].ToString(), database.reader["Correo"].ToString(), Convert.ToInt32(database.reader["TipoUsuario"]), Convert.ToInt32(database.reader["IdEmpresa"]), Convert.ToBoolean(database.reader["Estado"]), Convert.ToBoolean(database.reader["NotificacionesActivas"]));
                     list.Add(usuario);
                 }
             }
@@ -271,11 +271,11 @@ namespace AccesoDatos
             List<UsuarioDTO> list = new List<UsuarioDTO>();
             try
             {
-                database.SetQuery("SELECT Id, UserName, Nombre, Correo, TipoUsuario, IdEmpresa, Estado FROM Usuarios WHERE TipoUsuario = 0 AND Estado = 1");
+                database.SetQuery("SELECT Id, UserName, Nombre, Correo, TipoUsuario, IdEmpresa, Estado, NotificacionesActivas FROM Usuarios WHERE TipoUsuario = 0 AND Estado = 1");
                 database.ExecQuery();
                 while (database.reader.Read())
                 {
-                    UsuarioDTO usuario = new UsuarioDTO(Convert.ToInt32(database.reader["Id"]), database.reader["UserName"].ToString(), database.reader["Nombre"].ToString(), database.reader["Correo"].ToString(), Convert.ToInt32(database.reader["TipoUsuario"]), Convert.ToInt32(database.reader["IdEmpresa"]), Convert.ToBoolean(database.reader["Estado"]));
+                    UsuarioDTO usuario = new UsuarioDTO(Convert.ToInt32(database.reader["Id"]), database.reader["UserName"].ToString(), database.reader["Nombre"].ToString(), database.reader["Correo"].ToString(), Convert.ToInt32(database.reader["TipoUsuario"]), Convert.ToInt32(database.reader["IdEmpresa"]), Convert.ToBoolean(database.reader["Estado"]), Convert.ToBoolean(database.reader["NotificacionesActivas"]));
                     list.Add(usuario);
                 }
             }
@@ -294,7 +294,7 @@ namespace AccesoDatos
         {
             try
             {
-                database.SetQuery("SELECT UserName, Nombre, Correo FROM Usuarios WHERE Id = @idUser");
+                database.SetQuery("SELECT UserName, Nombre, Correo, notificacionesActivas FROM Usuarios WHERE Id = @idUser");
 
                 database.SetParameter("@idUser", idUser);
                 database.ExecQuery();
@@ -303,7 +303,27 @@ namespace AccesoDatos
                 {
                     return null;
                 }
-                return new UsuarioDTO { UserName = database.reader["UserName"].ToString(), Nombre = database.reader["Nombre"].ToString() };
+                return new UsuarioDTO { UserName = database.reader["UserName"].ToString(), Nombre = database.reader["Nombre"].ToString(), notificacionesActivas = Convert.ToBoolean(database.reader["notificacionesActivas"]) };
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+            finally
+            {
+                database.CloseConnection();
+            }
+        }
+
+        public bool updateNotificationStatus(int idUsuario, bool status)
+        {
+            try
+            {
+                database.SetQuery("UPDATE Usuarios SET notificacionesActivas = @status WHERE Id = @idUsuario");
+                database.SetParameter("@status", status);
+                database.SetParameter("@idUsuario", idUsuario);
+                database.ExecNonQuery();
+                return true;
             }
             catch (Exception Ex)
             {

@@ -72,12 +72,12 @@
                     </div>
                     <asp:Label ID="lblDescripcion" runat="server" data-field="descripcion" ClientIDMode="Static" CssClass="form-control-plaintext" />
                 </div>
-            <div class="col-md-4">
-                 <div class="form-check form-switch">
-                     <input class="form-check-input" type="checkbox" role="switch" id="chkSwitch" runat="server" onserverchange="chkSwitch_ServerChange" onchange="__doPostBack('<%= chkSwitch.UniqueID %>', '');" />
-                     <label class="form-check-label">Notificar al cliente</label>
-                 </div>
-            </div>
+                <div class="col-md-4">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="chkSwitch" runat="server" onserverchange="chkSwitch_ServerChange" onchange="__doPostBack('<%= chkSwitch.UniqueID %>', '');" />
+                        <label class="form-check-label">Notificar al cliente</label>
+                    </div>
+                </div>
             </div>
 
             <%-- Colaboradores Asignados --%>
@@ -138,15 +138,15 @@
                     <div class="form-group mb-3">
                         <div class="btn-group" data-toggle="buttons">
                             <label class="btn btn-outline-primary w-50 radioButtonStyle">
-                                <asp:RadioButton ID="radioBtn1" runat="server" GroupName="FilterActivity" AutoPostBack="false" CssClass="filterActivity-group d-none" />
+                                <asp:RadioButton ID="radioBtn1" runat="server" GroupName="FilterActivity" AutoPostBack="true" OnCheckedChanged="radioBtnFiltro_CheckedChanged" CssClass="filterActivity-group d-none" />
                                 Todo
                             </label>
                             <label class="btn btn-outline-primary w-50 radioButtonStyle active">
-                                <asp:RadioButton ID="radioBtn2" runat="server" GroupName="FilterActivity" AutoPostBack="false" CssClass="filterActivity-group d-none" Checked="true" />
+                                <asp:RadioButton ID="radioBtn2" runat="server" GroupName="FilterActivity" AutoPostBack="true" OnCheckedChanged="radioBtnFiltro_CheckedChanged" CssClass="filterActivity-group d-none" Checked="true" />
                                 Comentarios
                             </label>
                             <label class="btn btn-outline-primary w-50 radioButtonStyle">
-                                <asp:RadioButton ID="radioBtn3" runat="server" GroupName="FilterActivity" AutoPostBack="false" CssClass="filterActivity-group d-none" />
+                                <asp:RadioButton ID="radioBtn3" runat="server" GroupName="FilterActivity" AutoPostBack="true" OnCheckedChanged="radioBtnFiltro_CheckedChanged" CssClass="filterActivity-group d-none" />
                                 Actividad
                             </label>
                         </div>
@@ -212,5 +212,5 @@
             function ocultarFormulario() {
                 document.getElementById("formCommit").style.display = "none";
             }
-        </script>
+        </script>|
 </asp:Content>

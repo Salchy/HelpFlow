@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using AccesoDatos;
 using Dominio;
+using DTO;
 
 namespace AplicacionWeb
 {
@@ -22,9 +23,13 @@ namespace AplicacionWeb
                     return;
                 }
 
+                UsuarioDatos userDatos = new UsuarioDatos();
+                UsuarioDTO userDTO = userDatos.GetUsuarioDTO(actualUser.Id);
+
                 txtUsuario.Text = actualUser.UserName;
                 txtNombre.Text = actualUser.Nombre;
                 txtCorreo.Text = actualUser.Correo;
+                chkSwitch.Checked = userDTO.notificacionesActivas;
             }
         }
 
@@ -59,6 +64,15 @@ namespace AplicacionWeb
                 txtConfirmarClave.Text = "";
 
             }
+        }
+        protected void chkSwitch_ServerChange(object sender, EventArgs e)
+        {
+            UsuarioDatos userDatos = new UsuarioDatos();
+            userDatos.updateNotificationStatus(UsuarioDatos.UsuarioActual(Session["Usuario"]).Id, chkSwitch.Checked);
+
+            lblMensaje.Text = "Estado de notificaciones actualizado.";
+            lblMensaje.CssClass = "text-success mt-3 d-block text-center fw-bold";
+
         }
     }
 }

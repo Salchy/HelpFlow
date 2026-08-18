@@ -44,6 +44,15 @@
                     <asp:TextBox ID="txtConfirmarClave" runat="server" CssClass="form-control" TextMode="Password" />
                 </div>
 
+                <hr />
+
+                <div class="mb-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="chkSwitch" runat="server" onserverchange="chkSwitch_ServerChange" onchange="__doPostBack('<%= chkSwitch.UniqueID %>', '');" />
+                        <label class="form-check-label">Notificaciones por correo</label>
+                    </div>
+                </div>
+
                 <div class="text-center">
                     <asp:Button ID="btnGuardar" runat="server" Text="Actualizar Contraseña" CssClass="btn btn-success px-4" OnClick="btnGuardar_Click" />
                 </div>

@@ -29,6 +29,13 @@ namespace AplicacionWeb
             }
         }
 
+        // Filtro seleccionado para los commits: "Todo", "Comentarios" o "Actividad"
+        private string FiltroCommits
+        {
+            get { return ViewState["FiltroCommits"] as string ?? "Comentarios"; }
+            set { ViewState["FiltroCommits"] = value; }
+        }
+
         private Ticket TicketActual
         {
             get
@@ -142,13 +149,52 @@ namespace AplicacionWeb
 
         private void bindearDatos()
         {
+            List<CommitDTO> listaFiltrada = FiltrarCommits(ListaCommits, FiltroCommits);
+
             rptCommits.DataSource = null;
-            rptCommits.DataSource = ListaCommits;
+            rptCommits.DataSource = listaFiltrada;
             rptCommits.DataBind();
             pnlSinCommits.Visible = (rptCommits.Items.Count == 0);
         }
 
-        // TODO: Hacer que se filtren los resultados, dependiendo si tiene presionado el boton de "Todo", "Comentarios" o "Actividad".
+        // TipoCommit: 1 = público (al cliente) | 2 = interno (nota interna) | 3 = log de update (actividad automática)
+
+        private List<CommitDTO> FiltrarCommits(List<CommitDTO> lista, string filtro)
+        {
+            switch (filtro)
+            {
+                case "Comentarios":
+                    return lista.Where(c => c.TipoCommit == 1 || c.TipoCommit == 2).ToList();
+
+                case "Actividad":
+                    return lista.Where(c => c.TipoCommit == 3 || c.TipoCommit == 4).ToList();
+
+                case "Todo":
+                default:
+                    return lista;
+            }
+        }
+
+        protected void radioBtnFiltro_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rbSeleccionado = (RadioButton)sender;
+
+            switch (rbSeleccionado.ID)
+            {
+                case "radioBtn1":
+                    FiltroCommits = "Todo";
+                    break;
+                case "radioBtn2":
+                    FiltroCommits = "Comentarios";
+                    break;
+                case "radioBtn3":
+                    FiltroCommits = "Actividad";
+                    break;
+            }
+
+            bindearDatos();
+        }
+
         private void cargarCommits()
         {
             CommitDatos commitDatos = new CommitDatos();
@@ -156,6 +202,7 @@ namespace AplicacionWeb
             try
             {
                 ListaCommits = commitDatos.GetTicketCommitsDTOs(TicketActual.Id);
+
                 bindearDatos();
             }
             catch (Exception Ex)
@@ -200,7 +247,7 @@ namespace AplicacionWeb
             {
                 rbInterno.Checked = false;
                 rbCliente.Checked = true;
-                
+
                 return true; // Es nota interna
             }
         }
@@ -229,12 +276,17 @@ namespace AplicacionWeb
             if (!esInterno) // Si no es interno, notificar al cliente
             {
                 if (chkSwitch.Checked)
-                    MailHelper.SendEmail(TicketActual.UsuarioCreador.Correo, "Novedades Ticket - #" + TicketActual.Id, "Respuesta de " + usuario.Nombre + ": " + commitMsg, TicketActual.UsuarioCreador.Nombre, TicketActual.Id.ToString());
+                {
+                    UsuarioDatos userDatos = new UsuarioDatos();
+                    if (userDatos.GetUsuarioDTO(TicketActual.UsuarioCreador.Id).notificacionesActivas)
+                        MailHelper.SendEmail(TicketActual.UsuarioCreador.Correo, "Novedades Ticket - #" + TicketActual.Id, "Respuesta de " + usuario.Nombre + ": " + commitMsg, TicketActual.UsuarioCreador.Nombre, TicketActual.Id.ToString());
+                }
             }
             Modal.Mostrar(this, "Éxito", "Commit registrado correctamente.", "exito");
             txtMensaje.Text = "";
             return Success;
         }
+
         protected void modificarTicket_Click(object sender, EventArgs e)
         {
             LinkButton btnPresionado = (LinkButton)sender;
@@ -272,7 +324,11 @@ namespace AplicacionWeb
             ticketDatos.ModificarEstado(TicketActual.Id, TicketActual.Estado.Id);
 
             if (chkSwitch.Checked)
-                MailHelper.SendEmail(TicketActual.UsuarioCreador.Correo, "Novedades Ticket - #" + TicketActual.Id, "Se modificó el estado de tu ticket a " + estado.Text, TicketActual.UsuarioCreador.Nombre, TicketActual.Id.ToString());
+            {
+                UsuarioDatos userDatos = new UsuarioDatos();
+                if (userDatos.GetUsuarioDTO(TicketActual.UsuarioCreador.Id).notificacionesActivas)
+                    MailHelper.SendEmail(TicketActual.UsuarioCreador.Correo, "Novedades Ticket - #" + TicketActual.Id, "Se modificó el estado de tu ticket a " + estado.Text, TicketActual.UsuarioCreador.Nombre, TicketActual.Id.ToString());
+            }
 
             MostrarEstado();
             cargarCommits();

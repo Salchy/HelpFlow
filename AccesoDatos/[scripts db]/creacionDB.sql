@@ -23,6 +23,7 @@ CREATE TABLE Empresas (
 	IdEmpresa TINYINT NOT NULL,
 	TipoUsuario BIT NOT NULL DEFAULT 1,
 	Estado BIT NOT NULL DEFAULT 1,
+	NotificacionesActivas BIT NOT NULL DEFAULT 1,
 
 	FOREIGN KEY (IdEmpresa) REFERENCES Empresas(Id),
  );

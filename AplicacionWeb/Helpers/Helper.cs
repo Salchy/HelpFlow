@@ -17,7 +17,8 @@ namespace AplicacionWeb.Helpers
             {
                 foreach (UsuarioDTO supporter in usuarioDatos.GetSupporters())
                 {
-                    MailHelper.SendEmail(supporter.Correo, asunto, msg, supporter.Nombre, ticketID.ToString());
+                    if (supporter.notificacionesActivas)
+                        MailHelper.SendEmail(supporter.Correo, asunto, msg, supporter.Nombre, ticketID.ToString());
                 }
             }
             catch (Exception Ex)

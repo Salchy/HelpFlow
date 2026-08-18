@@ -37,6 +37,10 @@ namespace AccesoDatos
             {
                 throw Ex;
             }
+            finally
+            {
+                database.CloseConnection();
+            }
         }
 
         public bool registrarLog(int idUser, int ticketRelacionado, string msg)

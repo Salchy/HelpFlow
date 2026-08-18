@@ -15,6 +15,8 @@ namespace DTO
         public int IdEmpresa { get; set; }
         public nivelUsuario TipoUsuario { get; set; }
         public bool Estado { get; set; } = true;
+
+        public bool notificacionesActivas { get; set; } = false;
         public enum nivelUsuario
         {
             Administrador = 0,
@@ -26,15 +28,16 @@ namespace DTO
             
         }
 
-        public UsuarioDTO(int id, string userName, string nombre, string correo, int tipoUsuario, int idEmpresa, bool estado = true)
+        public UsuarioDTO(int id, string userName, string nombre, string correo, int tipoUsuario, int idEmpresa, bool estado = true, bool notificacionesActivas = true)
         {
-            Id = id;
-            UserName = userName;
-            Nombre = nombre;
-            Correo = correo;
-            TipoUsuario = (nivelUsuario)tipoUsuario;
-            IdEmpresa = idEmpresa;
-            Estado = estado;
+            this.Id = id;
+            this.UserName = userName;
+            this.Nombre = nombre;
+            this.Correo = correo;
+            this.TipoUsuario = (nivelUsuario)tipoUsuario;
+            this.IdEmpresa = idEmpresa;
+            this.Estado = estado;
+            this.notificacionesActivas = notificacionesActivas;
         }
     }
 }

@@ -27,6 +27,7 @@ namespace AccesoDatos
                 }
                 else
                     database.SetQuery("SELECT * FROM VW_GetTicketsCount;");
+
                 database.ExecQuery();
 
                 while (database.reader.Read())
@@ -43,6 +44,10 @@ namespace AccesoDatos
             catch (Exception ex)
             {
                 throw;
+            }
+            finally
+            {
+                database.CloseConnection();
             }
             return ticketsCount;
         }

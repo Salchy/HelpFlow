@@ -108,6 +108,10 @@ namespace AccesoDatos
             {
                 throw;
             }
+            finally
+            {
+                database.CloseConnection();
+            }
             return commits;
         }
     }

@@ -196,6 +196,10 @@ namespace AccesoDatos
             {
                 throw Ex;
             }
+            finally
+            {
+                database.CloseConnection();
+            }
         }
 
         public bool AgregarColaborador(int idTicket, int idUsuario)
@@ -281,6 +285,9 @@ namespace AccesoDatos
             {
                 throw Ex;
             }
+            finally {
+                database.CloseConnection();
+            }
         }
 
         public bool ModificarTicket(TicketCreacionDTO ticket)
@@ -302,7 +309,11 @@ namespace AccesoDatos
             {
                 throw Ex;
             }
-            
+            finally
+            {
+                database.CloseConnection();
+            }
+
             return true;
         }
 

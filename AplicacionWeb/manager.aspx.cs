@@ -10,10 +10,13 @@ using System.Web.UI.WebControls;
 
 namespace AplicacionWeb
 {
-    public partial class WebForm1 : System.Web.UI.Page
+    public partial class WebForm1 : AplicacionWeb.BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!RequerirRol(Usuario.nivelUsuario.Administrador))
+                return;
+
             if (!IsPostBack)
             {
                 loadCategories();

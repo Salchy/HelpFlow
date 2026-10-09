@@ -69,6 +69,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AccesoDenegado.aspx" />
     <Content Include="Helpers\EmailTemplate.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -86,6 +87,16 @@
     <Content Include="manager.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccesoDenegado.aspx.cs">
+      <DependentUpon>AccesoDenegado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccesoDenegado.aspx.designer.cs">
+      <DependentUpon>AccesoDenegado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Helpers\Helper.cs" />
     <Compile Include="miPerfil.aspx.cs">
       <DependentUpon>miPerfil.aspx</DependentUpon>
@@ -214,9 +225,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>15626</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:15626/</IISUrl>
+          <IISUrl>http://localhost:15627/</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost:15626/</IISAppRootUrl>
+          <IISAppRootUrl>http://localhost:15627/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

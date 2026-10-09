@@ -10,7 +10,7 @@ using DTO;
 
 namespace AplicacionWeb
 {
-    public partial class misTickets : System.Web.UI.Page
+    public partial class misTickets : AplicacionWeb.BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -20,12 +20,7 @@ namespace AplicacionWeb
             {
                 try
                 {
-                    Usuario usuario = (Usuario)Session["Usuario"];
-                    if (usuario == null)
-                    {
-                        Response.Redirect("login.aspx");
-                        return;
-                    }
+                    Usuario usuario = UsuarioActual;
                     List<TicketDTO> listaTickets = ticketDatos.ObtenerListaTickets(usuario.Id);
                     bindearDatos(listaTickets);
                 }

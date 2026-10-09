@@ -10,7 +10,7 @@ using Dominio;
 
 namespace AplicacionWeb
 {
-    public partial class main1 : System.Web.UI.Page
+    public partial class main1 : AplicacionWeb.BasePage
     {
         // Guardo el filtro seleccionado
         private string FiltroActual
@@ -20,8 +20,6 @@ namespace AplicacionWeb
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Dashboard dashboard = new Dashboard();
-
             if (!IsPostBack)
             {
                 CargarDashboard(FiltroActual);
@@ -80,14 +78,15 @@ namespace AplicacionWeb
         {
             try
             {
-                Usuario usuario = UsuarioDatos.UsuarioActual(Session["Usuario"]);
+                Usuario usuario = UsuarioActual; // UsuarioActual es un atributo que hereda de BasePage
+
                 if (usuario == null)
                 {
-                    Response.Redirect("Login.aspx", false);
                     return;
                 }
 
                 Dashboard dashboard = new Dashboard();
+
                 List<DashboardDTO> listaTickets = ((int)usuario.TipoUsuario == 1) ? dashboard.GetTicketsCount(usuario.Id) : dashboard.GetTicketsCount();
 
                 listaTickets = FiltrarPorFecha(listaTickets, filtro);

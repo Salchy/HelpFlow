@@ -12,7 +12,7 @@ using DTO;
 
 namespace AplicacionWeb
 {
-    public partial class crearTicket : System.Web.UI.Page
+    public partial class crearTicket : AplicacionWeb.BasePage
     {
         private List<Categoria> Categorias
         {
@@ -459,7 +459,6 @@ namespace AplicacionWeb
                 }
             }
         }
-
         protected void btnAddSupport_Click(object sender, EventArgs e)
         {
             if (lstDisponibles.SelectedItem == null)

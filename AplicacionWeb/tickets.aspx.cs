@@ -10,7 +10,7 @@ using DTO;
 
 namespace AplicacionWeb
 {
-    public partial class tickets : System.Web.UI.Page
+    public partial class tickets : AplicacionWeb.BasePage
     {
         private List<Categoria> Categorias
         {

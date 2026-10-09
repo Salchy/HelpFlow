@@ -12,7 +12,7 @@ using System.Collections;
 
 namespace AplicacionWeb
 {
-    public partial class usuarios : System.Web.UI.Page
+    public partial class usuarios : AplicacionWeb.BasePage
     {
         private UsuarioDatos usuarioDatos = new UsuarioDatos();
         private List<UsuarioDTO> listaUsuarios
@@ -30,6 +30,9 @@ namespace AplicacionWeb
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!RequerirRol(Usuario.nivelUsuario.Administrador))
+                return;
+
             if (!IsPostBack)
             {
                 listaUsuarios = usuarioDatos.GetUsuarios();

@@ -57,13 +57,15 @@ namespace AccesoDatos
                 {
                     return null;
                 }
-                return new Usuario(
-                        Convert.ToInt32(database.reader["Id"]),
-                        database.reader["UserName"].ToString(),
-                        database.reader["Nombre"].ToString(),
-                        database.reader["Correo"].ToString(),
-                        Convert.ToInt32(database.reader["TipoUsuario"])
-                    );
+                Usuario usrTemp = new Usuario(
+                    Convert.ToInt32(database.reader["Id"]),
+                    database.reader["UserName"].ToString(),
+                    database.reader["Nombre"].ToString(),
+                    database.reader["Correo"].ToString(),
+                    Convert.ToInt32(database.reader["TipoUsuario"])
+                );
+                usrTemp.Estado = Convert.ToBoolean(database.reader["Estado"]);
+                return usrTemp;
             }
             catch (Exception Ex)
             {
@@ -91,13 +93,15 @@ namespace AccesoDatos
                 {
                     return null;
                 }
-                return new Usuario(
-                        Convert.ToInt32(database.reader["Id"]),
-                        database.reader["UserName"].ToString(),
-                        database.reader["Nombre"].ToString(),
-                        database.reader["Correo"].ToString(),
-                        Convert.ToInt32(database.reader["TipoUsuario"])
-                    );
+                Usuario usrTemp = new Usuario(
+                    Convert.ToInt32(database.reader["Id"]),
+                    database.reader["UserName"].ToString(),
+                    database.reader["Nombre"].ToString(),
+                    database.reader["Correo"].ToString(),
+                    Convert.ToInt32(database.reader["TipoUsuario"])
+                );
+                usrTemp.Estado = Convert.ToBoolean(database.reader["Estado"]);
+                return usrTemp;
             }
             catch (Exception Ex)
             {
@@ -130,13 +134,15 @@ namespace AccesoDatos
                 {
                     return null;
                 }
-                return new Usuario(
+                Usuario usrTemp = new Usuario(
                     Convert.ToInt32(database.reader["Id"]),
                     database.reader["UserName"].ToString(),
                     database.reader["Nombre"].ToString(),
                     database.reader["Correo"].ToString(),
                     Convert.ToInt32(database.reader["TipoUsuario"])
                 );
+                usrTemp.Estado = Convert.ToBoolean(database.reader["Estado"]);
+                return usrTemp;
             }
             catch (Exception Ex)
             {

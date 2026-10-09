@@ -12,7 +12,7 @@ using AplicacionWeb.Helpers;
 
 namespace AplicacionWeb
 {
-    public partial class ticket : System.Web.UI.Page
+    public partial class ticket : AplicacionWeb.BasePage
     {
         private List<UsuarioColaboradorDTO> Colaboradores = new List<UsuarioColaboradorDTO>();
         private List<CommitDTO> ListaCommits
@@ -86,6 +86,7 @@ namespace AplicacionWeb
                     lblDescripcion.Text = TicketActual.Descripcion;
                     lblFecha.Text = TicketActual.FechaCreacion.ToString("dd/MM/yyyy HH:mm:ss");
                     chkSwitch.Checked = TicketActual.NotificacionesActivas;
+
                     MostrarEstado();
                     cargarColaboradores();
                     cargarCommits();

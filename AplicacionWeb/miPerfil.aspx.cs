@@ -10,18 +10,13 @@ using DTO;
 
 namespace AplicacionWeb
 {
-    public partial class miPerfil : System.Web.UI.Page
+    public partial class miPerfil : AplicacionWeb.BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                Usuario actualUser = (Usuario)Session["Usuario"];
-                if (actualUser == null)
-                {
-                    Response.Redirect("login.aspx");
-                    return;
-                }
+                Usuario actualUser = UsuarioActual;
 
                 UsuarioDatos userDatos = new UsuarioDatos();
                 UsuarioDTO userDTO = userDatos.GetUsuarioDTO(actualUser.Id);

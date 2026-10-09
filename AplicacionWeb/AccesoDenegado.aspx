@@ -1,7 +1,5 @@
 ﻿
-<%@ Page Language="C#" AutoEventWireup="true"
-    CodeBehind="AccesoDenegado.aspx.cs"
-    Inherits="AplicacionWeb.AccesoDenegado" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AccesoDenegado.aspx.cs" Inherits="AplicacionWeb.AccesoDenegado" %>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -10,13 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Acceso denegado | HelpFlow</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-          rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body class="bg-light">
     <form id="form1" runat="server">
-        <main class="container min-vh-100 d-flex
-                     align-items-center justify-content-center">
+        <main class="container min-vh-100 d-flex align-items-center justify-content-center">
             <div class="card shadow-sm border-0 text-center p-4 p-md-5"
                  style="max-width: 500px; width: 100%;">
 
@@ -36,13 +32,7 @@
                     administrador del sistema.
                 </p>
 
-                <asp:Button
-                    ID="btnVolver"
-                    runat="server"
-                    Text="Volver al inicio"
-                    CssClass="btn btn-primary w-100"
-                    OnClick="btnVolver_Click" />
-
+                <asp:Button ID="btnVolver" runat="server" Text="Volver al inicio" CssClass="btn btn-primary w-100" OnClick="btnVolver_Click" />
             </div>
         </main>
     </form>

@@ -13,27 +13,11 @@ namespace AplicacionWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                if (!UsuarioDatos.SesionActiva(Session["Usuario"]))
-                {
-                    Response.Redirect("Login.aspx", false);
-                    return;
-                }
+            Usuario usuarioActual = Session["Usuario"] as Usuario;
 
-                // Obtener el nivel de usuario del usuario
-                Usuario usuarioActual = UsuarioDatos.UsuarioActual(Session["Usuario"]);
-                if (usuarioActual == null)
-                {
-                    Response.Redirect("Login.aspx", false);
-                    return;
-                }
-
-                // Mostrar opciones según nivel
-                panelAdmin.Visible = ((int)usuarioActual.TipoUsuario == 0); // Admin
-                panelUsuario.Visible = ((int)usuarioActual.TipoUsuario == 1); // Usuario
-                //panelCerrarSesion.Visible = true;
-            }
+            // Mostrar las opciones según el rol.
+            panelAdmin.Visible = usuarioActual != null && (int)usuarioActual.TipoUsuario == 0;      // Admin
+            panelUsuario.Visible = usuarioActual != null && (int)usuarioActual.TipoUsuario == 1;    // Usuario
         }
 
         protected void MostrarModal(string titulo, string mensaje, string tipo)
@@ -45,8 +29,10 @@ namespace AplicacionWeb
         protected void btnCerrarSesion_Click(object sender, EventArgs e)
         {
             Session.Clear();
+            Session.Abandon();
 
-            Response.Redirect("Login.aspx");
+            Response.Redirect("~/Login.aspx", false);
+            Context.ApplicationInstance.CompleteRequest();
         }
     }
 }

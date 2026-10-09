@@ -10,7 +10,7 @@ using Dominio;
 using DTO;
 namespace AplicacionWeb
 {
-    public partial class DetalleTicket : System.Web.UI.Page
+    public partial class DetalleTicket : AplicacionWeb.BasePage
     {
         private Ticket TicketActual
         {
@@ -128,7 +128,8 @@ namespace AplicacionWeb
         private bool RegistrarCommit(string commitMsg)
         {
             CommitDatos commitDatos = new CommitDatos();
-            Usuario usuario = UsuarioDatos.UsuarioActual(Session["Usuario"]);
+            //Usuario usuario = UsuarioDatos.UsuarioActual(Session["Usuario"]);
+            Usuario usuario = UsuarioActual;
 
             CommitDTO commit = new CommitDTO
             {
